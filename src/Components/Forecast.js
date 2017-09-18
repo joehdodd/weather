@@ -1,32 +1,42 @@
 import React, { Component } from 'react';
+import Slider from 'react-slick';
 
 class Forecast extends Component {
-  render() {
-    console.log(this.props.forecast[0].date)
+
+  getForecast() {
     let { forecast } = this.props;
-    console.log(forecast[0].date)
+    return forecast.map(data => {
+        return (
+          <div key={data.date} className="forecast-item">
+            <h4>
+              {data.date}
+            </h4>
+            <p>High: {data.high}</p>
+            <p>Low: {data.low}</p>
+          </div>
+        )
+      })
+  }
+
+  SETTINGS = {
+    slidesToShow: 5,
+    slidesToScroll: 5,
+  }
+
+  render() {
+    let { forecast } = this.props;
     return (
-      <ul>
+      <div className="slide-container">
         {
           forecast === undefined
-            ?
-            <li>
-              <span>Loading Forecast!</span>
-            </li>
-            :
-            forecast.map(data => {
-              return (
-                <li key={data.date}>
-                  <h4>
-                    {data.date}
-                  </h4>
-                  <p>High: {data.high}</p>
-                  <p>Low: {data.low}</p>
-                </li>
-              )
-            })
+            ? <div>
+                <span>Loading Forecast!</span>
+              </div>
+            : <Slider {...this.SETTINGS}>
+                {this.getForecast()}
+              </Slider>
         }
-      </ul>
+      </div>
     )
   }
 }

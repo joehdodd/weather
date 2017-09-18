@@ -2,13 +2,13 @@
   text-align: center;
 }
 
-ul {
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+/* forecast lists */
+
+.slide-container {
+  margin: 0 auto;
+  max-width: 75%;
 }
 
-li {
-  list-style: none;
+.slick-prev:before, .slick-next:before {
+  color: #000;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Forecast from './Forecast';
+import CurrentConditions from './CurrentConditions';
 import axios from 'axios';
 
 class Weather extends Component {
@@ -34,7 +35,10 @@ class Weather extends Component {
         {
           this.state.data.forecast === undefined
           ? <p>Waiting on forecast...</p>
-          : <Forecast forecast={this.state.data.forecast}/>
+          : <div>
+              <CurrentConditions current={this.state.data.condition}/>
+              <Forecast forecast={this.state.data.forecast}/>
+            </div>
         }
       </div>
     )
