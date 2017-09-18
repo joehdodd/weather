@@ -6,10 +6,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Weather city="chattanooga" state="tn"/>
-        {/* <Weather city="easton" state="md"/>
-        <Weather city="new york" state="ny"/>
-        <Weather city="bangkok" state={null}/> */}
+        <Weather city="Chattanooga" state="TN"/>
+        <Weather city="Easton" state="MD"/>
+        <Weather city="New York" state="NY"/>
+        <Weather city="Bangkok" state={null}/>
       </div>
     );
   }

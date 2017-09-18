@@ -13,9 +13,9 @@ class Weather extends Component {
 
   componentWillMount() {
     let { city, state } = this.props;
-    axios.get(`https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22${city}%2C%2${state}%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`)
+    axios.get(`https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22${city}%2C%2$${state}%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`)
       .then(res => {
-        let data = res.data.query.results.channel.item;
+        let data = res.data.query.results.channel;
         this.setState({ data : data });
       })
       .catch( (error) => {
@@ -24,20 +24,15 @@ class Weather extends Component {
   }
 
   render () {
-    let { data } = this.state;
-    let { forecast, condition} = data;
+    let { item } = this.state.data;
     return (
       <div>
-        { data === undefined
-          ? <p>Loading...</p>
-          : <p>{data.title}</p>
-        }
-        { forecast === undefined
-          ? <p>Waiting on forecast...</p>
-          : <div>
-              <CurrentConditions current={condition}/>
-              <Forecast forecast={forecast}/>
+        { !!item
+          ? <div>
+              <CurrentConditions current={item.condition}/>
+              <Forecast forecast={item.forecast} current={item.condition}/>
             </div>
+          : <p>Loading weather for {this.props.city}, {this.props.state}.</p>
         }
       </div>
     )
