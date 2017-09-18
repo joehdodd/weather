@@ -9,6 +9,7 @@
   max-width: 75%;
 }
 
-.slick-prev:before, .slick-next:before {
+.slick-prev:before,
+.slick-next:before {
   color: #000;
 }
