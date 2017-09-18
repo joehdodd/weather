@@ -6,7 +6,13 @@
 
 .slide-container {
   margin: 0 auto;
-  max-width: 75%;
+  max-width: 50%;
+}
+
+.slick-slider {
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.25);
 }
 
 .slick-prev:before,
