@@ -27,13 +27,11 @@ class Weather extends Component {
   render () {
     return (
       <div>
-        {
-          this.state.data === undefined
+        { this.state.data === undefined
           ? <p>Loading...</p>
           : <p>Loaded {this.state.data.title}</p>
         }
-        {
-          this.state.data.forecast === undefined
+        { this.state.data.forecast === undefined
           ? <p>Waiting on forecast...</p>
           : <div>
               <CurrentConditions current={this.state.data.condition}/>

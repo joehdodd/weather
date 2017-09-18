@@ -27,14 +27,13 @@ class Forecast extends Component {
     let { forecast } = this.props;
     return (
       <div className="slide-container">
-        {
-          forecast === undefined
-            ? <div>
-                <span>Loading Forecast!</span>
-              </div>
-            : <Slider {...this.SETTINGS}>
-                {this.getForecast()}
-              </Slider>
+        { forecast === undefined
+          ? <div>
+              <span>Loading Forecast!</span>
+            </div>
+          : <Slider {...this.SETTINGS}>
+              {this.getForecast()}
+            </Slider>
         }
       </div>
     )
