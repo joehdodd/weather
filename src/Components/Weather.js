@@ -7,7 +7,16 @@ class Weather extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data : {}
+      data : {},
+      forecast : false
+    }
+  }
+
+  showForecast() {
+    return () => {
+      this.setState(prevState => ({
+        forecast : !prevState.forecast
+      }));
     }
   }
 
@@ -23,20 +32,28 @@ class Weather extends Component {
       })
   }
 
-  render () {
+  render() {
     let { item } = this.state.data;
     return (
       <div>
         { !!item
           ? <div>
-              <CurrentConditions current={item.condition}/>
-              <Forecast forecast={item.forecast} current={item.condition}/>
+              <CurrentConditions current={item}/>
+              <button onClick={this.showForecast()}>
+                { !this.state.forecast
+                  ? 'Show Forecast'
+                  : 'Hide Forecast'
+                }
+              </button>
+              { !!this.state.forecast &&
+                <Forecast forecast={item.forecast} current={item.condition}/>
+              }
             </div>
-          : <p>Loading weather for {this.props.city}, {this.props.state}.</p>
+          : <p>Loading weather for {this.props.city}{!!this.props.state ? <span>, {this.props.state}</span> : null}.</p>
         }
       </div>
     )
   }
 }
 
-export default Weather;
+export default Weather
