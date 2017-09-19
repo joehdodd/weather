@@ -4,7 +4,8 @@ class CurrentConditions extends Component {
   render() {
     return (
       <div>
-        <p>Currently, it is {this.props.current.temp} and conditions are {this.props.current.text.toLocaleLowerCase()}.</p>
+        <h3>{this.props.current.title}</h3>
+        <p>Currently, it is {this.props.current.condition.temp} and conditions are {this.props.current.condition.text.toLocaleLowerCase()}.</p>
       </div>
     )
   }
