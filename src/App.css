@@ -1,3 +1,14 @@
+.weather-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.weather-item {
+  width: 15%;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.25);
+}
 /* forecast lists */
 
 .slide-container {
@@ -18,4 +29,22 @@
 
 .slick-list {
   text-align: center;
+}
+
+/* conditions styling */
+
+.hi-temp {
+ color: #be682a;
+}
+
+.lo-temp {
+  color: #5792d7;
+}
+.current-conditions {
+  margin: 0;
+}
+
+.current-temp {
+  margin: 2.5px 0;
+  font-size: 4rem;
 }
