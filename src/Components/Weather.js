@@ -39,18 +39,18 @@ class Weather extends Component {
         { !!item
           ? <div>
               <Conditions current={item} city={this.props.city}/>
-              <button onClick={this.showForecast()}>
+              {/* <button onClick={this.showForecast()}>
                 { !this.state.forecast
                   ? 'Show Forecast'
                   : 'Hide Forecast'
                 }
-              </button>
-              { !!this.state.forecast &&
-                <Forecast forecast={item.forecast} current={item.condition}/>
-              }
+              </button> */}
             </div>
           : <p>Loading weather for {this.props.city}{!!this.props.state ? <span>, {this.props.state}</span> : null}.</p>
         }
+        {/* { !!this.state.forecast &&
+           <Forecast forecast={item.forecast} current={item.condition}/>
+        } */}
       </div>
     )
   }

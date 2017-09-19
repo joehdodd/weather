@@ -2,5 +2,5 @@ body {
   box-sizing: border-box;
   margin: 10 auto;
   font-family: sans-serif;
-  background: #E9EBEE;
+  background: url('./weatherIcon.jpg');
 }
