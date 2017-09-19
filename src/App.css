@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 /* forecast lists */
 
 .slide-container {
@@ -18,4 +14,8 @@
 .slick-prev:before,
 .slick-next:before {
   color: #000;
+}
+
+.slick-list {
+  text-align: center;
 }
