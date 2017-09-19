@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Forecast from './Forecast';
-import CurrentConditions from './CurrentConditions';
+import Conditions from './Conditions';
 import axios from 'axios';
 
 class Weather extends Component {
@@ -35,10 +35,10 @@ class Weather extends Component {
   render() {
     let { item } = this.state.data;
     return (
-      <div>
+      <div className="weather-item">
         { !!item
           ? <div>
-              <CurrentConditions current={item}/>
+              <Conditions current={item} city={this.props.city}/>
               <button onClick={this.showForecast()}>
                 { !this.state.forecast
                   ? 'Show Forecast'

@@ -19,6 +19,7 @@ class Forecast extends Component {
   }
 
   SETTINGS = {
+    speed: 1500,
     slidesToShow: 5,
     slidesToScroll: 5,
   }
