@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "react": "^15.6.1",
+    "react-beautiful-dnd": "^2.2.4",
     "react-dom": "^15.6.1",
     "react-slick": "^0.15.4"
   },
