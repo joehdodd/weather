@@ -3,20 +3,20 @@ import Slider from 'react-slick';
 
 class Forecast extends Component {
 
-  getForecast() {
-    let { forecast } = this.props;
-    return forecast.map(data => {
-        return (
-          <div key={data.date} className="forecast-item">
-            <h4>
-              {data.date}
-            </h4>
-            <p>High: {data.high}</p>
-            <p>Low: {data.low}</p>
-          </div>
-        )
-      })
-  }
+  // getForecast(id) {
+  //   let { forecast } = this.props;
+  //   return forecast.map(data => {
+  //       return (
+  //         <div key={data.date} className="forecast-item">
+  //           <h4>
+  //             {data.date}
+  //           </h4>
+  //           <p>High: {data.high}</p>
+  //           <p>Low: {data.low}</p>
+  //         </div>
+  //       )
+  //     })
+  // }
 
   SETTINGS = {
     speed: 1500,
@@ -25,15 +25,17 @@ class Forecast extends Component {
   }
 
   render() {
-    let { forecast } = this.props;
+    let data = this.props.data;
+    let id = this.props.match.params.forecastId;
+    console.log(id)
     return (
       <div className="slide-container">
-        { forecast === undefined
+        { data.item === undefined
             ? <div>
                 <span>Loading Forecast!</span>
               </div>
             : <Slider {...this.SETTINGS}>
-                {this.getForecast()}
+                {this.getForecast(id)}
               </Slider>
         }
       </div>
