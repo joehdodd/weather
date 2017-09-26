@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 
 class Forecast extends Component {
-
-
   SETTINGS = {
     speed: 1500,
     slidesToShow: 5,
@@ -11,19 +9,27 @@ class Forecast extends Component {
   }
 
   render() {
-    let data = this.props.data;
     let id = this.props.match.params.forecastId;
     console.log(id)
+    // getForecast = (id) => {
+    //   !!forecast
+    //   forecast.map( d => {
+    //     <div>{d[id].high}</div>
+    //   })
+    // }
     return (
       <div className="slide-container">
-        { data.item === undefined
+        {/* { forecast === undefined
             ? <div>
                 <span>Loading Forecast!</span>
               </div>
             : <Slider {...this.SETTINGS}>
-                {this.getForecast(id)}
+                <div>
+                  {id}
+                </div>
               </Slider>
-        }
+        } */}
+        <p>Hi {id}</p>
       </div>
     )
   }

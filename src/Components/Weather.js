@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import Conditions from './Conditions';
+import Forecast from './Forecast';
 
 class Weather extends Component {
   constructor(props) {
@@ -25,16 +26,21 @@ class Weather extends Component {
   render() {
     return (
       <Router>
-        <Route exact path="/">
-          <div className="weather-item">
-            { !!this.state.data.item
-              ? <div>
-                <Conditions current={this.state.data.item} city={this.props.city}/>
-              </div>
-              : <p>Loading weather for {this.props.city}{!!this.props.state ? <span>, {this.props.state}</span> : null}.</p>
-            }
-          </div>
-        </Route>
+        <div>
+          <Route exact path={`/`}>
+            <div className="weather-item">
+              { !!this.state.data.item
+                ? <div>
+                  <Conditions current={this.state.data.item} city={this.props.city}/>
+                </div>
+                : <p>Loading weather for {this.props.city}{!!this.props.state ? <span>, {this.props.state}</span> : null}.</p>
+              }
+            </div>
+          </Route>
+          <Route path={`/forecast/:forecastId`} render={({...props}) => (
+            <Forecast {...props} forecast={this.state.data.item}/>)}
+          />
+        </div>
       </Router>
     )
   }
