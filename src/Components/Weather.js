@@ -27,7 +27,7 @@ class Weather extends Component {
     return (
       <Router>
         <div>
-          <Route exact path={`/`}>
+          <Route exact path='/' render={() => (
             <div className="weather-item">
               { !!this.state.data.item
                 ? <div>
@@ -36,7 +36,7 @@ class Weather extends Component {
                 : <p>Loading weather for {this.props.city}{!!this.props.state ? <span>, {this.props.state}</span> : null}.</p>
               }
             </div>
-          </Route>
+          )}/>
           <Route path={`/forecast/:forecastId`} render={({...props}) => (
             <Forecast {...props} forecast={this.state.data.item}/>)}
           />

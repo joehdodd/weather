@@ -10,26 +10,26 @@ class Forecast extends Component {
 
   render() {
     let id = this.props.match.params.forecastId;
+    let { forecast } = this.props;
     console.log(id)
-    // getForecast = (id) => {
-    //   !!forecast
-    //   forecast.map( d => {
-    //     <div>{d[id].high}</div>
-    //   })
-    // }
     return (
       <div className="slide-container">
-        {/* { forecast === undefined
+        { forecast === undefined
             ? <div>
                 <span>Loading Forecast!</span>
               </div>
             : <Slider {...this.SETTINGS}>
                 <div>
-                  {id}
+                  {
+                    forecast.forecast.map( data => {
+                      return (
+                        <p>{data.high}</p>
+                      )
+                    })
+                  }
                 </div>
               </Slider>
-        } */}
-        <p>Hi {id}</p>
+        }
       </div>
     )
   }
