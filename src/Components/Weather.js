@@ -1,20 +1,41 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import Conditions from './Conditions';
 
 class Weather extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      data : {}
+    }
+  }
+
+  componentDidMount() {
+    axios.get(`https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22${this.props.city}%2C%2$${this.props.state}%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`)
+    .then(res => {
+      let data = res.data.query.results.channel;
+      this.setState({ data : data });
+    })
+    .catch( (error) => {
+      console.log(error);
+    })
+  }
+
   render() {
     return (
-      <div className="weather-item">
-        { !!this.props.weather
-          ? <div>
-              <Conditions current={this.props.weather} city={this.props.city}/>
-            </div>
-          : <p>Loading weather for {this.props.city}{!!this.props.state ? <span>, {this.props.state}</span> : null}.</p>
-        }
-      </div>
-      // <div>
-      //   <p>Stuff</p>
-      // </div>
+      <Router>
+        <Route exact path="/">
+          <div className="weather-item">
+            { !!this.state.data.item
+              ? <div>
+                <Conditions current={this.state.data.item} city={this.props.city}/>
+              </div>
+              : <p>Loading weather for {this.props.city}{!!this.props.state ? <span>, {this.props.state}</span> : null}.</p>
+            }
+          </div>
+        </Route>
+      </Router>
     )
   }
 }

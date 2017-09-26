@@ -3,20 +3,6 @@ import Slider from 'react-slick';
 
 class Forecast extends Component {
 
-  // getForecast(id) {
-  //   let { forecast } = this.props;
-  //   return forecast.map(data => {
-  //       return (
-  //         <div key={data.date} className="forecast-item">
-  //           <h4>
-  //             {data.date}
-  //           </h4>
-  //           <p>High: {data.high}</p>
-  //           <p>Low: {data.low}</p>
-  //         </div>
-  //       )
-  //     })
-  // }
 
   SETTINGS = {
     speed: 1500,
