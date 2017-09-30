@@ -20,17 +20,20 @@ class Weather extends Component {
       <Router>
         <div>
           <Route exact path='/' render={() => (
-            <div className="weather-container">
-              {
-                this.PLACES.map( (place, id) => {
-                  return <Conditions key={place.city} id={id} city={place.city} state={place.state}/>
+            <div>
+              <h1>Current Conditions</h1>
+              <div className="weather-container">
+                {
+                  this.PLACES.map( (place, id) => {
+                    return <Conditions key={place.city} id={id} city={place.city} state={place.state}/>
 
-                })
-              }
+                  })
+                }
+              </div>
             </div>
           )}/>
           <Route path={`/forecast/:forecastId`} render={({...props}) => (
-            <Forecast {...props} city={this.PLACES.city} state={this.PLACES.state}/>)}
+            <Forecast {...props}/>)}
           />
         </div>
       </Router>

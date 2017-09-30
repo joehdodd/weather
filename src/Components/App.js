@@ -1,18 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../App.css';
 import Weather from './Weather';
 
-class App extends Component {
-
-
-
-  render() {
-    return (
-      <div>
-        <Weather />
-      </div>
-    )
-  }
+const App = () => {
+  return (
+    <div>
+      <Weather />
+    </div>
+  )
 }
 
-export default App;
+export default App

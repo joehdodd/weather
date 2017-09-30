@@ -27,8 +27,8 @@ class Conditions extends Component {
         { !!this.state.data.item
           ?
           <div className="conditions">
-            <Link to={`/forecast/${this.props.city}`}>
-              <h3>{this.props.city}</h3>
+            <Link to={`/forecast/${this.props.city}/${this.props.state}`}>
+              <h3>{this.state.data.location.city}</h3>
               <p><span className="hi-temp">{this.state.data.item.forecast[0].high}&deg;</span><span className="lo-temp">{this.state.data.item.forecast[0].low}&deg;</span></p>
               <p className="current-conditions">{this.state.data.item.condition.text}</p>
               <p className="current-temp">{this.state.data.item.condition.temp}&deg;</p>
