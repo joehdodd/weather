@@ -2,7 +2,8 @@ body {
   box-sizing: border-box;
   margin: 10% auto;
   font-family: sans-serif;
-  background: url('./weatherIcon.jpg');
+  background: #E9EBEE;
+  /*background: url('./weatherIcon.jpg');*/
   background-size: cover cover;
 }
 
@@ -12,5 +13,5 @@ a {
 }
 
 a:hover {
-  color: tomato;
+  color: #2b6bb5;
 }
