@@ -1,40 +1,41 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import Conditions from './Conditions';
+import Forecast from './Forecast';
 
 class Weather extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      data : {}
-    }
-  }
 
-  componentDidMount() {
-    axios.get(`https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22${this.props.city}%2C%2$${this.props.state}%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`)
-    .then(res => {
-      let data = res.data.query.results.channel;
-      this.setState({ data : data });
-    })
-    .catch( (error) => {
-      console.log(error);
-    })
-  }
+
+  PLACES = [
+    { city: "chattanooga", state: "tn"},
+    { city: "easton", state: "md"},
+    { city: "new york", state: "ny"},
+    { city: "norfolk", state: "va"},
+    { city: "milford", state: "de"},
+    { city: "bangkok", state: null}
+  ]
 
   render() {
     return (
       <Router>
-        <Route exact path="/">
-          <div className="weather-item">
-            { !!this.state.data.item
-              ? <div>
-                <Conditions current={this.state.data.item} city={this.props.city}/>
+        <div>
+          <Route exact path='/' render={() => (
+            <div>
+              <h1>Current Conditions</h1>
+              <div className="weather-container">
+                {
+                  this.PLACES.map( (place, id) => {
+                    return <Conditions key={place.city} id={id} city={place.city} state={place.state}/>
+
+                  })
+                }
               </div>
-              : <p>Loading weather for {this.props.city}{!!this.props.state ? <span>, {this.props.state}</span> : null}.</p>
-            }
-          </div>
-        </Route>
+            </div>
+          )}/>
+          <Route path={`/forecast/:forecastId`} render={({...props}) => (
+            <Forecast {...props}/>)}
+          />
+        </div>
       </Router>
     )
   }
