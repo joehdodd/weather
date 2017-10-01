@@ -1,7 +1,7 @@
 body {
   box-sizing: border-box;
   margin: 10% auto;
-  padding: 0 10%;
+  padding: 0 2.5%;
   font-family: sans-serif;
   background: #E9EBEE;
   /*background: url('./weatherIcon.jpg');*/
@@ -15,4 +15,12 @@ a {
 
 a:hover {
   color: rgb(43, 107, 181);
+}
+
+@media screen and (min-width: 768px) {
+
+  body {
+    padding: 0 10%;
+  }
+
 }
