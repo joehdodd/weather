@@ -4,8 +4,7 @@ import Conditions from './Conditions';
 import Forecast from './Forecast';
 
 class Weather extends Component {
-
-
+  
   PLACES = [
     { city: "chattanooga", state: "tn"},
     { city: "easton", state: "md"},

@@ -30,9 +30,10 @@ class Forecast extends Component {
       return (
         <div key={data.date} className="forecast-item">
           <div className="forecast-wrapper">
-            <p>{data.date}</p>
-            <p>{data.high}</p>
-            <p>{data.low}</p>
+            <p>{data.day}, {data.date}</p>
+            <p>High: {data.high}</p>
+            <p>Low: {data.low}</p>
+            <p>{data.text}</p>
           </div>
         </div>
       )
