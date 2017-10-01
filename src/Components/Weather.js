@@ -4,7 +4,7 @@ import Conditions from './Conditions';
 import Forecast from './Forecast';
 
 class Weather extends Component {
-  
+
   PLACES = [
     { city: "chattanooga", state: "tn"},
     { city: "easton", state: "md"},
@@ -21,6 +21,7 @@ class Weather extends Component {
           <Route exact path='/' render={() => (
             <div>
               <h1>Current Conditions</h1>
+              <p>To see details and a 10-day forecast, tap or click a card.</p>
               <div className="weather-container">
                 {
                   this.PLACES.map( (place, id) => {
