@@ -1,3 +1,8 @@
+.page-wrapper {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 .weather-container {
   display: flex;
   flex-wrap: wrap;
@@ -13,10 +18,13 @@
 }
 /* forecast lists */
 
+.details-head-text {
+  margin: 0px 5px;
+}
+
 .detail-container {
-  margin: 10px auto;
+  margin: 10px 5px;
   padding: 5px;
-  max-width: 48.75%;
   min-height: 150px;
   /*display: flex;
   flex-wrap: wrap;
@@ -27,7 +35,6 @@
 
 .slide-container {
   margin: 0 auto;
-  max-width: 50%;
 }
 
 .slick-prev:before,
@@ -51,6 +58,24 @@
   box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.25);
 }
 
+.button {
+  width: 125px;
+  height: 50px;
+  margin: 10px 5px;
+  padding: 5px;
+  outline: none;
+  color: #fff;
+  background: rgb(43, 107, 181);
+  box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.55);
+  border: none;
+  border-radius: 4px;
+  transition: .2s ease-in-out;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
 /* conditions styling */
 
 .conditions {
@@ -71,4 +96,24 @@
 .current-temp {
   margin: 2.5px 0;
   font-size: 4rem;
+}
+
+/* media queries */
+
+@media screen and (min-width: 768px) {
+
+  .page-wrapper {
+    margin: 0 auto;
+    max-width: 70%;
+  }
+
+}
+
+@media screen and (min-width: 1024) {
+
+  .page-wrapper {
+    margin: 0 auto;
+    max-width: 70%;
+  }
+
 }
