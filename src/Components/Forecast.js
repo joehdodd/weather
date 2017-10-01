@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Slider from 'react-slick';
 
@@ -43,19 +44,29 @@ class Forecast extends Component {
     speed: 1500,
     slidesToShow: 5,
     slidesToScroll: 5,
+    responsive: [ { breakpoint: 768, settings: { arrows: false, slidesToShow: 2, slidesToScroll: 2 } } ]
   }
 
   render() {
     let { details, forecast } = this.state;
     return (
-      <div>
+      <div className="page-wrapper">
         { !!this.state.details.astronomy
           ?
           <div>
-            <div className="detail-container">
+            <div className="details-head-text">
               <h2>Details for {details.location.city}</h2>
+            </div>
+            <div className="detail-container">
               <p>Sunrise: {details.astronomy.sunrise}</p>
               <p>Sunset: {details.astronomy.sunset}</p>
+            </div>
+            <div className="details-head-text">
+              <h2>10-Day Forecast</h2>
+              { window.innerWidth < 768
+                ? <p>Swipe to see the next card.</p>
+                : null
+              }
             </div>
             <div className="slide-container">
               { forecast === undefined
@@ -66,6 +77,11 @@ class Forecast extends Component {
                   {this.getForecastCard()}
                 </Slider>
               }
+            </div>
+            <div>
+              <Link to="/">
+                <button className="button">Back to Overview</button>
+              </Link>
             </div>
           </div>
           :
