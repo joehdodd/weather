@@ -59,8 +59,14 @@ class Forecast extends Component {
               <h2>Details for {details.location.city}</h2>
             </div>
             <div className="detail-container">
-              <p>Sunrise: {details.astronomy.sunrise}</p>
-              <p>Sunset: {details.astronomy.sunset}</p>
+              <div className="detail-item">
+                <p>Sunrise: {details.astronomy.sunrise}</p>
+                <p>Sunset: {details.astronomy.sunset}</p>
+              </div>
+              <div className="detail-item">
+                <p>Humidity: {details.atmosphere.humidity}%</p>
+                <p>Visbility: {details.atmosphere.visibility} mi</p>
+              </div>
             </div>
             <div className="details-head-text">
               <h2>10-Day Forecast</h2>
