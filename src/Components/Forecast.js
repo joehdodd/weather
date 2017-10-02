@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Slider from 'react-slick';
 import IconSunnyDay from '../images/components/IconSunnyDay';
+import IconPartlyCloudy from '../images/components/IconPartlyCloudy';
+import IconLightning from '../images/components/IconLightning';
 
 class Forecast extends Component {
   constructor(props) {
@@ -27,7 +29,9 @@ class Forecast extends Component {
 
   getIcon = (text) => {
     let conditionTypes = {
-      "Sunny": <IconSunnyDay />
+      "Sunny": <IconSunnyDay />,
+      "Partly Cloudy": <IconPartlyCloudy />,
+      "Scattered Thunderstorms": <IconLightning />
     }
     return conditionTypes[text];
   }

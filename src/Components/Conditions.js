@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import IconSunnyDay from '../images/components/IconSunnyDay';
+import IconPartlyCloudy from '../images/components/IconPartlyCloudy';
+import IconLightning from '../images/components/IconLightning';
 
 class Conditions extends Component {
   constructor(props) {
@@ -21,6 +24,15 @@ class Conditions extends Component {
     })
   }
 
+  getIcon = (text) => {
+    let conditionTypes = {
+      "Sunny": <IconSunnyDay />,
+      "Partly Cloudy": <IconPartlyCloudy />,
+      "Scattered Thunderstorms": <IconLightning />
+    }
+    return conditionTypes[text];
+  }
+
   render() {
     return (
       <div className="weather-item">
@@ -30,8 +42,10 @@ class Conditions extends Component {
             <Link to={`/forecast/${this.props.city}/${this.props.state}`}>
               <h3>{this.state.data.location.city}</h3>
               <p><span className="hi-temp">{this.state.data.item.forecast[0].high}&deg;</span> <span className="lo-temp">{this.state.data.item.forecast[0].low}&deg;</span></p>
-              <p className="current-conditions">{this.state.data.item.condition.text}</p>
               <p className="current-temp">{this.state.data.item.condition.temp}&deg;</p>
+              <div className="weather-icon">
+                {this.getIcon(this.state.data.item.condition.text)}
+              </div>
             </Link>
           </div>
           : <p>oops</p>

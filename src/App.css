@@ -125,6 +125,7 @@
 .current-temp {
   margin: 2.5px 0;
   font-size: 4rem;
+  text-align: center;
 }
 
 /* media queries */
