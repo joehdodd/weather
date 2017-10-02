@@ -107,6 +107,10 @@
 
 /* conditions styling */
 
+.conditions-heading {
+  padding: 0 5px;
+}
+
 .conditions {
   padding: 10px;
 }
