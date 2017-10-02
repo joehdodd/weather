@@ -102,7 +102,7 @@
 }
 
 .set-text {
-  color: aliceblue;
+  color: cornflowerblue;
 }
 
 /* conditions styling */
@@ -118,6 +118,7 @@
 .lo-temp {
   color: #5792d7;
 }
+
 .current-conditions {
   margin: 0;
 }

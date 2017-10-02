@@ -5,6 +5,12 @@ import Slider from 'react-slick';
 import IconSunnyDay from '../images/components/IconSunnyDay';
 import IconPartlyCloudy from '../images/components/IconPartlyCloudy';
 import IconLightning from '../images/components/IconLightning';
+import IconBlizzard from '../images/components/IconBlizzard';
+import IconDrizzle from '../images/components/IconDrizzle';
+import IconCloudy from '../images/components/IconCloudy';
+import IconRain from '../images/components/IconRain';
+import IconMostlyCloudy from '../images/components/IconMostlyCloudy';
+
 
 class Forecast extends Component {
   constructor(props) {
@@ -30,8 +36,16 @@ class Forecast extends Component {
   getIcon = (text) => {
     let conditionTypes = {
       "Sunny": <IconSunnyDay />,
+      "Mostly Sunny": <IconSunnyDay />,
       "Partly Cloudy": <IconPartlyCloudy />,
-      "Scattered Thunderstorms": <IconLightning />
+      "Mostly Cloudy": <IconMostlyCloudy />,
+      "Scattered Thunderstorms": <IconLightning />,
+      "Scattered Showers": <IconDrizzle />,
+      "Rain": <IconRain />,
+      "Thunderstorms": <IconLightning />,
+      "Drizzle": <IconDrizzle />,
+      "Blizzard": <IconBlizzard />,
+      "Cloudy": <IconCloudy />,
     }
     return conditionTypes[text];
   }
