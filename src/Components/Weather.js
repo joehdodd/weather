@@ -20,8 +20,10 @@ class Weather extends Component {
         <div>
           <Route exact path='/' render={() => (
             <div>
-              <h1>Current Conditions</h1>
-              <p>To see details and a 10-day forecast, tap or click a card.</p>
+              <div className="conditions-heading">
+                <h1>Current Conditions</h1>
+                <p>To see details and a 10-day forecast, tap or click a card.</p>
+              </div>
               <div className="weather-container">
                 {
                   this.PLACES.map( (place, id) => {
