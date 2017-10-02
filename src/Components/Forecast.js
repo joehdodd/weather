@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Slider from 'react-slick';
+import IconSunnyDay from '../images/components/IconSunnyDay';
 
 class Forecast extends Component {
   constructor(props) {
@@ -24,6 +25,13 @@ class Forecast extends Component {
     })
   }
 
+  getIcon = (text) => {
+    let conditionTypes = {
+      "Sunny": <IconSunnyDay />
+    }
+    return conditionTypes[text];
+  }
+
   getForecastCard = () => {
     let { forecast } = this.state;
     return forecast.map( data => {
@@ -31,9 +39,11 @@ class Forecast extends Component {
         <div key={data.date} className="forecast-item">
           <div className="forecast-wrapper">
             <p>{data.day}, {data.date}</p>
-            <p>High: {data.high}</p>
-            <p>Low: {data.low}</p>
-            <p>{data.text}</p>
+            <p>High: <span className="hi-temp">{data.high}&deg;</span></p>
+            <p>Low: <span className="lo-temp">{data.low}&deg;</span></p>
+            <div className="weather-icon">
+              {this.getIcon(data.text)}
+            </div>
           </div>
         </div>
       )
@@ -60,8 +70,8 @@ class Forecast extends Component {
             </div>
             <div className="detail-container">
               <div className="detail-item">
-                <p>Sunrise: {details.astronomy.sunrise}</p>
-                <p>Sunset: {details.astronomy.sunset}</p>
+                <p><span className="rise-text">Sunrise</span>: {details.astronomy.sunrise}</p>
+                <p><span className="set-text">Sunset</span>: {details.astronomy.sunset}</p>
               </div>
               <div className="detail-item">
                 <p>Humidity: {details.atmosphere.humidity}%</p>
