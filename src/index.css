@@ -23,6 +23,16 @@ h1, h2, h3, h4 {
   color: rgb(43, 107, 181);
 }
 
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-in;
+}
+
 @media screen and (min-width: 768px) {
 
   body {
