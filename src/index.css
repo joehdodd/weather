@@ -53,6 +53,24 @@ h1, h2, h3, h4 {
   opacity: 1;
 }
 
+.background-enter {
+  transform: translate(100%);
+}
+
+.background-enter.background-enter-active {
+  transform: translate(0%);
+  transition: transform 1000ms ease-in-out;
+}
+
+.background-leave {
+  transform: translate(0%);
+}
+
+.background-leave.background-leave-active {
+  transform: translate(-100%);
+  transition: transform 1000ms ease-in-out;
+}
+
 @media screen and (min-width: 768px) {
 
   body {
