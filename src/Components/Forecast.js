@@ -82,7 +82,7 @@ class Forecast extends Component {
       <div className="page-wrapper">
         { !!this.state.details.astronomy
           ?
-          <div>
+          <div className="forecast-items">
             <div className="details-head-text">
               <h2>Details for {details.location.city}</h2>
             </div>
