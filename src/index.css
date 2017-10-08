@@ -4,7 +4,6 @@ body {
   padding: 0 2.5%;
   font-family: 'Iconsolata', monospace;
   background: #E9EBEE;
-  /*background: url('./weatherIcon.jpg');*/
   background-size: cover cover;
 }
 
@@ -23,6 +22,8 @@ h1, h2, h3, h4 {
   color: rgb(43, 107, 181);
 }
 
+/* transitions */
+
 .fade-enter {
   opacity: 0;
   z-index: 1;
@@ -30,7 +31,26 @@ h1, h2, h3, h4 {
 
 .fade-enter.fade-enter-active {
   opacity: 1;
-  transition: opacity 250ms ease-in;
+  transition: opacity 750ms ease;
+}
+
+.fade-leave {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+.fade-leave.fade-leave-active {
+  /* NOTE: THIS! */
+  display: none;
+}
+
+.fade-appear {
+  opacity: 0.01;
+  transition: opacity 750ms ease-in-out;
+}
+
+.fade-appear.fade-appear-active {
+  opacity: 1;
 }
 
 @media screen and (min-width: 768px) {
