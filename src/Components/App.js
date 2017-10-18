@@ -18,7 +18,7 @@ const App = () => (
       >
       <Route
         location={location}
-        key={location.key}
+        key={location.pathname}
         exact
         path="/"
         render={({...props}) => (
@@ -33,7 +33,7 @@ const App = () => (
       >
         <Route
           location={location}
-          key={location.key}
+          key={location.pathname}
           path={`/forecast/:forecastId`}
           render={({...props}) => (
             <Forecast {...props}/>
