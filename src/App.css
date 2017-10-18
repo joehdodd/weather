@@ -1,6 +1,31 @@
+/* add more */
+
+input:focus {
+  outline: none;
+}
+
+input[type="text"] {
+  width: 50%;
+  height: 30px;
+  border: none;
+  highlight: none;
+  border-radius: 2px;
+  font-family: 'Iconsolata', monospace;
+  font-size: 16px;
+}
+
+/* wrappers and containers */
+
 .page-wrapper {
   max-width: 100%;
   margin: 0 auto;
+}
+
+.add-more-container {
+  margin: 10px auto;
+  padding: 0 5px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .weather-container {
@@ -78,8 +103,8 @@
 .button {
   font-family: 'Iconsolata', monospace;
   font-size: 1em;
-  width: 200px;
-  height: 60px;
+  min-width: 15%;
+  height: 32px;
   margin: 10px 5px;
   padding: 5px;
   outline: none;
