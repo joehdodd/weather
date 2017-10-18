@@ -1,6 +1,6 @@
 import React from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import ConditionsList from './ConditionsList';
 import Forecast from './Forecast';
 import '../App.css';
@@ -15,7 +15,6 @@ const App = () => (
         transitionAppear={true}
         transitionLeave={true}
         transitionAppearTimeout={600}
-        transitionLeaveTimeout={300}
       >
       <Route
         location={location}
