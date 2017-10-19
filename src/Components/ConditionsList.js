@@ -18,21 +18,25 @@ class ConditionsList extends Component {
 
   componentWillMount() {
     const localStorageRef = localStorage.getItem(`place`);
+
     if (!!localStorageRef) {
       this.setState( prevState => ({
         places: [...prevState.places, JSON.parse(localStorageRef)]
       }))
     }
+
   }
 
   componentWillReceiveProps(nextProps) {
+    let placesArr = nextProps.places;
+    // console.log(placesArr);
     this.setState( prevState => ({
       places: [...prevState.places, nextProps.newPlace]
     }));
   }
 
   componentWillUpdate(nextState) {
-    console.log(nextState);
+    // console.log(nextState);
     // localStorage.setItem(`place`, JSON.stringify(nextState.places));
   }
 
