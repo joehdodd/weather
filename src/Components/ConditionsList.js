@@ -16,15 +16,31 @@ class ConditionsList extends Component {
     }
   }
 
+  componentWillMount() {
+    const localStorageRef = localStorage.getItem(`place`);
+    if (!!localStorageRef) {
+      this.setState( prevState => ({
+        places: [...prevState.places, JSON.parse(localStorageRef)]
+      }))
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
-    this.setState({ places: [...this.state.places, nextProps.newPlace] })
+    this.setState( prevState => ({
+      places: [...prevState.places, nextProps.newPlace]
+    }));
+  }
+
+  componentWillUpdate(nextState) {
+    console.log(nextState);
+    // localStorage.setItem(`place`, JSON.stringify(nextState.places));
   }
 
   render() {
     let { places } = this.state;
     const conditionItems =  places.map( (place, id) => {
         return <Conditions key={id} id={id} city={place.city} state={place.state}/>
-      })
+    })
     return (
       <div>
         <div className="conditions-heading">
