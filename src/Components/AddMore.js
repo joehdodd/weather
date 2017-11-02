@@ -20,7 +20,7 @@ class AddMore extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     let { newPlace } = this.state;
-    this.props.addPlace(newPlace);
+    this.props.newPlace(newPlace);
   }
 
   render() {
