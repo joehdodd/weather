@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import Conditions from './Conditions';
+import Conditions from './Conditions';
 
 class ConditionsList extends Component {
   constructor(props) {
@@ -29,12 +29,12 @@ class ConditionsList extends Component {
     let { places } = this.state;
     localStorage.setItem(`places`, JSON.stringify(places));
   }
-  
+
   render() {
-    // let { places } = this.state;
-    // const conditionItems =  places.map( (place, id) => {
-    //     return <Conditions key={place.id} id={place.id} city={place.id}/>
-    // })
+    let { places } = this.state;
+    const conditionItems =  places.map( (place, id) => {
+        return <Conditions key={place.id} id={place.id} city={place.id} data={place.data}/>
+    })
     return (
       <div>
         <div className="conditions-heading">
@@ -42,7 +42,7 @@ class ConditionsList extends Component {
           <p>To see details and a 10-day forecast, tap or click a card.</p>
         </div>
           <div className="weather-container">
-            {/* {conditionItems} */}
+            {conditionItems}
           </div>
       </div>
     )

@@ -19,7 +19,7 @@ class Conditions extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+    console.log(this.props.data);
   }
 
   getIcon = (text) => {
@@ -54,7 +54,10 @@ class Conditions extends Component {
               </div>
             </Link>
           </div>
-          : <p>oops</p>
+          :
+          <div className="conditions">
+            <p>Loading data...</p>
+          </div>
         }
       </div>
     )
