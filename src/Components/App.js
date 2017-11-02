@@ -16,10 +16,6 @@ class App extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevState)
-  }
-
   newPlace = (newPlace) => {
     let uri = `https://query.yahooapis.com/v1/public/yql?q=`;
     let queryText = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${newPlace}")&format=json`;
@@ -27,10 +23,9 @@ class App extends React.Component {
     axios.get(restQuery)
     .then(res => {
       let data = res.data.query.results.channel;
-      this.setState( prevState => {
+      this.setState({
         places: [
-          { id: newPlace, data: data },
-          ...prevState.places
+          { id: newPlace, data: data }
         ]
       })
     })
@@ -59,7 +54,7 @@ class App extends React.Component {
             render={({...props}) => (
               <div>
                 <AddMore newPlace={this.newPlace}/>
-                {/* <ConditionsList places={this.state.places} {...props}/> */}
+                <ConditionsList places={this.state.places} {...props}/>
               </div>
             )}
           />
