@@ -19,7 +19,8 @@ class Conditions extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.data);
+    let { data } = this.props;
+    this.setState({ data: data })
   }
 
   getIcon = (text) => {
