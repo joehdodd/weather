@@ -12,6 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      notFound: false,
       places: []
     }
   }
@@ -35,20 +36,22 @@ class App extends React.Component {
     let queryText = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${newPlace}")&format=json`;
     let restQuery = uri += queryText;
     axios.get(restQuery)
-    .then(res => {
-      let data = res.data.query.results.channel;
-      // this.setState({
-      //   places: [
-      //     { id: newPlace, data: data }
-      //   ]
-      // })
-      // let newPlace = { id }
+    .then(response => {
+      let results = response.data.query.results;
+      let data = response.data.query.results.channel;
+      if (!results) {
+        this.setState({ notFound: true });
+      }
       this.setState( prevState => ({
-        places: [...prevState.places, { id: newPlace, data: data}]
+        places: [...prevState.places, { id: newPlace, data: data}],
+        notfound: false
       }));
     })
     .catch( (error) => {
-      console.log(error);
+      let { status } = error.response;
+      if (status === 400) {
+        console.log(`Oops!`);
+      }
     })
   }
 
@@ -79,6 +82,9 @@ class App extends React.Component {
               <div>
                 <AddMore newPlace={this.newPlace}/>
                 <ConditionsList places={this.state.places} removeItem={this.removeItem} {...props}/>
+                { this.state.notFound &&
+                  <h2>Oops! Your search returned no results. Check your spelling and try again! <span style={{fontSize: 48}}>🤔</span></h2>
+                }
               </div>
             )}
           />
