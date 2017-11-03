@@ -42,6 +42,7 @@ class Conditions extends Component {
 
   sendRemoveId = (id) => {
     this.props.removeItem(id);
+    console.log('%cYou just removed an item, ya dengus! 😆 💯', 'font-size: 24px;');
   }
 
   render() {
@@ -51,7 +52,7 @@ class Conditions extends Component {
         { !!this.state.data.item
           ?
           <div className="conditions">
-            <div className="remove" onClick={(e) => { this.sendRemoveId(id) }}>Remove</div>
+            <div className="remove" onClick={ () => { this.sendRemoveId(id) } }>Remove</div>
             <Link to={`/forecast/${this.props.city}`}>
               <h3>{this.state.data.location.city}</h3>
               <p><span className="hi-temp">{this.state.data.item.forecast[0].high}&deg;</span> <span className="lo-temp">{this.state.data.item.forecast[0].low}&deg;</span></p>
