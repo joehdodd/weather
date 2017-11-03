@@ -39,13 +39,15 @@ class App extends React.Component {
     .then(response => {
       let results = response.data.query.results;
       let data = response.data.query.results.channel;
-      if (!results) {
+      if (!results || !data ) {
         this.setState({ notFound: true });
       }
-      this.setState( prevState => ({
-        places: [...prevState.places, { id: newPlace, data: data}],
-        notfound: false
-      }));
+      if (!!results || !!data) {
+        this.setState( prevState => ({
+          places: [...prevState.places, { id: newPlace, data: data}],
+          notfound: false
+        }));
+      }
     })
     .catch( (error) => {
       this.setState({ notFound: true });
