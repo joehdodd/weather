@@ -48,10 +48,8 @@ class App extends React.Component {
       }));
     })
     .catch( (error) => {
-      let { status } = error.response;
-      if (status === 400) {
-        console.log(`Oops!`);
-      }
+      this.setState({ notFound: true });
+      console.log(error);
     })
   }
 
