@@ -30,10 +30,16 @@ class ConditionsList extends Component {
     localStorage.setItem(`places`, JSON.stringify(places));
   }
 
+  removeItem = (id) => {
+    let { places } = this.state;
+    places.splice(id, 1);
+    this.setState({ places });
+  }
+
   render() {
     let { places } = this.state;
     const conditionItems =  places.map( (place, id) => {
-        return <Conditions key={place.id} id={place.id} city={place.id} data={place.data}/>
+        return <Conditions key={place.id} id={place.id} city={place.id} data={place.data} removeItem={this.removeItem}/>
     })
     return (
       <div>
