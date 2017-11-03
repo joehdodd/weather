@@ -45,7 +45,7 @@ class App extends React.Component {
       if (!!results || !!data) {
         this.setState( prevState => ({
           places: [...prevState.places, { id: newPlace, data: data}],
-          notfound: false
+          notFound: false
         }));
       }
     })
@@ -83,7 +83,16 @@ class App extends React.Component {
                 <AddMore newPlace={this.newPlace}/>
                 <ConditionsList places={this.state.places} removeItem={this.removeItem} {...props}/>
                 { this.state.notFound &&
+                  <CSSTransitionGroup
+                    transitionName="fade"
+                    transitionAppear={true}
+                    transitionLeave={true}
+                    transitionEnterTimeout={1000}
+                    transitionAppearTimeout={750}
+                    transitionLeaveTimeout={750}
+                  >
                   <h2>Oops! Your search returned no results. Check your spelling and try again! <span style={{fontSize: 48}}>🤔</span></h2>
+                </CSSTransitionGroup>
                 }
               </div>
             )}
