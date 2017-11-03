@@ -52,7 +52,7 @@ class Conditions extends Component {
           ?
           <div className="conditions">
             <div className="remove" onClick={(e) => { this.sendRemoveId(id) }}>Remove</div>
-            <Link to={`/forecast/${this.props.city}/${this.props.state}`}>
+            <Link to={`/forecast/${this.props.city}`}>
               <h3>{this.state.data.location.city}</h3>
               <p><span className="hi-temp">{this.state.data.item.forecast[0].high}&deg;</span> <span className="lo-temp">{this.state.data.item.forecast[0].low}&deg;</span></p>
               <p className="current-temp">{this.state.data.item.condition.temp}&deg;</p>
