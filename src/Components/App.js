@@ -37,11 +37,15 @@ class App extends React.Component {
     axios.get(restQuery)
     .then(res => {
       let data = res.data.query.results.channel;
-      this.setState({
-        places: [
-          { id: newPlace, data: data }
-        ]
-      })
+      // this.setState({
+      //   places: [
+      //     { id: newPlace, data: data }
+      //   ]
+      // })
+      // let newPlace = { id }
+      this.setState( prevState => ({
+        places: [...prevState.places, { id: newPlace, data: data}]
+      }));
     })
     .catch( (error) => {
       console.log(error);
