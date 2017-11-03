@@ -16,6 +16,20 @@ class App extends React.Component {
     }
   }
 
+  componentWillMount() {
+    let localStorageRef = localStorage.getItem(`places`);
+    if (!!localStorageRef) {
+      this.setState({
+        places: JSON.parse(localStorageRef)
+      })
+    }
+  }
+
+  componentDidUpdate() {
+    let { places } = this.state;
+    localStorage.setItem(`places`, JSON.stringify(places));
+  }
+
   newPlace = (newPlace) => {
     let uri = `https://query.yahooapis.com/v1/public/yql?q=`;
     let queryText = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${newPlace}")&format=json`;
@@ -32,6 +46,12 @@ class App extends React.Component {
     .catch( (error) => {
       console.log(error);
     })
+  }
+
+  removeItem = (id) => {
+    let { places } = this.state;
+    places.splice(id, 1);
+    this.setState({ places });
   }
 
   render() {
@@ -54,7 +74,7 @@ class App extends React.Component {
             render={({...props}) => (
               <div>
                 <AddMore newPlace={this.newPlace}/>
-                <ConditionsList places={this.state.places} {...props}/>
+                <ConditionsList places={this.state.places} removeItem={this.removeItem} {...props}/>
               </div>
             )}
           />
