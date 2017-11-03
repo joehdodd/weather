@@ -38,8 +38,9 @@ class ConditionsList extends Component {
 
   render() {
     let { places } = this.state;
-    const conditionItems =  places.map( (place, id) => {
-      return <Conditions key={place.id} id={place.id} city={place.id} data={place.data} removeItem={this.removeItem}/>
+    const conditionItems =  places.map( (place, index) => {
+      let uniqueKey = (index + 1);
+      return <Conditions key={uniqueKey} id={place.id} city={place.id} data={place.data} removeItem={this.removeItem}/>
     })
     return (
       <div>
