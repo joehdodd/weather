@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { getWeather } from '../actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route } from 'react-router-dom';
 import AddMore from './AddMore';
@@ -26,33 +27,39 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    // dispatch(getWeather('new york'));
+  }
+
   componentDidUpdate() {
     let { places } = this.state;
     localStorage.setItem(`places`, JSON.stringify(places));
   }
 
   newPlace = (newPlace) => {
-    let uri = `https://query.yahooapis.com/v1/public/yql?q=`;
-    let queryText = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${newPlace}")&format=json`;
-    let restQuery = uri += queryText;
-    axios.get(restQuery)
-    .then(response => {
-      let results = response.data.query.results;
-      let data = response.data.query.results.channel;
-      if (!results || !data ) {
-        this.setState({ notFound: true });
-      }
-      if (!!results || !!data) {
-        this.setState( prevState => ({
-          places: [...prevState.places, { id: newPlace, data: data}],
-          notFound: false
-        }));
-      }
-    })
-    .catch( (error) => {
-      this.setState({ notFound: true });
-      console.log(error);
-    })
+    const { dispatch } = this.props;
+    dispatch(getWeather(newPlace));
+    // let uri = `https://query.yahooapis.com/v1/public/yql?q=`;
+    // let queryText = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${newPlace}")&format=json`;
+    // let restQuery = uri += queryText;
+    // axios.get(restQuery)
+    // .then(response => {
+    //   let results = response.data.query.results;
+    //   let data = response.data.query.results.channel;
+    //   if (!results || !data ) {
+    //     this.setState({ notFound: true });
+    //   }
+    //   if (!!results || !!data) {
+    //     this.setState( prevState => ({
+    //       places: [...prevState.places, { id: newPlace, data: data}],
+    //       notFound: false
+    //     }));
+    //   }
+    // })
+    // .catch( (error) => {
+    //   this.setState({ notFound: true });
+    //   console.log(error);
+    // })
   }
 
   removeItem = (id) => {
@@ -81,7 +88,7 @@ class App extends React.Component {
             render={({...props}) => (
               <div>
                 <AddMore newPlace={this.newPlace}/>
-                <ConditionsList places={this.state.places} removeItem={this.removeItem} {...props}/>
+                <ConditionsList places={this.props.places} removeItem={this.removeItem} {...props}/>
                 { this.state.notFound &&
                   <CSSTransitionGroup
                     transitionName="fade"
@@ -118,4 +125,15 @@ class App extends React.Component {
   }
 }
 
-export default App
+
+function mapStateToProps(state) {
+  const { getWeather } = state;
+  const { places, notFound } = getWeather
+  return {
+    getWeather,
+    places,
+    notFound
+  }
+}
+
+export default connect(mapStateToProps)(App)
