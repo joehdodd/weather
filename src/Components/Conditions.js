@@ -11,18 +11,6 @@ import IconRain from '../images/components/IconRain';
 import IconMostlyCloudy from '../images/components/IconMostlyCloudy';
 
 class Conditions extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      data : {}
-    }
-  }
-
-  componentDidMount() {
-    let { data } = this.props;
-    this.setState({ data: data })
-  }
-
   getIcon = (text) => {
     let conditionTypes = {
       "Sunny": <IconSunnyDay />,
@@ -40,33 +28,39 @@ class Conditions extends Component {
     return conditionTypes[text];
   }
 
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (nextProps !== this.props) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
   sendRemoveId = (id) => {
     this.props.removeItem(id);
     console.log('%cYou just removed an item, ya dengus! 😆 💯', 'font-size: 24px;');
   }
 
   render() {
-    let { id } = this.props;
+    const { data } = this.props.data.data.query.results.channel;
+    const { id } = this.props.id;
     return (
-      <div className="weather-item">
-        { !!this.state.data.item
-          ?
-          <div className="conditions">
-            <div className="remove" onClick={ () => { this.sendRemoveId(id) } }>Remove</div>
-            <Link to={`/forecast/${this.props.city}`}>
-              <h3>{this.state.data.location.city}</h3>
-              <p><span className="hi-temp">{this.state.data.item.forecast[0].high}&deg;</span> <span className="lo-temp">{this.state.data.item.forecast[0].low}&deg;</span></p>
-              <p className="current-temp">{this.state.data.item.condition.temp}&deg;</p>
-              <div className="weather-icon">
-                {this.getIcon(this.state.data.item.condition.text)}
-              </div>
-            </Link>
-          </div>
-          :
-          <div className="conditions">
-            <p>Loading data...</p>
-          </div>
-        }
+        <div className="weather-item">
+          { !!data &&
+            <div className="conditions">
+              <div className="remove" onClick={ () => { this.sendRemoveId(id) } }>Remove</div>
+              <Link to={`/forecast/${this.props.city}`}>
+                <h3>{data.location.city}</h3>
+                <p><span className="hi-temp">{data.item.forecast[0].high}&deg;</span> <span className="lo-temp">{data.item.forecast[0].low}&deg;</span></p>
+                <p className="current-temp">{data.item.condition.temp}&deg;</p>
+                <div className="weather-icon">
+                  {this.getIcon(data.item.condition.text)}
+                </div>
+              </Link>
+            </div>
+          }
+          { !data &&
+            <span>FUCK!</span>
+          }
       </div>
     )
   }
