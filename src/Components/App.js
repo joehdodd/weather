@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getWeather } from '../actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
+import { HashRouter as Router } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import AddMore from './AddMore';
 import ConditionsList from './ConditionsList';
@@ -19,22 +20,16 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    let localStorageRef = localStorage.getItem(`places`);
-    if (!!localStorageRef) {
-      this.setState({
-        places: JSON.parse(localStorageRef)
-      })
-    }
+    const { dispatch } = this.props;
+    dispatch(getWeather('new york'));
+    // let localStorageRef = localStorage.getItem(`places`);
+    // places: JSON.parse(localStorageRef)
   }
 
-  componentDidMount() {
-    // dispatch(getWeather('new york'));
-  }
-
-  componentDidUpdate() {
-    let { places } = this.state;
-    localStorage.setItem(`places`, JSON.stringify(places));
-  }
+  // componentDidUpdate() {
+  //   const { places } = this.props;
+  //   localStorage.setItem(`places`, JSON.stringify(places));
+  // }
 
   newPlace = (newPlace) => {
     const { dispatch } = this.props;
@@ -69,58 +64,63 @@ class App extends React.Component {
   }
 
   render() {
+    const { places } = this.props;
     return (
-      <Route render={({ location }) => (
-        <div>
-          <CSSTransitionGroup
-            transitionName="fade"
-            transitionEnterTimeout={1000}
-            transitionLeaveTimeout={100}
-            transitionAppear={true}
-            transitionLeave={true}
-            transitionAppearTimeout={600}
-          >
-          <Route
-            location={location}
-            key={location.pathname}
-            exact
-            path="/"
-            render={({...props}) => (
-              <div>
-                <AddMore newPlace={this.newPlace}/>
-                <ConditionsList places={this.props.places} removeItem={this.removeItem} {...props}/>
-                { this.state.notFound &&
-                  <CSSTransitionGroup
-                    transitionName="fade"
-                    transitionAppear={true}
-                    transitionLeave={true}
-                    transitionEnterTimeout={1000}
-                    transitionAppearTimeout={750}
-                    transitionLeaveTimeout={750}
-                  >
-                  <h2>Oops! Your search returned no results. Check your spelling and try again! <span style={{fontSize: 48}}>🤔</span></h2>
+      <Router>
+        <Route render={({ location }) => (
+          <div>
+            <CSSTransitionGroup
+              transitionName="fade"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={100}
+              transitionAppear={true}
+              // transitionLeave={true}
+              transitionAppearTimeout={600}
+              >
+                <Route
+                  location={location}
+                  key={location.pathname}
+                  exact
+                  path="/"
+                  render={({...props}) => (
+                    <div>
+                      <AddMore newPlace={this.newPlace}/>
+                      { !!places &&
+                        <ConditionsList places={this.props.places} removeItem={this.removeItem} {...props}/>
+                      }
+                      { this.state.notFound &&
+                        <CSSTransitionGroup
+                          transitionName="fade"
+                          transitionAppear={true}
+                          transitionLeave={true}
+                          transitionEnterTimeout={1000}
+                          transitionAppearTimeout={750}
+                          transitionLeaveTimeout={750}
+                          >
+                            <h2>Oops! Your search returned no results. Check your spelling and try again! <span style={{fontSize: 48}}>🤔</span></h2>
+                          </CSSTransitionGroup>
+                        }
+                      </div>
+                    )}
+                  />
                 </CSSTransitionGroup>
-                }
-              </div>
-            )}
-          />
-          </CSSTransitionGroup>
-          <CSSTransitionGroup
-            transitionName="fade"
-            transitionEnterTimeout={200}
-            transitionLeaveTimeout={500}
-          >
-            <Route
-              location={location}
-              key={location.pathname}
-              path={`/forecast/:forecastId`}
-              render={({...props}) => (
-                <Forecast {...props}/>
-              )}
-            />
-          </CSSTransitionGroup>
-        </div>
-      )}/>
+                <CSSTransitionGroup
+                  transitionName="fade"
+                  transitionEnterTimeout={200}
+                  transitionLeaveTimeout={500}
+                  >
+                    <Route
+                      location={location}
+                      key={location.pathname}
+                      path={`/forecast/:forecastId`}
+                      render={({...props}) => (
+                        <Forecast {...props}/>
+                      )}
+                    />
+                  </CSSTransitionGroup>
+                </div>
+              )}/>
+      </Router>
     )
   }
 }
