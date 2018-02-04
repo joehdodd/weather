@@ -13,26 +13,6 @@ import IconMostlyCloudy from '../images/components/IconMostlyCloudy';
 
 
 class Forecast extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      details: {},
-      forecast : []
-    }
-  }
-
-  componentDidMount() {
-    axios.get(`https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22${this.props.match.params.forecastId}%2C%2$%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`)
-    .then(res => {
-      let details = res.data.query.results.channel;
-      let forecast = res.data.query.results.channel.item.forecast;
-      this.setState({ details: details, forecast : forecast });
-    })
-    .catch( (error) => {
-      console.log(error);
-    })
-  }
-
   getIcon = (text) => {
     let conditionTypes = {
       "Sunny": <IconSunnyDay />,
@@ -51,7 +31,7 @@ class Forecast extends Component {
   }
 
   getForecastCard = () => {
-    let { forecast } = this.state;
+    const { forecast } = this.props.location.state.item;
     return forecast.map( data => {
       return (
         <div key={data.date} className="forecast-item">
@@ -77,23 +57,23 @@ class Forecast extends Component {
   }
 
   render() {
-    let { details, forecast } = this.state;
+    const { item, astronomy, location, atmosphere } = this.props.location.state;
     return (
       <div className="page-wrapper">
-        { !!this.state.details.astronomy
+        { !!this.props.location.state
           ?
           <div className="forecast-items">
             <div className="details-head-text">
-              <h2>Details for {details.location.city}</h2>
+              <h2>Details for {location.city}</h2>
             </div>
             <div className="detail-container">
               <div className="detail-item">
-                <p><span className="rise-text">Sunrise</span>: {details.astronomy.sunrise}</p>
-                <p><span className="set-text">Sunset</span>: {details.astronomy.sunset}</p>
+                <p><span className="rise-text">Sunrise</span>: {astronomy.sunrise}</p>
+                <p><span className="set-text">Sunset</span>: {astronomy.sunset}</p>
               </div>
               <div className="detail-item">
-                <p>Humidity: {details.atmosphere.humidity}%</p>
-                <p>Visbility: {details.atmosphere.visibility} mi</p>
+                <p>Humidity: {atmosphere.humidity}%</p>
+                <p>Visbility: {atmosphere.visibility} mi</p>
               </div>
             </div>
             <div className="details-head-text">
@@ -104,7 +84,7 @@ class Forecast extends Component {
               }
             </div>
             <div className="slide-container">
-              { forecast === undefined
+              { item.forecast === undefined
                 ? <div>
                   <span>Loading Forecast!</span>
                 </div>

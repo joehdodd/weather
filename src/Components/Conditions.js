@@ -28,38 +28,34 @@ class Conditions extends Component {
     return conditionTypes[text];
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (nextProps !== this.props) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   sendRemoveId = (id) => {
     this.props.removeItem(id);
     console.log('%cYou just removed an item, ya dengus! 😆 💯', 'font-size: 24px;');
   }
 
   render() {
-    const { data } = this.props.data.data.query.results.channel;
-    const { id } = this.props.id;
+    const { channel } = this.props.data.query.results;
+    const { id } = this.props;
+    const linkId = id.split(' ').join('_');
     return (
-        <div className="weather-item">
-          { !!data &&
+      <div className="weather-item">
+          { !!channel &&
             <div className="conditions">
               <div className="remove" onClick={ () => { this.sendRemoveId(id) } }>Remove</div>
-              <Link to={`/forecast/${this.props.city}`}>
-                <h3>{data.location.city}</h3>
-                <p><span className="hi-temp">{data.item.forecast[0].high}&deg;</span> <span className="lo-temp">{data.item.forecast[0].low}&deg;</span></p>
-                <p className="current-temp">{data.item.condition.temp}&deg;</p>
+              <Link to={{ pathname: `/forecast/${linkId}`, state: channel }}>
+                <h3>{channel.location.city}</h3>
+                <p><span className="hi-temp">{channel.item.forecast[0].high}&deg;</span> <span className="lo-temp">{channel.item.forecast[0].low}&deg;</span></p>
+                <p className="current-temp">{channel.item.condition.temp}&deg;</p>
                 <div className="weather-icon">
-                  {this.getIcon(data.item.condition.text)}
+                  {this.getIcon(channel.item.condition.text)}
                 </div>
               </Link>
             </div>
           }
-          { !data &&
-            <span>FUCK!</span>
+          { !channel &&
+            <div className="conditions">
+              <span>Loading...</span>
+            </div>
           }
       </div>
     )

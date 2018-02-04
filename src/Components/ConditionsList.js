@@ -9,13 +9,12 @@ class ConditionsList extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const places = nextProps.places;
-    (!!places) &&
-    this.setState( prevState => ({
-      places: [...prevState.places, ...places]
-    }));
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   let newPlace = nextProps.places;
+  //   this.setState( prevState => ({
+  //     places: [...prevState.places, ...newPlace]
+  //   }));
+  // }
 
   // getConditionItems = () => {
   //   let { places } = this.props;
@@ -26,10 +25,10 @@ class ConditionsList extends Component {
   // }
 
   render() {
-    let { places } = this.state;
+    let { places } = this.props;
     let conditionItems = places.map( (place, index) => {
       let uniqueKey = (index + 1);
-      return <Conditions key={uniqueKey} id={place.id} city={place.id} data={place.data} removeItem={this.props.removeItem}/>
+      return <Conditions key={uniqueKey} id={place.id} data={place.data.data} removeItem={this.props.removeItem}/>
     })
     return (
       <div>
