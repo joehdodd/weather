@@ -11,49 +11,10 @@ import '../App.css';
 
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      notFound: false,
-      places: []
-    }
-  }
-
-  // componentWillMount() {
-  //   const { dispatch } = this.props;
-  //   // let localStorageRef = localStorage.getItem(`places`);
-  //   // places: JSON.parse(localStorageRef)
-  // }
-
-  // componentDidUpdate() {
-  //   const { places } = this.props;
-  //   localStorage.setItem(`places`, JSON.stringify(places));
-  // }
 
   newPlace = (newPlace) => {
     const { dispatch } = this.props;
     dispatch(getWeather(newPlace));
-    // let uri = `https://query.yahooapis.com/v1/public/yql?q=`;
-    // let queryText = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${newPlace}")&format=json`;
-    // let restQuery = uri += queryText;
-    // axios.get(restQuery)
-    // .then(response => {
-    //   let results = response.data.query.results;
-    //   let data = response.data.query.results.channel;
-    //   if (!results || !data ) {
-    //     this.setState({ notFound: true });
-    //   }
-    //   if (!!results || !!data) {
-    //     this.setState( prevState => ({
-    //       places: [...prevState.places, { id: newPlace, data: data}],
-    //       notFound: false
-    //     }));
-    //   }
-    // })
-    // .catch( (error) => {
-    //   this.setState({ notFound: true });
-    //   console.log(error);
-    // })
   }
 
   removeItem = (id) => {
@@ -62,7 +23,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { places } = this.props;
+    const { places, notFound } = this.props;
     return (
       <Router>
         <Route render={({ location }) => (
@@ -86,7 +47,7 @@ class App extends React.Component {
                       { !!places &&
                         <ConditionsList places={this.props.places} removeItem={this.removeItem} {...props}/>
                       }
-                      { this.state.notFound &&
+                      { notFound &&
                         <CSSTransitionGroup
                           transitionName="fade"
                           transitionAppear={true}
