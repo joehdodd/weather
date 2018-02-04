@@ -1,26 +1,26 @@
 /* eslint-disable */
-import { RES_SUCC, RES_ERR } from '../actions/actions.js';
-import { combineReducers } from 'redux';
+import { RES_SUCC, RES_ERR, REMOVE_PLACE } from '../actions/actions.js';
 
-function getWeather(state = {}, action) {
+function handleWeather(state = {}, action) {
 	switch (action.type) {
 		case RES_SUCC:
 			return Object.assign({}, state, {
-        places: [ { id: action.place, data: action.payload}, ...getWeather(state.places, action.payload) ],
+        places: [ { id: action.place, data: action.payload}, ...handleWeather(state.places, action.payload) ],
         notFound: action.notFound,
       })
     case RES_ERR:
       return Object.assign({}, state, {
-        noutFound: action.notFound
+        notFound: action.notFound
       })
+		case REMOVE_PLACE:
+			return {
+				...state,
+				places: state.places.filter(place => place.id !== action.id),
+			}
     default:
       return state;
 	}
 	return state;
 }
 
-const rootReducer = combineReducers({
-  getWeather
-})
-
-export default rootReducer;
+export default handleWeather;

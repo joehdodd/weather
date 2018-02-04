@@ -3,6 +3,7 @@ import axios from 'axios';
 export const RES_ERR = 'RES_ERR';
 export const RES_SUCC = 'RES_SUCC'
 export const GET_WEATHER = 'GET_WEATHER';
+export const REMOVE_PLACE = 'REMOVE_PLACE';
 
 function resSuccess(response, place) {
   return {
@@ -17,6 +18,13 @@ function resError(err) {
   return {
     type: RES_ERR,
     notFound: true
+  }
+}
+
+export function removePlace(id) {
+  return {
+    type: REMOVE_PLACE,
+    id: id
   }
 }
 

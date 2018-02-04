@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getWeather } from '../actions/actions';
+import { getWeather, removePlace } from '../actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { HashRouter as Router } from 'react-router-dom';
 import { Route } from 'react-router-dom';
@@ -19,12 +19,11 @@ class App extends React.Component {
     }
   }
 
-  componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch(getWeather('new york'));
-    // let localStorageRef = localStorage.getItem(`places`);
-    // places: JSON.parse(localStorageRef)
-  }
+  // componentWillMount() {
+  //   const { dispatch } = this.props;
+  //   // let localStorageRef = localStorage.getItem(`places`);
+  //   // places: JSON.parse(localStorageRef)
+  // }
 
   // componentDidUpdate() {
   //   const { places } = this.props;
@@ -58,9 +57,8 @@ class App extends React.Component {
   }
 
   removeItem = (id) => {
-    let { places } = this.state;
-    places.splice(id, 1);
-    this.setState({ places });
+    const { dispatch } = this.props;
+    dispatch(removePlace(id));
   }
 
   render() {
@@ -127,10 +125,8 @@ class App extends React.Component {
 
 
 function mapStateToProps(state) {
-  const { getWeather } = state;
-  const { places, notFound } = getWeather
+  const  { places, notFound } = state;
   return {
-    getWeather,
     places,
     notFound
   }

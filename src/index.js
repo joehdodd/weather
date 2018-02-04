@@ -8,6 +8,10 @@ import './index.css';
 
 const store = configureStore();
 
+store.subscribe(() => {
+  localStorage.setItem('state', JSON.stringify(store.getState()))
+})
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>
