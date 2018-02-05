@@ -5,15 +5,16 @@ input:focus {
 }
 
 input[type="text"] {
-  width: 50%;
-  height: 30px;
+  width: 100%;
+  height: 35px;
+  margin-top: 5px;
+  font-size: 18px;
   border: none;
   highlight: none;
   background: #3d4148;
   color: #abb2bf;
   border-radius: 2px;
   font-family: 'Cabin', sans-serif;
-  font-size: 16px;
 }
 
 /* wrappers and containers */
@@ -68,7 +69,7 @@ input[type="text"] {
   margin: 5px;
   padding: 5px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.975);
+  background: #3d4148;
   box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.55);
 }
 
@@ -93,7 +94,7 @@ input[type="text"] {
   padding: 5px;
   margin: 5px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.975);
+  background: #3d4148;
   box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.55);
 }
 
@@ -105,9 +106,9 @@ input[type="text"] {
 .button {
   font-family: 'Cabin', sans-serif;
   font-size: 1em;
-  min-width: 15%;
-  height: 32px;
-  margin: 10px 5px;
+  width: 100%;
+  height: 35px;
+  margin: 10px 0px;
   padding: 5px;
   outline: none;
   color: #fff;
@@ -186,6 +187,18 @@ input[type="text"] {
   .page-wrapper {
     margin: 0 auto;
     max-width: 70%;
+  }
+
+  input[type="text"] {
+    width: 50%;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .button {
+    width: 15%;
+    height: 30px;
+    margin: 10px 5px;
   }
 
 }

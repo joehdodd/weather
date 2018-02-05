@@ -1,33 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
-import IconSunnyDay from '../images/components/IconSunnyDay';
-import IconPartlyCloudy from '../images/components/IconPartlyCloudy';
-import IconLightning from '../images/components/IconLightning';
-import IconBlizzard from '../images/components/IconBlizzard';
-import IconDrizzle from '../images/components/IconDrizzle';
-import IconCloudy from '../images/components/IconCloudy';
-import IconRain from '../images/components/IconRain';
-import IconMostlyCloudy from '../images/components/IconMostlyCloudy';
-
+import WeatherIcon from './WeatherIcon';
 
 const Forecast = (props) => {
-  const getIcon = (text) => {
-    let conditionTypes = {
-      "Sunny": <IconSunnyDay />,
-      "Mostly Sunny": <IconSunnyDay />,
-      "Partly Cloudy": <IconPartlyCloudy />,
-      "Mostly Cloudy": <IconMostlyCloudy />,
-      "Scattered Thunderstorms": <IconLightning />,
-      "Scattered Showers": <IconDrizzle />,
-      "Rain": <IconRain />,
-      "Thunderstorms": <IconLightning />,
-      "Drizzle": <IconDrizzle />,
-      "Blizzard": <IconBlizzard />,
-      "Cloudy": <IconCloudy />,
-    }
-    return conditionTypes[text];
-  }
 
   const getForecastCard = () => {
     const { forecast } = props.location.state.item;
@@ -38,9 +14,7 @@ const Forecast = (props) => {
             <p>{data.day}, {data.date}</p>
             <p>High: <span className="hi-temp">{data.high}&deg;</span></p>
             <p>Low: <span className="lo-temp">{data.low}&deg;</span></p>
-            <div className="weather-icon">
-              {getIcon(data.text)}
-            </div>
+            <WeatherIcon text={data.text} />
           </div>
         </div>
       )
@@ -84,11 +58,11 @@ const Forecast = (props) => {
           <div className="slide-container">
             { item.forecast === undefined
               ? <div>
-                <span>Loading Forecast!</span>
-              </div>
+                  <span>Loading Forecast!</span>
+                </div>
               : <Slider {...SETTINGS}>
-                {getForecastCard()}
-              </Slider>
+                  {getForecastCard()}
+                </Slider>
             }
           </div>
           <div>
