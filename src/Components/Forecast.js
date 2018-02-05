@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Slider from 'react-slick';
 import WeatherIcon from './WeatherIcon';
 
 const Forecast = (props) => {
-
   const getForecastCard = () => {
     const { forecast } = props.location.state.item;
     return forecast.map( data => {
@@ -66,7 +65,7 @@ const Forecast = (props) => {
             }
           </div>
           <div>
-            <Link to="/">
+            <Link to={{ pathname: '/'}}>
               <button className="button">Back to Overview</button>
             </Link>
           </div>
@@ -80,4 +79,4 @@ const Forecast = (props) => {
   )
 }
 
-export default Forecast
+export default withRouter(Forecast)

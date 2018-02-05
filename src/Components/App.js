@@ -43,7 +43,7 @@ class App extends React.Component {
                   <div>
                     <AddMore newPlace={this.newPlace}/>
                     { !!places &&
-                      <ConditionsList places={this.props.places} removeItem={this.removeItem} {...props}/>
+                      <ConditionsList places={places} removeItem={this.removeItem} {...props}/>
                     }
                     { notFound &&
                       <CSSTransitionGroup
