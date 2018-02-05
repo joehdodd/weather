@@ -13,12 +13,14 @@ const Conditions = (props) => {
   const getIcon = (text) => {
     let conditionTypes = {
       "Sunny": <IconSunnyDay />,
+      "Clear": <IconSunnyDay />,
       "Mostly Sunny": <IconSunnyDay />,
       "Partly Cloudy": <IconPartlyCloudy />,
       "Mostly Cloudy": <IconMostlyCloudy />,
       "Scattered Thunderstorms": <IconLightning />,
       "Scattered Showers": <IconDrizzle />,
       "Rain": <IconRain />,
+      "Showers": <IconRain />,
       "Thunderstorms": <IconLightning />,
       "Drizzle": <IconDrizzle />,
       "Blizzard": <IconBlizzard />,

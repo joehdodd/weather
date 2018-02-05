@@ -2,8 +2,8 @@ body {
   box-sizing: border-box;
   margin: 5px auto;
   padding: 0 2.5%;
-  font-family: 'Iconsolata', monospace;
-  background: #E9EBEE;
+  font-family: 'Cabin', sans-serif;
+  background: #21252b;
   background-size: cover cover;
 }
 
@@ -19,7 +19,11 @@ a:hover {
 h1, h2, h3, h4 {
   margin: 0;
   font-weight: bold;
-  color: rgb(43, 107, 181);
+  color: #5c6370;
+}
+
+label, p {
+  color: #abb2bf;
 }
 
 /* transitions */

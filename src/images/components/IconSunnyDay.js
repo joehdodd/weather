@@ -1,9 +1,10 @@
 import React from 'react';
 
-export default () => {
+export default (props) => {
+  const iconColor = props.iconColor || '#abb2bf';
   return (
     <svg x="0px" y="0px" viewBox="0 0 219.786 219.786">
-      <g>
+      <g fill={iconColor}>
       	<path d="M109.881,183.46c-4.142,0-7.5,3.358-7.5,7.5v21.324c0,4.142,3.358,7.5,7.5,7.5c4.143,0,7.5-3.358,7.5-7.5V190.96
       		C117.381,186.817,114.023,183.46,109.881,183.46z"/>
       	<path d="M109.881,36.329c4.143,0,7.5-3.358,7.5-7.5V7.503c0-4.142-3.357-7.5-7.5-7.5c-4.142,0-7.5,3.358-7.5,7.5v21.326
