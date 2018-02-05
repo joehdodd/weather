@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './Components/App';
 import { Provider } from 'react-redux';
-import configureStore from './configureStore';
-import { HashRouter as Router } from 'react-router-dom';
+import { store, history } from './configureStore';
+// import { HashRouter as Router } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 import './index.css';
-
-const store = configureStore();
 
 store.subscribe(() => {
   localStorage.setItem('state', JSON.stringify(store.getState()))
@@ -14,9 +13,9 @@ store.subscribe(() => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <ConnectedRouter history={history}>
       <App />
-    </Router>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );
