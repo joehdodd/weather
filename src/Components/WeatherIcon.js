@@ -8,6 +8,8 @@ import IconDrizzle from '../images/components/IconDrizzle';
 import IconCloudy from '../images/components/IconCloudy';
 import IconRain from '../images/components/IconRain';
 import IconMostlyCloudy from '../images/components/IconMostlyCloudy';
+import IconBreeze from '../images/components/IconBreeze';
+import IconSnow from '../images/components/IconSnow';
 
 const WeatherIcon = (props) => {
   let conditionTypes = {
@@ -23,8 +25,10 @@ const WeatherIcon = (props) => {
     "Thunderstorms": <IconLightning />,
     "Drizzle": <IconDrizzle />,
     "Blizzard": <IconBlizzard />,
+    "Snow Showers": <IconSnow />,
     "Rain And Snow": <IconSleet />,
     "Cloudy": <IconCloudy />,
+    "Breezy": <IconBreeze />,
   }
   return (
     <div className="weather-icon">

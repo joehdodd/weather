@@ -180,6 +180,12 @@ input[type="text"] {
   font-weight: bolder;
 }
 
+/* slider */
+
+.slick-slider {
+  max-height: 180px;
+}
+
 /* media queries */
 
 @media screen and (min-width: 768px) {
@@ -196,7 +202,7 @@ input[type="text"] {
   }
 
   .button {
-    width: 15%;
+    width: 20%;
     height: 30px;
     margin: 10px 5px;
   }
