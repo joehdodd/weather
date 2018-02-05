@@ -25,6 +25,7 @@ const Forecast = (props) => {
     speed: 1500,
     slidesToShow: 5,
     slidesToScroll: 5,
+    adaptiveHeight: true,
     responsive: [ { breakpoint: 768, settings: { arrows: false, slidesToShow: 2, slidesToScroll: 2 } } ]
   }
 

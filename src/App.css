@@ -183,7 +183,7 @@ input[type="text"] {
 /* slider */
 
 .slick-slider {
-  max-height: 180px;
+  /* max-height: 180px; */
 }
 
 /* media queries */
