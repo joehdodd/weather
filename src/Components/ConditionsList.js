@@ -1,34 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Conditions from './Conditions';
 
-class ConditionsList extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      places : []
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    let newPlace = nextProps.places;
-    this.setState( prevState => ({
-      places: [...prevState.places, ...newPlace]
-    }));
-  }
-
-  getConditionItems = () => {
-    let { places } = this.props;
-    places.map( (place, index) => {
-      let uniqueKey = (index + 1);
-      return <Conditions key={uniqueKey} id={place.id} city={place.id} data={place.data} removeItem={this.removeItem}/>
-    })
-  }
-
-  render() {
-    let { places } = this.props;
+const ConditionsList = (props) => {
+    const { places } = props;
     let conditionItems = places.map( (place, index) => {
       let uniqueKey = (index + 1);
-      return <Conditions key={uniqueKey} id={place.id} city={place.id} data={place.data} removeItem={this.props.removeItem}/>
+      return <Conditions key={uniqueKey} id={place.id} data={place.data.data} removeItem={props.removeItem}/>
     })
     return (
       <div>
@@ -41,7 +18,6 @@ class ConditionsList extends Component {
           </div>
       </div>
     )
-  }
 }
 
 export default ConditionsList

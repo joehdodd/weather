@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-// import axios from 'axios';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import IconSunnyDay from '../images/components/IconSunnyDay';
 import IconPartlyCloudy from '../images/components/IconPartlyCloudy';
@@ -10,20 +9,8 @@ import IconCloudy from '../images/components/IconCloudy';
 import IconRain from '../images/components/IconRain';
 import IconMostlyCloudy from '../images/components/IconMostlyCloudy';
 
-class Conditions extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      data : {}
-    }
-  }
-
-  componentDidMount() {
-    let { data } = this.props;
-    this.setState({ data: data })
-  }
-
-  getIcon = (text) => {
+const Conditions = (props) => {
+  const getIcon = (text) => {
     let conditionTypes = {
       "Sunny": <IconSunnyDay />,
       "Clear": <IconSunnyDay />,
@@ -42,36 +29,36 @@ class Conditions extends Component {
     return conditionTypes[text];
   }
 
-  sendRemoveId = (id) => {
-    this.props.removeItem(id);
+  const sendRemoveId = (id) => {
+    props.removeItem(id);
     console.log('%cYou just removed an item, ya dengus! 😆 💯', 'font-size: 24px;');
   }
 
-  render() {
-    let { id } = this.props;
-    return (
-      <div className="weather-item">
-        { !!this.state.data.item
-          ?
+  const { channel } = props.data.query.results;
+  const { id } = props;
+  const linkId = id.split(' ').join('_');
+  return (
+    <div className="weather-item">
+        { !!channel &&
           <div className="conditions">
-            <div className="remove" onClick={ () => { this.sendRemoveId(id) } }>Remove</div>
-            <Link to={`/forecast/${this.props.city}`}>
-              <h3>{this.state.data.location.city}</h3>
-              <p><span className="hi-temp">{this.state.data.item.forecast[0].high}&deg;</span> <span className="lo-temp">{this.state.data.item.forecast[0].low}&deg;</span></p>
-              <p className="current-temp">{this.state.data.item.condition.temp}&deg;</p>
+            <div className="remove" onClick={ () => { sendRemoveId(id) } }>Remove</div>
+            <Link to={{ pathname: `/forecast/${linkId}`, state: channel }}>
+              <h3>{channel.location.city}</h3>
+              <p><span className="hi-temp">{channel.item.forecast[0].high}&deg;</span> <span className="lo-temp">{channel.item.forecast[0].low}&deg;</span></p>
+              <p className="current-temp">{channel.item.condition.temp}&deg;</p>
               <div className="weather-icon">
-                {this.getIcon(this.state.data.item.condition.text)}
+                {getIcon(channel.item.condition.text)}
               </div>
             </Link>
           </div>
-          :
+        }
+        { !channel &&
           <div className="conditions">
-            <p>Loading data...</p>
+            <span>Loading...</span>
           </div>
         }
-      </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default Conditions
