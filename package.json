@@ -2,7 +2,6 @@
   "name": "weather",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://joehdodd.github.io/weather",
   "dependencies": {
     "axios": "^0.16.2",
     "history": "^4.7.2",
