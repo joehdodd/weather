@@ -17,12 +17,12 @@ a:hover {
 }
 
 h1, h2, h3, h4 {
-  margin: 0;
+  margin: 5px 0;
   font-weight: bold;
   color: #5c6370;
 }
 
-label, p {
+label, span, p {
   color: #abb2bf;
 }
 

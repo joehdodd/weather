@@ -21,6 +21,11 @@ class App extends React.Component {
     dispatch(removePlace(id));
   }
 
+  updateItem = (id) => {
+    const { dispatch } = this.props;
+    dispatch(getWeather(id, true));
+  }
+
   render() {
     const { places, notFound } = this.props;
     return (
@@ -42,8 +47,8 @@ class App extends React.Component {
                 render={({...props}) => (
                   <div>
                     <AddMore newPlace={this.newPlace}/>
-                    { !!places &&
-                      <ConditionsList places={places} removeItem={this.removeItem} {...props}/>
+                    { !!places && !notFound &&
+                      <ConditionsList places={places} removeItem={this.removeItem} updateItem={this.updateItem} {...props}/>
                     }
                     { notFound &&
                       <CSSTransitionGroup
