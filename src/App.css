@@ -38,7 +38,7 @@ input[type="text"] {
 }
 
 .weather-item {
-  flex: 1 150px;
+  flex: 1 215px;
   margin: 5px;
   border-radius: 2px;
   background: #3d4148;
