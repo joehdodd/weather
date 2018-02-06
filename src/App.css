@@ -92,6 +92,7 @@ input[type="text"] {
 
 .forecast-wrapper {
   padding: 5px;
+  height: 175px;
   margin: 5px;
   border-radius: 2px;
   background: #3d4148;
