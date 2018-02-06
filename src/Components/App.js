@@ -11,6 +11,12 @@ import '../App.css';
 
 class App extends React.Component {
 
+  componentDidMount() {
+    const { dispatch, places } = this.props;
+    const singleUpdate = true;
+    places.map(place => dispatch(getWeather(place.id, singleUpdate)))
+  }
+
   newPlace = (newPlace) => {
     const { dispatch } = this.props;
     dispatch(getWeather(newPlace));
@@ -23,7 +29,8 @@ class App extends React.Component {
 
   updateItem = (id) => {
     const { dispatch } = this.props;
-    dispatch(getWeather(id, true));
+    const singleUpdate = true;
+    dispatch(getWeather(id, singleUpdate));
   }
 
   render() {
@@ -89,10 +96,10 @@ class App extends React.Component {
 
 function mapStateToProps(state, ownProps) {
   const { handleWeather } = state;
-  const  { places, notFound } = handleWeather;
+  const  { places, notFound, } = handleWeather;
   return {
     places,
-    notFound
+    notFound,
   }
 }
 

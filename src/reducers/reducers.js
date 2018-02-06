@@ -1,11 +1,15 @@
 /* eslint-disable */
-import { RES_SUCC, RES_ERR, REMOVE_PLACE, UPDATE_PLACE } from '../actions/actions.js';
+import { RES_SUCC, RES_ERR, REMOVE_PLACE, UPDATE_PLACE, GLOBAL_UPDATE } from '../actions/actions.js';
 
 function handleWeather(state = {
-		places: [ { id: '', updatedAt: Date.now(), data: {} }],
 		notFound: false,
 	}, action) {
 	switch (action.type) {
+		// case GLOBAL_UPDATE:
+		//  	let nextState = {
+		// 		globalUpdated: action.globalUpdated
+		// 	}
+		// 	return Object.assign({}, state, nextState)
 		case RES_SUCC:
 			let nextState = {
         places: [ { id: action.place, updatedAt: action.updatedAt, data: action.payload}, ...handleWeather(state.places, action.payload) ],

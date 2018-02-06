@@ -1,11 +1,14 @@
 import axios from 'axios';
 
-export const RES_ERR = 'RES_ERR';
-export const RES_SUCC = 'RES_SUCC'
-export const GET_WEATHER = 'GET_WEATHER';
-export const UPDATE_PLACE = 'SINGLE_UPDATE';
-export const REMOVE_PLACE = 'REMOVE_PLACE';
+// export const GLOBAL_UPDATE = 'GLOBAL_UPDATE';
+// export function globalTimeUpdate() {
+//   return {
+//     type: GLOBAL_UPDATE,
+//     globalUpdated: Date.now()
+//   }
+// }
 
+export const RES_SUCC = 'RES_SUCC';
 function resSuccess(response, place) {
   return {
     type: RES_SUCC,
@@ -16,6 +19,7 @@ function resSuccess(response, place) {
   }
 }
 
+export const UPDATE_PLACE = 'SINGLE_UPDATE';
 function updatePlace(response, place) {
   return {
     type: UPDATE_PLACE,
@@ -26,6 +30,7 @@ function updatePlace(response, place) {
   }
 }
 
+export const RES_ERR = 'RES_ERR';
 function resError(err) {
   return {
     type: RES_ERR,
@@ -33,6 +38,7 @@ function resError(err) {
   }
 }
 
+export const REMOVE_PLACE = 'REMOVE_PLACE';
 export function removePlace(id) {
   return {
     type: REMOVE_PLACE,
@@ -40,6 +46,7 @@ export function removePlace(id) {
   }
 }
 
+export const GET_WEATHER = 'GET_WEATHER';
 export function getWeather(place, update) {
   let uri = `https://query.yahooapis.com/v1/public/yql?q=`;
   let query = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${place}")&format=json`;
@@ -50,7 +57,6 @@ export function getWeather(place, update) {
       const results = response.data.query.results;
       if (!!response && (results === null || undefined)) {
         dispatch(resError(true))
-        console.log('hi');
       } else if (!!update) {
         dispatch(updatePlace(response, place));
       } else {
