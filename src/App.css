@@ -92,6 +92,7 @@ input[type="text"] {
 
 .forecast-wrapper {
   padding: 5px;
+  height: 175px;
   margin: 5px;
   border-radius: 2px;
   background: #3d4148;
@@ -121,6 +122,7 @@ input[type="text"] {
 
 .button:hover {
   transform: scale(1.05);
+  cursor: pointer;
 }
 
 /* details styling */
