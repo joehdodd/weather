@@ -11,6 +11,7 @@ function resSuccess(response, place) {
     type: RES_SUCC,
     payload: response,
     place: place,
+    updatedAt: Date.now(),
     notFound: false,
   }
 }
@@ -20,6 +21,7 @@ function updatePlace(response, place) {
     type: UPDATE_PLACE,
     payload: response,
     place: place,
+    updatedAt: Date.now(),
     notFound: false,
   }
 }

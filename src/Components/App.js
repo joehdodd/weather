@@ -47,7 +47,7 @@ class App extends React.Component {
                 render={({...props}) => (
                   <div>
                     <AddMore newPlace={this.newPlace}/>
-                    { !!places &&
+                    { !!places && !notFound &&
                       <ConditionsList places={places} removeItem={this.removeItem} updateItem={this.updateItem} {...props}/>
                     }
                     { notFound &&

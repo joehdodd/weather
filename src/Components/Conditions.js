@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import WeatherIcon from './WeatherIcon';
+import moment from 'moment';
 
 const Conditions = (props) => {
 
@@ -16,6 +17,7 @@ const Conditions = (props) => {
 
   const { channel } = props.data.query.results;
   const { id } = props;
+  const lastUpdate = moment(props.updatedAt).format('MMM Do YYYY, h:mm a');
   const linkId = id.split(' ').join('_');
   return (
     <div className="weather-item">
@@ -23,6 +25,7 @@ const Conditions = (props) => {
           <div className="conditions">
             <Link to={{ pathname: `/forecast/${linkId}`, state: channel }}>
               <h3>{channel.location.city}</h3>
+              <span>Updated | { lastUpdate }</span>
               <p><span className="hi-temp">{channel.item.forecast[0].high}&deg;</span> <span className="lo-temp">{channel.item.forecast[0].low}&deg;</span></p>
               <p className="current-temp">{channel.item.condition.temp}&deg;</p>
               <WeatherIcon text={channel.item.condition.text}/>

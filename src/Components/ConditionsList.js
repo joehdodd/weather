@@ -5,7 +5,7 @@ const ConditionsList = (props) => {
     const { places } = props;
     let conditionItems = places.map( (place, index) => {
     let uniqueKey = (Math.floor((1 + Math.random()) * 0x10000));
-      return <Conditions key={uniqueKey} id={place.id} data={place.data.data} removeItem={props.removeItem} updateItem={props.updateItem} />
+      return <Conditions key={uniqueKey} id={place.id} updatedAt={place.updatedAt} data={place.data.data} removeItem={props.removeItem} updateItem={props.updateItem} />
     })
     return (
       <div>
