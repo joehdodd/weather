@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import WeatherIcon from './WeatherIcon';
 import moment from 'moment';
+import { Draggable } from 'react-beautiful-dnd';
+
 
 const Conditions = (props) => {
 
@@ -20,9 +22,19 @@ const Conditions = (props) => {
   const lastUpdate = moment(props.updatedAt).format('MMM Do YYYY, h:mm a');
   const linkId = id.split(' ').join('_');
   return (
-    <div className="weather-item">
+    <Draggable draggableId={linkId} index={props.index}>
+      {(provided, snapshot) => (
+    <div
+      className="weather-item"
+      key={linkId}
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      >
         { !!channel &&
-          <div className="conditions">
+          <div
+            className="conditions"
+            >
             <Link to={{ pathname: `/forecast/${linkId}`, state: channel }}>
               <h3>{channel.location.city}</h3>
               <span>Updated | { lastUpdate }</span>
@@ -42,6 +54,8 @@ const Conditions = (props) => {
           </div>
         }
     </div>
+      )}
+    </Draggable>
   )
 }
 
