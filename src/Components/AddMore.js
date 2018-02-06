@@ -40,7 +40,7 @@ class AddMore extends Component {
                 value={newPlace}
                 onChange={this.handleChange}
               />
-              <button className="button" type="button" onClick={ (e) => { this.handleSubmit(e) }}>Add</button>
+              <button className="button" type="submit" onClick={ (e) => { this.handleSubmit(e) }}>Add</button>
             </form>
           </div>
       </div>
