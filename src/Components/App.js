@@ -14,7 +14,9 @@ class App extends React.Component {
   componentDidMount() {
     const { dispatch, places } = this.props;
     const singleUpdate = true;
-    places.map(place => dispatch(getWeather(place.id, singleUpdate)))
+    if (!!places) {
+      places.map(place => dispatch(getWeather(place.id, singleUpdate)))
+    }
   }
 
   newPlace = (newPlace) => {
