@@ -26,6 +26,7 @@ const Conditions = (props) => {
         const style = {
           backgroundColor: snapshot.isDragging ? 'rgba(0, 0, 0, 0.5)' : '',
           ...provided.draggableProps.style,
+          transition: snapshot.isDragging ? 'background-color 500ms cubic-bezier(0.4, 0.0, 0.2, 1)' : '',
         }
         return (
           <div>
