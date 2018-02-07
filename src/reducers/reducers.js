@@ -48,7 +48,8 @@ export function handleWeather(state = {
 			return Object.assign({}, state, nextState)
 			case REORDER:
 			return Object.assign({}, state, {
-				places: action.places.filter(place => place !== undefined || null)
+				// places: action.places.filter(place => place !== undefined || null)
+				places: [...action.places]
 			})
     default:
       return state;
