@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import WeatherIcon from './WeatherIcon';
 import moment from 'moment';
-import { Draggable } from 'react-beautiful-dnd';
-
+import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 
 const Conditions = (props) => {
 
@@ -23,44 +22,50 @@ const Conditions = (props) => {
   const linkId = id.split(' ').join('_');
   return (
     <Draggable draggableId={dragKey} index={index} /*NOTE: do NOT operate on the index prop inside destructuring*/>
-      {(provided, snapshot) => (
-        <div>
-          <div
-            className="weather-item"
-            key={linkId}
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            style={provided.draggableProps.style}
-            >
-              <div className="conditions">
-                <Link to={{ pathname: `/forecast/${linkId}`, state: channel }}>
-                <h3>{channel.location.city}</h3>
-                <span>Updated | {lastUpdate}</span>
-                <p>
-                  <span className="hi-temp">
-                    {channel.item.forecast[0].high}&deg;
-                  </span>{' '}
-                  <span className="lo-temp">
-                    {channel.item.forecast[0].low}&deg;
-                  </span>
-                </p>
-                <p className="current-temp">{channel.item.condition.temp}&deg;</p>
-                <WeatherIcon text={channel.item.condition.text} />
-              </Link>
-              <div className="remove-update-container">
-                <div className="update" onClick={() => { sendUpdate(id) }}>
-                  Update
+      {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => {
+        const style = {
+          backgroundColor: snapshot.isDragging ? 'rgba(0, 0, 0, 0.5)' : '',
+          ...provided.draggableProps.style,
+        }
+        return (
+          <div>
+            <div
+              className="weather-item conditions"
+              key={linkId}
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              style={style}
+              >
+                <div>
+                  <Link to={{ pathname: `/forecast/${linkId}`, state: channel }}>
+                    <h3>{channel.location.city}</h3>
+                    <span>Updated | {lastUpdate}</span>
+                    <p>
+                      <span className="hi-temp">
+                        {channel.item.forecast[0].high}&deg;
+                      </span>{' '}
+                      <span className="lo-temp">
+                        {channel.item.forecast[0].low}&deg;
+                      </span>
+                    </p>
+                    <p className="current-temp">{channel.item.condition.temp}&deg;</p>
+                    <WeatherIcon text={channel.item.condition.text} />
+                  </Link>
+                  <div className="remove-update-container">
+                    <div className="update" onClick={() => { sendUpdate(id) }}>
+                      Update
+                    </div>
+                    <div className="remove" onClick={() => { sendRemoveId(id) }}>
+                      Remove
+                    </div>
+                  </div>
                 </div>
-                <div className="remove" onClick={() => { sendRemoveId(id) }}>
-                  Remove
-                </div>
-              </div>
             </div>
+            {provided.placeholder}
           </div>
-          {provided.placeholder}
-        </div>
-      )}
+        )
+      }}
     </Draggable>
   )
 }

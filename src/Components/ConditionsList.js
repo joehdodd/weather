@@ -1,7 +1,6 @@
 import React from 'react';
 import { Droppable, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
 import Conditions from './Conditions';
-// import { Draggable } from 'react-beautiful-dnd';
 
 const ConditionsList = (props) => {
     const { places } = props;
@@ -33,7 +32,11 @@ const ConditionsList = (props) => {
         </div>
         <Droppable droppableId="droppable" direction="horizontal">
           {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
-            <div className="weather-container" ref={provided.innerRef}>
+            <div
+              className="weather-container"
+              style={{backgroundColor: 'rgba(0, 0, 0, 0.15)', marginBottom: 20, borderRadius: 4, padding: 5}}
+              ref={provided.innerRef}
+            >
               {conditionItems}
               {provided.placeholder}
             </div>
