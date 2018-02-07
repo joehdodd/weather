@@ -34,7 +34,7 @@ const ConditionsList = (props) => {
           {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
             <div
               className="weather-container"
-              style={{backgroundColor: 'rgba(0, 0, 0, 0.15)', marginBottom: 20, borderRadius: 4, padding: 5}}
+              style={{backgroundColor: 'rgba(0, 0, 0, 0.15)', borderRadius: 4, paddingTop: 15, paddingBottom: 15}}
               ref={provided.innerRef}
             >
               {conditionItems}
