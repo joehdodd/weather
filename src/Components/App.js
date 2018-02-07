@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getWeather, removePlace } from '../actions/actions';
+import { getWeather, removePlace, reorder } from '../actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
 import AddMore from './AddMore';
@@ -9,6 +9,13 @@ import Forecast from './Forecast';
 import { DragDropContext } from 'react-beautiful-dnd';
 import '../App.css';
 
+const reorderArr = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  console.log(result);
+  return result;
+};
 
 class App extends React.Component {
 
@@ -35,13 +42,20 @@ class App extends React.Component {
     const singleUpdate = true;
     dispatch(getWeather(id, singleUpdate));
   }
-  onDragStart = () => {
-    /*...*/
-  };
 
-  onDragEnd = (result: DropResult) => {
-    /*...*/
-    console.log(result);
+  onDragEnd = (result) => {
+    const { dispatch, places } = this.props;
+    if (!result.destination) {
+      return;
+    }
+
+    const reorderedPlaces = reorderArr(
+      places,
+      result.source.index,
+      result.destination.index
+    );
+
+    return dispatch(reorder(reorderedPlaces));
   };
 
   render() {
@@ -112,11 +126,18 @@ class App extends React.Component {
 
 
 function mapStateToProps(state, ownProps) {
-  const { handleWeather } = state;
-  const  { places, notFound, } = handleWeather;
+  const {
+    handleWeather,
+  } = state;
+  const {
+    places,
+    notFound,
+    reorder
+  } = handleWeather;
   return {
     places,
     notFound,
+    reorder,
   }
 }
 
