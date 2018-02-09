@@ -9,7 +9,9 @@ class GeoContainer extends Component {
   render() {
     return (
       <div className="component-container">
-        <h1>Your Weather...</h1>
+        <div className="conditions-heading">
+          <h3>Your Weather...</h3>
+        </div>
         { !!this.props.data
           ? <div>
               <SummaryBreakdown {...this.props}/>

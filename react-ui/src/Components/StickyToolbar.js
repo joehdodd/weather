@@ -8,7 +8,7 @@ const StickyToolbar = (props) => {
         <h1>Dark Sky Weather</h1>
       </div>
       <AddMore
-        geoLocateSearch={props.getAPIWeather}
+        geoLocateSearch={props.geoLocateSearch}
         newPlace={props.newPlace}
         placeHolder="Get Weather..."
       />

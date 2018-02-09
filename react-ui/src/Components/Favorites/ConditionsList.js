@@ -21,9 +21,9 @@ const ConditionsList = (props) => {
     })
 
     return (
-        <div className="component-container" style={{borderRadius: 4, padding: 10}}>
+        <div className="component-container">
           <div className="conditions-heading">
-            <h1>Your Favorites</h1>
+            <h3>Your Favorites</h3>
             <p>
               For details and a 10-day forecast, tap or click a card.
               Drag and drop to reorder.

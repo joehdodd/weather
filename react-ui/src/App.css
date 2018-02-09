@@ -11,7 +11,7 @@ input[type="text"] {
   font-size: 18px;
   border: none;
   highlight: none;
-  background: #3d4148;
+  background: #21252b;
   color: #abb2bf;
   border-radius: 2px;
   font-family: 'Cabin', sans-serif;
@@ -32,14 +32,20 @@ input[type="text"] {
 }
 
 .component-container {
-  min-height: 300px;
+  /* min-height: 300px; */
   display: flex;
   flex-wrap: wrap;
-  padding: 10px;
+  padding: 10px 24px;
   background: #21252b;
   border-radius: 4px;
   margin-bottom: 20px;
 }
+
+.summary-container {
+  display: grid;
+}
+
+
 
 .weather-container {
   display: flex;
@@ -142,7 +148,7 @@ input[type="text"] {
 /* conditions styling */
 
 .conditions-heading {
-
+  width: 100%;
 }
 
 .conditions {
