@@ -11,6 +11,10 @@ import '../App.css';
 
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
 
   componentDidMount() {
     const { dispatch, places } = this.props;
@@ -18,7 +22,26 @@ class App extends React.Component {
     if (!!places) {
       places.map(place => dispatch(getWeather(place.id, singleUpdate)))
     }
-    axios.get('/api/ds').then(response => console.log(response))
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.geoLocate);
+    }
+  }
+
+  geoLocate = (position) => {
+    let lat = position.coords.latitude;
+    let long = position.coords.longitude;
+    axios.get('/api/ds', {
+      params: {
+        lat: lat,
+        long: long,
+      }
+    }).then(response => {
+      this.setState({
+        data: response.data
+      })
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   newPlace = (newPlace) => {
@@ -39,6 +62,8 @@ class App extends React.Component {
 
   render() {
     const { places, notFound } = this.props;
+    const { data } = this.state;
+    console.log(data);
     return (
       <Route render={({ location }) => (
         <div>
@@ -57,6 +82,15 @@ class App extends React.Component {
                 path="/"
                 render={({...props}) => (
                   <div>
+                    <h1>Your Weather...</h1>
+                    { !!data
+                      ? <div className="weather-container">
+                          <span>{data.daily.summary}</span>
+                        </div>
+                      : <div className="weather-container">
+                          <span>Loading data for your location!</span>
+                        </div>
+                    }
                     <AddMore newPlace={this.newPlace}/>
                     { !!places && !notFound &&
                       <ConditionsList places={places} removeItem={this.removeItem} updateItem={this.updateItem} {...props}/>
@@ -70,7 +104,10 @@ class App extends React.Component {
                         transitionAppearTimeout={750}
                         transitionLeaveTimeout={750}
                         >
-                          <h2>Oops! Your search returned no results. Check your spelling and try again! <span style={{fontSize: 48}}>🤔</span></h2>
+                          <h2>
+                            Oops! Your search returned no results. Check your spelling and try again!
+                            <span style={{fontSize: 48}} role="img" aria-label="confused emoji">🤔</span>
+                          </h2>
                         </CSSTransitionGroup>
                       }
                     </div>

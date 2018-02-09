@@ -26,7 +26,6 @@ input[type="text"] {
 
 .add-more-container {
   margin: 10px auto;
-  padding: 0 5px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -35,6 +34,9 @@ input[type="text"] {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  background: rgba(0, 0, 0, .15);
+  padding: 10px;
+  border-radius: 3px;
 }
 
 .weather-item {
@@ -138,7 +140,6 @@ input[type="text"] {
 /* conditions styling */
 
 .conditions-heading {
-  padding: 0 5px;
 }
 
 .conditions {
