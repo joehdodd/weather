@@ -1,14 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getWeather, removePlace } from '../actions/actions';
+import { getWeather, removePlace, reorder } from '../actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
+import { DragDropContext } from 'react-beautiful-dnd';
 import AddMore from './AddMore';
 import ConditionsList from './ConditionsList';
 import Forecast from './Forecast';
 import axios from 'axios';
 import '../App.css';
 
+const reorderArr = (list, startIndex, endIndex) => {
+  const result = [...list];
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -60,11 +67,26 @@ class App extends React.Component {
     dispatch(getWeather(id, singleUpdate));
   }
 
+  onDragEnd = (result) => {
+    const { dispatch, places } = this.props;
+    if (!result.destination) {
+      return;
+    }
+
+    const reorderedPlaces = reorderArr(
+      places,
+      result.source.index,
+      result.destination.index
+    );
+
+    return dispatch(reorder(reorderedPlaces));
+  }
+
   render() {
     const { places, notFound } = this.props;
     const { data } = this.state;
-    console.log(data);
     return (
+      <DragDropContext onDragEnd={this.onDragEnd}>
       <Route render={({ location }) => (
         <div>
           <CSSTransitionGroup
@@ -72,7 +94,6 @@ class App extends React.Component {
             transitionEnterTimeout={1000}
             transitionLeaveTimeout={100}
             transitionAppear={true}
-            // transitionLeave={true}
             transitionAppearTimeout={600}
             >
               <Route
@@ -130,17 +151,24 @@ class App extends React.Component {
                 </CSSTransitionGroup>
         </div>
       )}/>
+      </DragDropContext>
     )
   }
 }
 
-
 function mapStateToProps(state, ownProps) {
-  const { handleWeather } = state;
-  const  { places, notFound, } = handleWeather;
+  const {
+    handleWeather,
+  } = state;
+  const {
+    places,
+    notFound,
+    reorder
+  } = handleWeather;
   return {
     places,
     notFound,
+    reorder,
   }
 }
 

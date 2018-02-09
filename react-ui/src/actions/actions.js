@@ -1,12 +1,20 @@
 import axios from 'axios';
 
-// export const GLOBAL_UPDATE = 'GLOBAL_UPDATE';
-// export function globalTimeUpdate() {
-//   return {
-//     type: GLOBAL_UPDATE,
-//     globalUpdated: Date.now()
-//   }
-// }
+export const GET_PLACES = 'GET_PLACES';
+export function getPlaces(places) {
+  return {
+    type: GET_PLACES,
+    places
+  }
+}
+
+export const REORDER = 'REORDER';
+export function reorder(places) {
+  return {
+    type: REORDER,
+    places: places
+  }
+}
 
 export const RES_SUCC = 'RES_SUCC';
 function resSuccess(response, place) {
