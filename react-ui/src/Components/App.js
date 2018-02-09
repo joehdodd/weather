@@ -6,6 +6,7 @@ import { Route, withRouter } from 'react-router-dom';
 import AddMore from './AddMore';
 import ConditionsList from './ConditionsList';
 import Forecast from './Forecast';
+import axios from 'axios';
 import '../App.css';
 
 
@@ -17,6 +18,7 @@ class App extends React.Component {
     if (!!places) {
       places.map(place => dispatch(getWeather(place.id, singleUpdate)))
     }
+    axios.get('/api/ds').then(response => console.log(response))
   }
 
   newPlace = (newPlace) => {

@@ -20,6 +20,6 @@ export const store = createStore(
   applyMiddleware(
     routeMiddleware,
     thunkMiddleware,
-    loggerMiddleware
+    // loggerMiddleware
   )
 )
