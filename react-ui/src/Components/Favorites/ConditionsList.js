@@ -5,7 +5,6 @@ import Conditions from './Conditions';
 const ConditionsList = (props) => {
     const { places } = props;
     let conditionItems = places.map( (place, index) => {
-    console.log(place);
     let uniqueKey = (Math.floor((1 + Math.random()) * 0x10000)).toString()
       return (
         <Conditions

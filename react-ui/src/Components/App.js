@@ -4,9 +4,10 @@ import { getWeather, removePlace, reorder } from '../actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
+import GeoContainer from './Geo/GeoContainer';
 import AddMore from './AddMore';
-import ConditionsList from './ConditionsList';
-import Forecast from './Forecast';
+import ConditionsList from './Favorites/ConditionsList';
+import Forecast from './Favorites/Forecast';
 import axios from 'axios';
 import '../App.css';
 
@@ -30,11 +31,12 @@ class App extends React.Component {
       places.map(place => dispatch(getWeather(place.id, singleUpdate)))
     }
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.geoLocate);
+      navigator.geolocation.getCurrentPosition(this.geoLocateLanding);
     }
+    axios.get('/api').then(response => console.log(response))
   }
 
-  geoLocate = (position) => {
+  geoLocateLanding = (position) => {
     let lat = position.coords.latitude;
     let long = position.coords.longitude;
     axios.get('/api/ds', {
@@ -49,6 +51,31 @@ class App extends React.Component {
     }).catch(err => {
       console.log(err);
     })
+  }
+
+  geoLocateSearch = (searchString) => {
+    axios.get('/api/gm', {
+      params: {
+        search: searchString
+      }
+    }).then(response => { console.log(response) });
+      // console.log(response.data[0].geometry.location);
+      // let { lat, lng } = response.data[0].geometry.location;
+      // axios.get('/api/ds', {
+      //   params: {
+      //     lat: lat,
+      //     long: lng,
+      //   }
+    //   }).then(response => {
+    //     this.setState({
+    //       data: response.data
+    //     })
+    //   }).catch(err => {
+    //     console.log(err);
+    //   })
+    // }).catch(err => {
+    //   console.log(err);
+    // })
   }
 
   newPlace = (newPlace) => {
@@ -103,16 +130,20 @@ class App extends React.Component {
                 path="/"
                 render={({...props}) => (
                   <div>
-                    <h1>Your Weather...</h1>
-                    { !!data
-                      ? <div className="weather-container">
-                          <span>{data.daily.summary}</span>
-                        </div>
-                      : <div className="weather-container">
-                          <span>Loading data for your location!</span>
-                        </div>
-                    }
-                    <AddMore newPlace={this.newPlace}/>
+                    <AddMore
+                      geoLocateSearch={this.geoLocateSearch}
+                      newPlace={this.newPlace}
+                      searchType='Get Weather..'
+                      labelText="Add a new city by searching in the field below."
+                    />
+                    <GeoContainer data={data}/>
+                    <AddMore
+                      isNewPlace={true}
+                      geoLocate={this.geoLocate}
+                      newPlace={this.newPlace}
+                      searchType="Your Favorites"
+                      labelText="Add a new city by searching in the field below."
+                    />
                     { !!places && !notFound &&
                       <ConditionsList places={places} removeItem={this.removeItem} updateItem={this.updateItem} {...props}/>
                     }

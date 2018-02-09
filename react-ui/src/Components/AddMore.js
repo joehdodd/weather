@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class AddMore extends Component {
   constructor(props) {
@@ -18,9 +19,17 @@ class AddMore extends Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault()
-    let { newPlace } = this.state;
-    this.props.newPlace(newPlace);
+    const { isNewPlace } = this.props;
+    if(!!isNewPlace) {
+      e.preventDefault()
+      let { newPlace } = this.state;
+      this.props.newPlace(newPlace);
+    } else {
+      e.preventDefault()
+      let { newPlace } = this.state;
+      this.props.geoLocateSearch(newPlace);
+    }
+
   }
 
   render() {
@@ -28,11 +37,11 @@ class AddMore extends Component {
     return (
       <div>
         <div className="conditions-heading">
-          <h1>Add a new place</h1>
+          <h1>{this.props.searchType}</h1>
         </div>
           <div className="add-more-container">
             <form>
-            <label htmlFor={newPlace}>Add a new city by searching in the field below.</label>
+            <label htmlFor={newPlace}>{this.props.labelText}</label>
               <input
                 type="text"
                 id={newPlace}
@@ -47,5 +56,13 @@ class AddMore extends Component {
     )
   }
 }
+
+AddMore.propTypes = {
+  labelText: PropTypes.string.isRequired,
+  searchType: PropTypes.string.isRequired,
+}
+
+
+
 
 export default AddMore
