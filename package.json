@@ -14,7 +14,8 @@
     "react-ui/node_modules"
   ],
   "dependencies": {
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "nodemon": "^1.14.12"
   },
   "keywords": [
     "node",
