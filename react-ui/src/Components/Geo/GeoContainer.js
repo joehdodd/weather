@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
+import SummaryBreakdown from './SummaryBreakdown';
+
+
 
 class GeoContainer extends Component {
 
+
   render() {
     return (
-      <div>
+      <div className="component-container">
         <h1>Your Weather...</h1>
         { !!this.props.data
-          ? <div className="weather-container">
-              <span>{this.props.data.daily.summary}</span>
+          ? <div>
+              <SummaryBreakdown {...this.props}/>
             </div>
-          : <div className="weather-container">
-              <span>Loading data for your location!</span>
+          : <div>
+              <span className="pulsate">Loading data for your location!</span>
             </div>
         }
       </div>

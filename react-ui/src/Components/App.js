@@ -4,8 +4,8 @@ import { getWeather, removePlace, reorder } from '../actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
+import StickyToolbar from './StickyToolbar';
 import GeoContainer from './Geo/GeoContainer';
-import AddMore from './AddMore';
 import ConditionsList from './Favorites/ConditionsList';
 import Forecast from './Favorites/Forecast';
 import axios from 'axios';
@@ -31,51 +31,63 @@ class App extends React.Component {
       places.map(place => dispatch(getWeather(place.id, singleUpdate)))
     }
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.geoLocateLanding);
+      navigator.geolocation.getCurrentPosition(this.getAPIWeather);
     }
-    axios.get('/api').then(response => console.log(response))
   }
 
-  geoLocateLanding = (position) => {
-    let lat = position.coords.latitude;
-    let long = position.coords.longitude;
-    axios.get('/api/ds', {
-      params: {
-        lat: lat,
-        long: long,
+  getAPIWeather = (position, searchString) => {
+    const geoLocateOnLand = (position) => {
+      if (!!position) {
+        let lat = position.coords.latitude;
+        let long = position.coords.longitude;
+        return axios.get('/api/ds', {
+          params: {
+            lat: lat,
+            long: long,
+          }
+        })
+      } else {
+        return false;
       }
-    }).then(response => {
-      this.setState({
-        data: response.data
-      })
-    }).catch(err => {
-      console.log(err);
-    })
-  }
+    }
 
-  geoLocateSearch = (searchString) => {
-    axios.get('/api/gm', {
-      params: {
-        search: searchString
+    const geoLocateSearch = (searchString) => {
+      if (!!searchString) {
+        return axios.get('/api/gm', {
+          params: {
+            search: searchString
+          }
+        })
+      } else {
+        return false;
       }
-    }).then(response => { console.log(response) });
-      // console.log(response.data[0].geometry.location);
-      // let { lat, lng } = response.data[0].geometry.location;
-      // axios.get('/api/ds', {
-      //   params: {
-      //     lat: lat,
-      //     long: lng,
-      //   }
-    //   }).then(response => {
-    //     this.setState({
-    //       data: response.data
-    //     })
-    //   }).catch(err => {
-    //     console.log(err);
-    //   })
-    // }).catch(err => {
-    //   console.log(err);
-    // })
+    }
+
+    const response = axios.all([geoLocateOnLand(position), geoLocateSearch(searchString)])
+    .then(axios.spread((land, search) => {
+      if (!!land) {
+        this.setState({
+          data: land.data
+        })
+      }
+      if (!!search) {
+        console.log(search);
+        let { lat, lng } = search.data[0].geometry.location;
+        axios.get('/api/ds', {
+          params: {
+            lat: lat,
+            long: lng,
+          }
+        }).then(response => {
+          this.setState({
+            data: response.data
+          })
+        }).catch(err => {
+          console.log(err);
+        })
+      }
+    }))
+    return response
   }
 
   newPlace = (newPlace) => {
@@ -114,8 +126,12 @@ class App extends React.Component {
     const { data } = this.state;
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
+      <StickyToolbar
+        geoLocateSearch={this.getAPIWeather}
+        newPlace={this.newPlace}
+      />
       <Route render={({ location }) => (
-        <div>
+        <div className="wrapper">
           <CSSTransitionGroup
             transitionName="fade"
             transitionEnterTimeout={1000}
@@ -130,20 +146,7 @@ class App extends React.Component {
                 path="/"
                 render={({...props}) => (
                   <div>
-                    <AddMore
-                      geoLocateSearch={this.geoLocateSearch}
-                      newPlace={this.newPlace}
-                      searchType='Get Weather..'
-                      labelText="Add a new city by searching in the field below."
-                    />
                     <GeoContainer data={data}/>
-                    <AddMore
-                      isNewPlace={true}
-                      geoLocate={this.geoLocate}
-                      newPlace={this.newPlace}
-                      searchType="Your Favorites"
-                      labelText="Add a new city by searching in the field below."
-                    />
                     { !!places && !notFound &&
                       <ConditionsList places={places} removeItem={this.removeItem} updateItem={this.updateItem} {...props}/>
                     }

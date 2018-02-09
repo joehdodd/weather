@@ -21,21 +21,17 @@ const ConditionsList = (props) => {
     })
 
     return (
-      <div>
-        <div className="conditions-heading">
-          <h1>Current Conditions</h1>
-          <p>
-            To see details and a 10-day forecast, tap or click a card.
-            Or, drag and drop to reorder your favorite places.
-          </p>
-        </div>
+        <div className="component-container" style={{borderRadius: 4, padding: 10}}>
+          <div className="conditions-heading">
+            <h1>Your Favorites</h1>
+            <p>
+              For details and a 10-day forecast, tap or click a card.
+              Drag and drop to reorder.
+            </p>
+          </div>
         <Droppable droppableId="droppable" direction="horizontal">
           {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
-            <div
-              className="weather-container"
-              style={{backgroundColor: 'rgba(92, 99, 112, 0.15)', borderRadius: 4, padding: 10}}
-              ref={provided.innerRef}
-            >
+            <div ref={provided.innerRef} className="weather-container">
               {conditionItems}
               {provided.placeholder}
             </div>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 class AddMore extends Component {
   constructor(props) {
@@ -27,7 +26,7 @@ class AddMore extends Component {
     } else {
       e.preventDefault()
       let { newPlace } = this.state;
-      this.props.geoLocateSearch(newPlace);
+      this.props.geoLocateSearch(null, newPlace);
     }
 
   }
@@ -35,34 +34,21 @@ class AddMore extends Component {
   render() {
     let { newPlace } = this.state;
     return (
-      <div>
-        <div className="conditions-heading">
-          <h1>{this.props.searchType}</h1>
-        </div>
-          <div className="add-more-container">
-            <form>
-            <label htmlFor={newPlace}>{this.props.labelText}</label>
-              <input
-                type="text"
-                id={newPlace}
-                name="newPlace"
-                value={newPlace}
-                onChange={this.handleChange}
-              />
-              <button className="button" type="submit" onClick={ (e) => { this.handleSubmit(e) }}>Add</button>
-            </form>
-          </div>
+      <div className="add-more-container">
+        <form style={{ textAlign: 'right'}}>
+          <input
+            type="text"
+            id={newPlace}
+            name="newPlace"
+            value={newPlace}
+            onChange={this.handleChange}
+            placeholder={this.props.placeHolder}
+          />
+          <button className="button" type="submit" onClick={ (e) => { this.handleSubmit(e) }}>Add</button>
+        </form>
       </div>
     )
   }
 }
-
-AddMore.propTypes = {
-  labelText: PropTypes.string.isRequired,
-  searchType: PropTypes.string.isRequired,
-}
-
-
-
 
 export default AddMore

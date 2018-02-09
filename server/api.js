@@ -1,5 +1,6 @@
 const dotEnv = require('dotenv').config({ path: '.env' });
 const axios = require('axios');
+const { REACT_APP_GMK, REACT_APP_DSK } = process.env;
 
 exports.main = (req, res) => {
     res.set('Content-Type', 'application/json');
@@ -8,6 +9,18 @@ exports.main = (req, res) => {
 
 exports.gm = function (req, res) {
   console.log(req);
+  let { search } = req.query;
+  try {
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${search}&key=${REACT_APP_GMK}`)
+    .then(response => {
+      res.json(response.data.results);
+    })
+    .catch(err => {
+      res.status(500).json({"message": 'Oops! An error occured with your request to the Google Maps API!', "details": err})
+    })
+  } catch(err) {
+    res.status(500).json({"message": 'Oops! An error occured with your request to the Google Maps API!', "details" : err})
+  }
 }
 
 exports.ds = function (req, res) {
@@ -15,7 +28,7 @@ exports.ds = function (req, res) {
   let long = req.query.long;
   console.log(lat, long);
   try {
-    axios.get(`https://api.darksky.net/forecast/${process.env.REACT_APP_DSK}/${lat},${long}`)
+    axios.get(`https://api.darksky.net/forecast/${REACT_APP_DSK}/${lat},${long}`)
     .then(response => {
       res.json(response.data);
     })
