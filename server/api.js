@@ -30,6 +30,7 @@ exports.ds = function (req, res) {
   try {
     axios.get(`https://api.darksky.net/forecast/${REACT_APP_DSK}/${lat},${long}`)
     .then(response => {
+      console.log(response);
       res.json(response.data);
     })
     .catch(err => {
