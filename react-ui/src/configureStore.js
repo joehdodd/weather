@@ -11,7 +11,7 @@ const loggerMiddleware = createLogger();
 const routeMiddleware = routerMiddleware(history);
 const preloadedState = loadState();
 
-export const store = createStore(
+export const appStore = createStore(
   combineReducers({
     handleWeather,
     router: routerReducer
