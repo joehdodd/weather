@@ -1,14 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getWeather, removePlace } from '../actions/actions';
+import { getWeather, removePlace, reorder } from '../actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
-import AddMore from './AddMore';
-import ConditionsList from './ConditionsList';
-import Forecast from './Forecast';
+import { DragDropContext } from 'react-beautiful-dnd';
+import StickyToolbar from './StickyToolbar';
+import GeoContainer from './Geo/GeoContainer';
+import ConditionsList from './Favorites/ConditionsList';
+import Forecast from './Favorites/Forecast';
 import axios from 'axios';
 import '../App.css';
 
+const reorderArr = (list, startIndex, endIndex) => {
+  const result = [...list];
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -23,25 +31,63 @@ class App extends React.Component {
       places.map(place => dispatch(getWeather(place.id, singleUpdate)))
     }
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.geoLocate);
+      navigator.geolocation.getCurrentPosition(this.getAPIWeather);
     }
   }
 
-  geoLocate = (position) => {
-    let lat = position.coords.latitude;
-    let long = position.coords.longitude;
-    axios.get('/api/ds', {
-      params: {
-        lat: lat,
-        long: long,
+  getAPIWeather = (position, searchString) => {
+    const geoLocateOnLand = (position) => {
+      if (!!position) {
+        let lat = position.coords.latitude;
+        let long = position.coords.longitude;
+        return axios.get('/api/ds', {
+          params: {
+            lat: lat,
+            long: long,
+          }
+        })
+      } else {
+        return false;
       }
-    }).then(response => {
-      this.setState({
-        data: response.data
-      })
-    }).catch(err => {
-      console.log(err);
-    })
+    }
+
+    const geoLocateSearch = (searchString) => {
+      if (!!searchString) {
+        return axios.get('/api/gm', {
+          params: {
+            search: searchString
+          }
+        })
+      } else {
+        return false;
+      }
+    }
+
+    const response = axios.all([geoLocateOnLand(position), geoLocateSearch(searchString)])
+    .then(axios.spread((land, search) => {
+      if (!!land) {
+        this.setState({
+          data: land.data
+        })
+      }
+      if (!!search) {
+        console.log(search);
+        let { lat, lng } = search.data[0].geometry.location;
+        axios.get('/api/ds', {
+          params: {
+            lat: lat,
+            long: lng,
+          }
+        }).then(response => {
+          this.setState({
+            data: response.data
+          })
+        }).catch(err => {
+          console.log(err);
+        })
+      }
+    }))
+    return response
   }
 
   newPlace = (newPlace) => {
@@ -60,19 +106,37 @@ class App extends React.Component {
     dispatch(getWeather(id, singleUpdate));
   }
 
+  onDragEnd = (result) => {
+    const { dispatch, places } = this.props;
+    if (!result.destination) {
+      return;
+    }
+
+    const reorderedPlaces = reorderArr(
+      places,
+      result.source.index,
+      result.destination.index
+    );
+
+    return dispatch(reorder(reorderedPlaces));
+  }
+
   render() {
     const { places, notFound } = this.props;
     const { data } = this.state;
-    console.log(data);
     return (
+      <DragDropContext onDragEnd={this.onDragEnd}>
+      <StickyToolbar
+        geoLocateSearch={this.getAPIWeather}
+        newPlace={this.newPlace}
+      />
       <Route render={({ location }) => (
-        <div>
+        <div className="wrapper">
           <CSSTransitionGroup
             transitionName="fade"
             transitionEnterTimeout={1000}
             transitionLeaveTimeout={100}
             transitionAppear={true}
-            // transitionLeave={true}
             transitionAppearTimeout={600}
             >
               <Route
@@ -82,16 +146,7 @@ class App extends React.Component {
                 path="/"
                 render={({...props}) => (
                   <div>
-                    <h1>Your Weather...</h1>
-                    { !!data
-                      ? <div className="weather-container">
-                          <span>{data.daily.summary}</span>
-                        </div>
-                      : <div className="weather-container">
-                          <span>Loading data for your location!</span>
-                        </div>
-                    }
-                    <AddMore newPlace={this.newPlace}/>
+                    <GeoContainer data={data}/>
                     { !!places && !notFound &&
                       <ConditionsList places={places} removeItem={this.removeItem} updateItem={this.updateItem} {...props}/>
                     }
@@ -130,17 +185,24 @@ class App extends React.Component {
                 </CSSTransitionGroup>
         </div>
       )}/>
+      </DragDropContext>
     )
   }
 }
 
-
 function mapStateToProps(state, ownProps) {
-  const { handleWeather } = state;
-  const  { places, notFound, } = handleWeather;
+  const {
+    handleWeather,
+  } = state;
+  const {
+    places,
+    notFound,
+    reorder
+  } = handleWeather;
   return {
     places,
     notFound,
+    reorder,
   }
 }
 

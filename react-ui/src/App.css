@@ -11,7 +11,7 @@ input[type="text"] {
   font-size: 18px;
   border: none;
   highlight: none;
-  background: #3d4148;
+  background: #21252b;
   color: #abb2bf;
   border-radius: 2px;
   font-family: 'Cabin', sans-serif;
@@ -25,31 +25,45 @@ input[type="text"] {
 }
 
 .add-more-container {
-  margin: 10px auto;
+  max-width: 400px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
 }
+
+.component-container {
+  /* min-height: 300px; */
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 24px;
+  background: #21252b;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.summary-container {
+  display: grid;
+}
+
+.day-data-container {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
 
 .weather-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  background: rgba(0, 0, 0, .15);
-  padding: 10px;
-  border-radius: 3px;
+  overflow-y: auto;
 }
 
 .weather-item {
-  flex: 1 215px;
+  width: 330px;
   margin: 5px;
   border-radius: 2px;
   background: #3d4148;
   box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.55);
-  transition: .2s ease-in-out;
-}
-
-.weather-item:hover {
-  transform: scale(1.025);
 }
 
 /* forecast lists */
@@ -140,6 +154,7 @@ input[type="text"] {
 /* conditions styling */
 
 .conditions-heading {
+  width: 100%;
 }
 
 .conditions {
@@ -202,6 +217,26 @@ input[type="text"] {
   /* max-height: 180px; */
 }
 
+
+.pulsate {
+  -webkit-animation: pulsate 1s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  opacity: 0.5;
+  text-align: center;
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+      opacity: 0.5;
+  }
+  50% {
+      opacity: 1.0;
+  }
+  100% {
+      opacity: 0.5;
+  }
+}
+
 /* media queries */
 
 @media screen and (min-width: 768px) {
@@ -212,7 +247,7 @@ input[type="text"] {
   }
 
   input[type="text"] {
-    width: 50%;
+    width: 70%;
     height: 30px;
     font-size: 16px;
   }

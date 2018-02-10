@@ -1,7 +1,13 @@
 /* eslint-disable */
-import { RES_SUCC, RES_ERR, REMOVE_PLACE, UPDATE_PLACE, GLOBAL_UPDATE } from '../actions/actions.js';
+import {
+	RES_SUCC,
+	RES_ERR,
+	REMOVE_PLACE,
+	UPDATE_PLACE,
+	GLOBAL_UPDATE,
+	REORDER } from '../actions/actions.js';
 
-function handleWeather(state = {
+export function handleWeather(state = {
 		notFound: false,
 	}, action) {
 	switch (action.type) {
@@ -12,7 +18,10 @@ function handleWeather(state = {
 		// 	return Object.assign({}, state, nextState)
 		case RES_SUCC:
 			let nextState = {
-        places: [ { id: action.place, updatedAt: action.updatedAt, data: action.payload}, ...handleWeather(state.places, action.payload) ],
+        places: [
+					{ id: action.place, updatedAt: action.updatedAt, data: action.payload},
+					...handleWeather(state.places, action.payload)
+				],
         notFound: action.notFound,
       }
 			return Object.assign({}, state, nextState)
@@ -37,10 +46,13 @@ function handleWeather(state = {
 				notFound: action.notFound,
 			}
 			return Object.assign({}, state, nextState)
+			case REORDER:
+			return Object.assign({}, state, {
+				// places: action.places.filter(place => place !== undefined || null)
+				places: [...action.places]
+			})
     default:
       return state;
 	}
 	return state;
 }
-
-export default handleWeather;
