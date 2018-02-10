@@ -7,11 +7,43 @@ body {
 
 .sticky-toolbar-container {
   height: 50px;
-  padding: 0px 2.5%;
+  padding: 0 5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: linear-gradient(to right, #17191e , #383d49);
+}
+
+.panel-container {
+  display: grid;
+  margin-bottom: 10px;
+}
+
+.panel-50-50 {
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.panel-heading {
+  padding: 15px;
+  background: #3d4148;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom: 1px solid #abb2bf;
+}
+
+.panel-info {
+  padding: 15px;
+  background: #21252b;
+  display: grid;
+  grid-template-columns: .15fr 2fr;
+  grid-gap: 10px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.panel {
+  border-radius: 2px;
 }
 
 .wrapper {
@@ -29,7 +61,7 @@ a:hover {
 }
 
 h1, h2, h3, h4 {
-  margin: 5px 0;
+  margin: 0;
   font-weight: bold;
   color: #abb2bf;
 }
@@ -93,7 +125,7 @@ label, span, p {
     height: calc(100vh - 70px);
     overflow-y: auto;
     margin: 0 auto;
-    padding: 10px 2.5%;
+    padding: 10px 5%;
   }
 
 }
