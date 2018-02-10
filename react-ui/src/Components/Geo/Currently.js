@@ -8,7 +8,7 @@ const Currently = (props) => {
     <div className="panel">
       <div className="panel-heading">
         <h3>Current Conditions</h3>
-        <span>{moment.unix(props.data.currently.time).format('MMMM Do YYYY, h:mm: a')}</span>
+        <span>{moment.unix(props.data.currently.time).format('h:mm: a')}</span>
       </div>
       <div className="panel-info">
         <div>
@@ -21,7 +21,9 @@ const Currently = (props) => {
         <div>
           <p className="current-temp">{props.data.currently.temperature.toFixed()}&deg;</p>
           <p>{props.data.currently.summary}</p>
-          <p>{props.data.minutely.summary}</p>
+          { !!props.data.minutely &&
+            <p>{props.data.minutely.summary}</p>
+          }
         </div>
       </div>
     </div>
