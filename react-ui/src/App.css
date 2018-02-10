@@ -17,6 +17,31 @@ input[type="text"] {
   font-family: 'Cabin', sans-serif;
 }
 
+.search-drop {
+  position: absolute;
+  padding: 0;
+  top: 25px;
+  right: 133px;
+  background: #21252b80;
+  width: 161px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 5px 10px;
+  z-index: 100000;
+}
+
+
+.search-item {
+  margin-bottom: 12px;
+  border-bottom: 1px solid #abb2bf;
+  color: #abb2bf;
+}
+
+.search-item:hover {
+  cursor: pointer;
+}
+
+
 /* wrappers and containers */
 
 .page-wrapper {

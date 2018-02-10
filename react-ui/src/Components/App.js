@@ -8,7 +8,7 @@ import StickyToolbar from './StickyToolbar';
 import GeoContainer from './Geo/GeoContainer';
 import ConditionsList from './Favorites/ConditionsList';
 import Forecast from './Favorites/Forecast';
-import axios from 'axios';
+import getAPIWeather from '../apiUtil.js';
 import '../App.css';
 
 const reorderArr = (list, startIndex, endIndex) => {
@@ -31,63 +31,34 @@ class App extends React.Component {
       places.map(place => dispatch(getWeather(place.id, singleUpdate)))
     }
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.getAPIWeather);
+      navigator.geolocation.getCurrentPosition((position) =>{
+        let positionParams = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        this.sendRequest('/api/ds', positionParams)
+      });
     }
   }
 
-  getAPIWeather = (position, searchString) => {
-    const geoLocateOnLand = (position) => {
-      if (!!position) {
-        let lat = position.coords.latitude;
-        let long = position.coords.longitude;
-        return axios.get('/api/ds', {
-          params: {
-            lat: lat,
-            long: long,
-          }
-        })
-      } else {
-        return false;
+  sendRequest = async (endPoint, position) => {
+    const callParams = {
+      '/api/ds': {
+        endPoint,
+        position,
+      },
+      '/api/gm': {
+        endPoint,
+        position
       }
     }
-
-    const geoLocateSearch = (searchString) => {
-      if (!!searchString) {
-        return axios.get('/api/gm', {
-          params: {
-            search: searchString
-          }
-        })
-      } else {
-        return false;
-      }
+    const response = await getAPIWeather(callParams[endPoint]);
+    if (!!response.data) {
+      return this.setState({
+        searchPlaces: endPoint === '/api/gm' ? [...response.data] : [],
+        data: endPoint === '/api/ds' ? response.data : {},
+      })
     }
-
-    const response = axios.all([geoLocateOnLand(position), geoLocateSearch(searchString)])
-    .then(axios.spread((land, search) => {
-      if (!!land) {
-        this.setState({
-          data: land.data
-        })
-      }
-      if (!!search) {
-        console.log(search);
-        let { lat, lng } = search.data[0].geometry.location;
-        axios.get('/api/ds', {
-          params: {
-            lat: lat,
-            long: lng,
-          }
-        }).then(response => {
-          this.setState({
-            data: response.data
-          })
-        }).catch(err => {
-          console.log(err);
-        })
-      }
-    }))
-    return response
   }
 
   newPlace = (newPlace) => {
@@ -127,8 +98,9 @@ class App extends React.Component {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
       <StickyToolbar
-        geoLocateSearch={this.getAPIWeather}
+        sendRequest={this.sendRequest}
         newPlace={this.newPlace}
+        searchPlaces={this.state.searchPlaces ? this.state.searchPlaces : []}
       />
       <Route render={({ location }) => (
         <div className="wrapper">

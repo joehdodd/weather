@@ -8,10 +8,10 @@ exports.main = (req, res) => {
 }
 
 exports.gm = function (req, res) {
-  console.log(req);
-  let { search } = req.query;
+  let { position } = req.query;
+  console.log(position);
   try {
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${search}&key=${REACT_APP_GMK}`)
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${position}&key=${REACT_APP_GMK}`)
     .then(response => {
       res.json(response.data.results);
     })
@@ -26,7 +26,7 @@ exports.gm = function (req, res) {
 exports.ds = function (req, res) {
   let lat = req.query.lat;
   let long = req.query.long;
-  console.log(lat, long);
+  console.log(req);
   try {
     axios.get(`https://api.darksky.net/forecast/${REACT_APP_DSK}/${lat},${long}`)
     .then(response => {
