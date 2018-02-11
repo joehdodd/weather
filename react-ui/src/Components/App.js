@@ -97,6 +97,7 @@ class App extends React.Component {
     const { data } = this.state;
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
+      <div id="skew"></div>
       <StickyToolbar
         sendRequest={this.sendRequest}
         newPlace={this.newPlace}
@@ -104,57 +105,59 @@ class App extends React.Component {
       />
       <Route render={({ location }) => (
         <div className="wrapper">
-          <CSSTransitionGroup
-            transitionName="fade"
-            transitionEnterTimeout={1000}
-            transitionLeaveTimeout={100}
-            transitionAppear={true}
-            transitionAppearTimeout={600}
-            >
-              <Route
-                location={location}
-                key={location.pathname}
-                exact
-                path="/"
-                render={({...props}) => (
-                  <div>
-                    <GeoContainer data={data}/>
-                    { !!places && !notFound &&
-                      <ConditionsList places={places} removeItem={this.removeItem} updateItem={this.updateItem} {...props}/>
-                    }
-                    { notFound &&
-                      <CSSTransitionGroup
-                        transitionName="fade"
-                        transitionAppear={true}
-                        transitionLeave={true}
-                        transitionEnterTimeout={1000}
-                        transitionAppearTimeout={750}
-                        transitionLeaveTimeout={750}
-                        >
-                          <h2>
-                            Oops! Your search returned no results. Check your spelling and try again!
-                            <span style={{fontSize: 48}} role="img" aria-label="confused emoji">🤔</span>
-                          </h2>
-                        </CSSTransitionGroup>
+          <div className="container">
+            <CSSTransitionGroup
+              transitionName="fade"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={100}
+              transitionAppear={true}
+              transitionAppearTimeout={600}
+              >
+                <Route
+                  location={location}
+                  key={location.pathname}
+                  exact
+                  path="/"
+                  render={({...props}) => (
+                    <div>
+                      <GeoContainer data={data}/>
+                      { !!places && !notFound &&
+                        <ConditionsList places={places} removeItem={this.removeItem} updateItem={this.updateItem} {...props}/>
                       }
-                    </div>
-                  )}
-                />
-              </CSSTransitionGroup>
-              <CSSTransitionGroup
-                transitionName="fade"
-                transitionEnterTimeout={200}
-                transitionLeaveTimeout={500}
-                >
-                  <Route
-                    location={location}
-                    key={location.pathname}
-                    path={`/forecast/:forecastId`}
-                    render={({...props}) => (
-                      <Forecast {...props}/>
+                      { notFound &&
+                        <CSSTransitionGroup
+                          transitionName="fade"
+                          transitionAppear={true}
+                          transitionLeave={true}
+                          transitionEnterTimeout={1000}
+                          transitionAppearTimeout={750}
+                          transitionLeaveTimeout={750}
+                          >
+                            <h2>
+                              Oops! Your search returned no results. Check your spelling and try again!
+                              <span style={{fontSize: 48}} role="img" aria-label="confused emoji">🤔</span>
+                            </h2>
+                          </CSSTransitionGroup>
+                        }
+                      </div>
                     )}
                   />
                 </CSSTransitionGroup>
+                <CSSTransitionGroup
+                  transitionName="fade"
+                  transitionEnterTimeout={200}
+                  transitionLeaveTimeout={500}
+                  >
+                    <Route
+                      location={location}
+                      key={location.pathname}
+                      path={`/forecast/:forecastId`}
+                      render={({...props}) => (
+                        <Forecast {...props}/>
+                      )}
+                    />
+                  </CSSTransitionGroup>
+          </div>
         </div>
       )}/>
       </DragDropContext>
