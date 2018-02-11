@@ -9,8 +9,8 @@ const GeoForecast = (props) => {
       <div className="panel-heading">
         <h3>Forecast</h3>
         { !!props.data.daily &&
-          // <span>{moment.unix(props.data.currently.time).format('h:mm: a')}</span>
-          <span>{props.data.daily.summary}</span>
+          <span>{moment.unix(props.data.currently.time).format('h:mm: a')}</span>
+          // <span>{props.data.daily.summary}</span>
         }
       </div>
       <div className="panel-info">
