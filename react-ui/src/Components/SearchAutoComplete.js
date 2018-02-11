@@ -36,12 +36,12 @@ class SearchAutoComplete extends Component {
     }
 
     return (
-      <form onSubmit={this.handleFormSubmit} style={{display: 'flex', justifySelf: 'flex-end', width: '50%'}}>
+      <form onSubmit={this.handleFormSubmit} style={{display: 'flex', justifySelf: 'flex-end', width: '100%'}}>
         <PlacesAutocomplete
           inputProps={inputProps}
           classNames={classes}
         />
-        <button className="button" type="submit">Submit</button>
+        <button className="button" type="submit" onClick={this.props.hidePortal}>Submit</button>
       </form>
     )
   }

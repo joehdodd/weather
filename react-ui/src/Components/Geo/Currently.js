@@ -13,7 +13,7 @@ const Currently = (props) => {
       </div>
       <div className="panel-info">
         <Skycons
-          iconColor="#abb2bf"
+          iconColor="#5b4287"
           icon={props.data.currently.icon}
           style={{width: 200, height: 100}}
         />

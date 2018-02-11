@@ -9,6 +9,7 @@ import StickyToolbar from './StickyToolbar';
 import GeoContainer from './Geo/GeoContainer';
 import ConditionsList from './Favorites/ConditionsList';
 import Forecast from './Favorites/Forecast';
+import SearchAutoComplete from './SearchAutoComplete';
 import getAPIWeather from '../apiUtil.js';
 import '../App.css';
 
@@ -101,14 +102,13 @@ class App extends React.Component {
 
   showPortal = () => {
     this.setState({ showPortal: true })
-    console.log(rootEl.classList);
     rootEl.classList.add('blur');
   }
 
   hidePortal = (e) => {
     let modalCont = e.target.classList.value === 'modal-cont';
     if (!modalCont) { this.setState({ showPortal: false }) }
-    rootEl.classList.add('blur');
+    rootEl.classList.remove('blur');
   }
 
 
@@ -119,14 +119,19 @@ class App extends React.Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
       <div id="skew"></div>
       <StickyToolbar
+        showPortal={this.showPortal}
         sendRequest={this.sendRequest}
         newPlace={this.newPlace}
         searchPlaces={this.state.searchPlaces ? this.state.searchPlaces : []}
       />
-      <button onClick={this.showPortal}>Modal</button>
       { this.state.showPortal &&
         <Portal>
-          <Modal hidePortal={this.hidePortal}/>
+          <Modal
+            hidePortal={this.hidePortal}
+            sendRequest={this.sendRequest}
+            newPlace={this.newPlace}
+            searchPlaces={this.state.searchPlaces ? this.state.searchPlaces : []}
+          />
         </Portal>
       }
       <Route render={({ location }) => (
@@ -215,11 +220,12 @@ class Portal extends React.Component {
 
 const Modal = (props) => {
   return (
-    <div className="modal" onClick={ (e) => { props.hidePortal(e) }}>
+    <div className="modal">
       <div className="modal-cont">
-        <h2>Modal Title is Awesome</h2>
-        <p>This is the text of my modal, so yeah.</p>
-        <button onClick={props.hidePortal}>Close</button>
+        <SearchAutoComplete
+          sendRequest={props.sendRequest}
+          hidePortal={props.hidePortal}
+        />
       </div>
     </div>
   )

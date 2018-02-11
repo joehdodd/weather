@@ -51,7 +51,7 @@ const Conditions = (props) => {
                       </span>
                     </p>
                     <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                      <WeatherIcon text={channel.item.condition.text} />
+                      <WeatherIcon color="#5b4287" text={channel.item.condition.text} />
                       <p className="current-temp">{channel.item.condition.temp}&deg;</p>
                     </div>
                   </Link>

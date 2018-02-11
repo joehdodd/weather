@@ -28,10 +28,6 @@ body {
 
 .modal-cont {
   position: absolute;
-  height: 300px;
-  width: 450px;
-  padding: 10px;
-  background: #fff;
 }
 
 .modal-text {
@@ -62,7 +58,7 @@ body {
 }
 
 .container {
-  background: #fff;
+  background: #f2f2f2;
   box-shadow: 4px 8px 20px 4px rgba(0,0,0,0.55);
   border-radius: 2px;
 }
@@ -118,11 +114,11 @@ a:hover {
 h1, h2, h3, h4 {
   margin: 0;
   font-weight: bold;
-  color: #abb2bf;
+  color: #3c3c3c;
 }
 
 label, span, p {
-  color: #abb2bf;
+  color: #3c3c3c;
 }
 
 /* transitions */
