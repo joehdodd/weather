@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { getWeather, removePlace, reorder } from '../actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
@@ -18,10 +19,16 @@ const reorderArr = (list, startIndex, endIndex) => {
   return result;
 }
 
+const rootEl = document.getElementById('root');
+const modalRoot = document.getElementById('modal');
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      showPortal: false,
+    }
   }
 
   componentDidMount() {
@@ -92,6 +99,19 @@ class App extends React.Component {
     return dispatch(reorder(reorderedPlaces));
   }
 
+  showPortal = () => {
+    this.setState({ showPortal: true })
+    console.log(rootEl.classList);
+    rootEl.classList.add('blur');
+  }
+
+  hidePortal = (e) => {
+    let modalCont = e.target.classList.value === 'modal-cont';
+    if (!modalCont) { this.setState({ showPortal: false }) }
+    rootEl.classList.add('blur');
+  }
+
+
   render() {
     const { places, notFound } = this.props;
     const { data } = this.state;
@@ -103,6 +123,12 @@ class App extends React.Component {
         newPlace={this.newPlace}
         searchPlaces={this.state.searchPlaces ? this.state.searchPlaces : []}
       />
+      <button onClick={this.showPortal}>Modal</button>
+      { this.state.showPortal &&
+        <Portal>
+          <Modal hidePortal={this.hidePortal}/>
+        </Portal>
+      }
       <Route render={({ location }) => (
         <div className="wrapper">
           <div className="container">
@@ -163,6 +189,40 @@ class App extends React.Component {
       </DragDropContext>
     )
   }
+}
+
+class Portal extends React.Component {
+  constructor(props) {
+    super(props)
+    this.el = document.createElement('div');
+  }
+
+  componentDidMount() {
+    modalRoot.appendChild(this.el)
+  }
+
+  componentWillUnmount() {
+    modalRoot.removeChild(this.el)
+  }
+
+  render() {
+    return ReactDOM.createPortal(
+      this.props.children,
+      this.el
+    )
+  }
+}
+
+const Modal = (props) => {
+  return (
+    <div className="modal" onClick={ (e) => { props.hidePortal(e) }}>
+      <div className="modal-cont">
+        <h2>Modal Title is Awesome</h2>
+        <p>This is the text of my modal, so yeah.</p>
+        <button onClick={props.hidePortal}>Close</button>
+      </div>
+    </div>
+  )
 }
 
 function mapStateToProps(state, ownProps) {

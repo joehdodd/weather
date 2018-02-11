@@ -5,6 +5,39 @@ body {
   background: #17191e1a;
 }
 
+.blur {
+  filter: blur(1.5px);
+}
+
+#modal-root {
+  position: relative;
+  z-index: 999;
+}
+
+.modal {
+  background-color: rgba(0,0,0,0.75);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-cont {
+  position: absolute;
+  height: 300px;
+  width: 450px;
+  padding: 10px;
+  background: #fff;
+}
+
+.modal-text {
+  color: #fff;
+}
+
 #skew {
   position: absolute;
   z-index: -1000;
@@ -31,6 +64,7 @@ body {
 .container {
   background: #fff;
   box-shadow: 4px 8px 20px 4px rgba(0,0,0,0.55);
+  border-radius: 2px;
 }
 
 
