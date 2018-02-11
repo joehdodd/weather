@@ -28,7 +28,7 @@ const WeatherIcon = (props) => {
     "Snow Showers": <IconSnow />,
     "Rain And Snow": <IconSleet />,
     "Cloudy": <IconCloudy />,
-    "Breezy": <IconBreeze />,
+    "Breezy": <IconBreeze iconColor={props.color}/>,
   }
   return (
     <div className="weather-icon">
