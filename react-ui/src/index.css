@@ -13,7 +13,8 @@ body {
   overflow: hidden;
   transform: skewY(-12deg);
   transform-origin: 0;
-  background: linear-gradient(150deg, #373B44 25%, #73c8a9);
+  /* background: linear-gradient(150deg, #373B44 25%, #73c8a9); */
+  background: linear-gradient(to bottom, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .sticky-toolbar-container {
