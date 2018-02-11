@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import axios from 'axios';
 
 class AddMore extends Component {
   constructor(props) {
@@ -7,6 +8,9 @@ class AddMore extends Component {
       newPlace: '',
       searchPlaces: []
     }
+  }
+
+  componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {

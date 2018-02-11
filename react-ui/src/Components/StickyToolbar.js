@@ -1,5 +1,5 @@
 import React from 'react';
-import AddMore from './AddMore';
+import SearchAutoComplete from './SearchAutoComplete';
 
 const StickyToolbar = (props) => {
   return (
@@ -7,11 +7,8 @@ const StickyToolbar = (props) => {
       <div>
         <h1>Dark Sky Weather</h1>
       </div>
-      <AddMore
+      <SearchAutoComplete
         sendRequest={props.sendRequest}
-        newPlace={props.newPlace}
-        searchPlaces={props.searchPlaces}
-        placeHolder="Get Weather..."
       />
     </div>
   )

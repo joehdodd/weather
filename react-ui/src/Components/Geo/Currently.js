@@ -12,24 +12,18 @@ const Currently = (props) => {
         }
       </div>
       <div className="panel-info">
-        { !!props.data.currently &&
-          <span>
-            <div>
-              <Skycons
-                iconColor="#abb2bf"
-                icon={props.data.currently.icon}
-                style={{width: 100, height: 100}}
-              />
-            </div>
-            <div>
-              <p className="current-temp">{props.data.currently.temperature.toFixed()}&deg;</p>
-              <p>{props.data.currently.summary}</p>
-              { !!props.data.minutely &&
-                <p>{props.data.minutely.summary}</p>
-              }
-            </div>
-          </span>
-        }
+        <Skycons
+          iconColor="#abb2bf"
+          icon={props.data.currently.icon}
+          style={{width: 200, height: 100}}
+        />
+        <div>
+          <p className="current-temp">{props.data.currently.temperature.toFixed()}&deg;</p>
+          <p>{props.data.currently.summary}</p>
+          { !!props.data.minutely &&
+            <p>{props.data.minutely.summary}</p>
+          }
+        </div>
       </div>
     </div>
   )
