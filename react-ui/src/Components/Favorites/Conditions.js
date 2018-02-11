@@ -50,8 +50,10 @@ const Conditions = (props) => {
                         {channel.item.forecast[0].low}&deg;
                       </span>
                     </p>
-                    <p className="current-temp">{channel.item.condition.temp}&deg;</p>
-                    <WeatherIcon text={channel.item.condition.text} />
+                    <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                      <WeatherIcon text={channel.item.condition.text} />
+                      <p className="current-temp">{channel.item.condition.temp}&deg;</p>
+                    </div>
                   </Link>
                   <div className="remove-update-container">
                     <div className="update" onClick={() => { sendUpdate(id) }}>

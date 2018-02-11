@@ -2,24 +2,25 @@ import React from 'react';
 import moment from 'moment';
 import Skycons from 'skycons-component';
 
-const Currently = (props) => {
+const GeoForecast = (props) => {
+  console.log(props);
   return (
     <div className="panel">
       <div className="panel-heading">
-        <h3>Current Conditions</h3>
-        { !!props.data.currently &&
-          <span>{moment.unix(props.data.currently.time).format('h:mm: a')}</span>
+        <h3>Forecast</h3>
+        { !!props.data.daily &&
+          // <span>{moment.unix(props.data.currently.time).format('h:mm: a')}</span>
+          <span>{props.data.daily.summary}</span>
         }
       </div>
       <div className="panel-info">
         <Skycons
           iconColor="#abb2bf"
-          icon={props.data.currently.icon}
+          icon={props.data.daily.icon}
           style={{width: 200, height: 100}}
         />
         <div>
           <p className="current-temp">{props.data.currently.temperature.toFixed()}&deg;</p>
-          <span>Feels Like: {props.data.currently.apparentTemperature}</span>
           <p>{props.data.currently.summary}</p>
           { !!props.data.minutely &&
             <p>{props.data.minutely.summary}</p>
@@ -30,4 +31,4 @@ const Currently = (props) => {
   )
 }
 
-export default Currently
+export default GeoForecast;
