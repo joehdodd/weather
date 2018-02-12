@@ -5,7 +5,6 @@ import Conditions from './Conditions';
 const ConditionsList = (props) => {
     const { places } = props;
     let conditionItems = places.map( (place, index) => {
-    console.log(place);
     let uniqueKey = (Math.floor((1 + Math.random()) * 0x10000)).toString()
       return (
         <Conditions
@@ -22,21 +21,17 @@ const ConditionsList = (props) => {
     })
 
     return (
-      <div>
-        <div className="conditions-heading">
-          <h1>Current Conditions</h1>
-          <p>
-            To see details and a 10-day forecast, tap or click a card.
-            Or, drag and drop to reorder your favorite places.
-          </p>
-        </div>
+        <div className="component-container">
+          <div className="conditions-heading">
+            <h3>Your Favorites</h3>
+            <p>
+              For details and a 10-day forecast, tap or click a card.
+              Drag and drop to reorder.
+            </p>
+          </div>
         <Droppable droppableId="droppable" direction="horizontal">
           {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
-            <div
-              className="weather-container"
-              style={{backgroundColor: 'rgba(92, 99, 112, 0.15)', borderRadius: 4, padding: 10}}
-              ref={provided.innerRef}
-            >
+            <div ref={provided.innerRef} className="weather-container">
               {conditionItems}
               {provided.placeholder}
             </div>

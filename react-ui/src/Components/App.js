@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getWeather, removePlace, reorder } from '../actions/actions';
+import { getWeather, removePlace, reorder } from '../redux/actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
-import AddMore from './AddMore';
-import ConditionsList from './ConditionsList';
-import Forecast from './Forecast';
-import axios from 'axios';
-import '../App.css';
+import Main from './Main';
+import StickyToolbar from './StickyToolbar';
+import Forecast from './Favorites/Forecast';
+import getAPIWeather from '../utils/apiUtil.js';
 
 const reorderArr = (list, startIndex, endIndex) => {
   const result = [...list];
@@ -20,7 +19,9 @@ const reorderArr = (list, startIndex, endIndex) => {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      showPortal: false,
+    }
   }
 
   componentDidMount() {
@@ -30,25 +31,34 @@ class App extends React.Component {
       places.map(place => dispatch(getWeather(place.id, singleUpdate)))
     }
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.geoLocate);
+      navigator.geolocation.getCurrentPosition((position) =>{
+        let positionParams = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        this.sendRequest('/api/ds', positionParams)
+      });
     }
   }
 
-  geoLocate = (position) => {
-    let lat = position.coords.latitude;
-    let long = position.coords.longitude;
-    axios.get('/api/ds', {
-      params: {
-        lat: lat,
-        long: long,
+  sendRequest = async (endPoint, position) => {
+    const callParams = {
+      '/api/ds': {
+        endPoint,
+        position,
+      },
+      '/api/gm': {
+        endPoint,
+        position
       }
-    }).then(response => {
-      this.setState({
-        data: response.data
+    }
+    const response = await getAPIWeather(callParams[endPoint]);
+    if (!!response.data) {
+      return this.setState({
+        searchPlaces: endPoint === '/api/gm' ? [...response.data] : [],
+        data: endPoint === '/api/ds' ? response.data : {},
       })
-    }).catch(err => {
-      console.log(err);
-    })
+    }
   }
 
   newPlace = (newPlace) => {
@@ -87,58 +97,34 @@ class App extends React.Component {
     const { data } = this.state;
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-      <Route render={({ location }) => (
-        <div>
-          <CSSTransitionGroup
-            transitionName="fade"
-            transitionEnterTimeout={1000}
-            transitionLeaveTimeout={100}
-            transitionAppear={true}
-            transitionAppearTimeout={600}
-            >
-              <Route
-                location={location}
-                key={location.pathname}
-                exact
-                path="/"
-                render={({...props}) => (
-                  <div>
-                    <h1>Your Weather...</h1>
-                    { !!data
-                      ? <div className="weather-container">
-                          <span>{data.daily.summary}</span>
-                        </div>
-                      : <div className="weather-container">
-                          <span>Loading data for your location!</span>
-                        </div>
-                    }
-                    <AddMore newPlace={this.newPlace}/>
-                    { !!places && !notFound &&
-                      <ConditionsList places={places} removeItem={this.removeItem} updateItem={this.updateItem} {...props}/>
-                    }
-                    { notFound &&
-                      <CSSTransitionGroup
-                        transitionName="fade"
-                        transitionAppear={true}
-                        transitionLeave={true}
-                        transitionEnterTimeout={1000}
-                        transitionAppearTimeout={750}
-                        transitionLeaveTimeout={750}
-                        >
-                          <h2>
-                            Oops! Your search returned no results. Check your spelling and try again!
-                            <span style={{fontSize: 48}} role="img" aria-label="confused emoji">🤔</span>
-                          </h2>
-                        </CSSTransitionGroup>
-                      }
-                    </div>
-                  )}
-                />
-              </CSSTransitionGroup>
+        <div id="skew"></div>
+        <StickyToolbar
+          sendRequest={this.sendRequest}
+          newPlace={this.newPlace}
+        />
+        <Route render={({ location }) => (
+          <div className="wrapper">
+            <div className="container">
               <CSSTransitionGroup
                 transitionName="fade"
-                transitionEnterTimeout={200}
-                transitionLeaveTimeout={500}
+                transitionEnterTimeout={1000}
+                transitionLeaveTimeout={100}
+                transitionAppear={true}
+                transitionAppearTimeout={600}
+                >
+                  <Main
+                    location={location}
+                    places={places}
+                    notFound={notFound}
+                    data={data}
+                    removeItem={this.removeItem}
+                    updateItem={this.updateItem}
+                  />
+                </CSSTransitionGroup>
+                <CSSTransitionGroup
+                  transitionName="fade"
+                  transitionEnterTimeout={200}
+                  transitionLeaveTimeout={500}
                 >
                   <Route
                     location={location}
@@ -149,8 +135,9 @@ class App extends React.Component {
                     )}
                   />
                 </CSSTransitionGroup>
-        </div>
-      )}/>
+              </div>
+          </div>
+        )}/>
       </DragDropContext>
     )
   }

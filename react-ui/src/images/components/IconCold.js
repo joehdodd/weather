@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default (props) => {
-  const iconColor = props.iconColor || '#abb2bf';
+  const iconColor = props.iconColor || '#3c3c3c';
   return (
     <svg x="0px" y="0px" viewBox="0 0 219.781 219.781">
       <path fill={iconColor} d="M202.314,154.591l-22.322-12.888l19.345-11.407c3.568-2.104,4.755-6.702,2.651-10.27c-2.105-3.568-6.701-4.753-10.271-2.651

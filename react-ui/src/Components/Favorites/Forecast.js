@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Slider from 'react-slick';
-import WeatherIcon from './WeatherIcon';
+import WeatherIcon from '../WeatherIcon';
 
 const Forecast = (props) => {
   const getForecastCard = () => {

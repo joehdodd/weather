@@ -7,6 +7,7 @@ import { loadState } from './localStorage';
 import { handleWeather } from './reducers/reducers';
 
 export const history = createHistory();
+// eslint-disable-next-line
 const loggerMiddleware = createLogger();
 const routeMiddleware = routerMiddleware(history);
 const preloadedState = loadState();
@@ -20,6 +21,6 @@ export const appStore = createStore(
   applyMiddleware(
     routeMiddleware,
     thunkMiddleware,
-    loggerMiddleware
+    // loggerMiddleware
   )
 )
