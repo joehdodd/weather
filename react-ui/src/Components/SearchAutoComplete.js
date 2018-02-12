@@ -54,8 +54,8 @@ class SearchAutoComplete extends Component {
             />
           </form>
         </div>
-        <span
-          className="search-icon-container"
+        <div
+          className={`search-icon-container ${this.state.expand && "search-icon-container-animate"}`}
           onClick={() => {
             !this.state.expand
             ? this.handleExpand()
@@ -66,7 +66,7 @@ class SearchAutoComplete extends Component {
             width={{width: '24px', height: '24px'}}
             iconColor="#73c8a9"
           />
-        </span>
+        </div>
       </div>
     )
   }

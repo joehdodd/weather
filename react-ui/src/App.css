@@ -1,3 +1,7 @@
+/* globals etc */
+* {
+  font-family: 'Cabin', sans-serif; }
+
 body {
   margin: 0;
   box-sizing: border-box;
@@ -9,7 +13,7 @@ body {
   /* background: #3d4148; */
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
-  border-bottom: 1px solid #abb2bf; }
+  border-bottom: 1px solid #c4c4c4; }
 
 .panel-info {
   padding: 15px;
@@ -152,7 +156,7 @@ label, span, p {
 
 .slick-prev:before,
 .slick-next:before {
-  color: #abb2bf; }
+  color: #c4c4c4; }
 
 .slick-list {
   text-align: center; }
@@ -304,23 +308,22 @@ label, span, p {
 
 .panel-container {
   display: grid;
-  margin-bottom: 10px; }
-
-.panel-50-50 {
-  grid-template-columns: 1fr 1fr;
+  margin-bottom: 10px;
+  grid-template-columns: 1fr;
   grid-gap: 20px; }
+  @media screen and (min-width: 768px) {
+    .panel-container {
+      grid-template-columns: 1fr 1fr; } }
 
 .sticky-toolbar-container {
   height: 65px;
   padding: 0 5%;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 2fr;
   align-items: center;
   justify-content: space-between; }
   @media screen and (min-width: 768px) {
     .sticky-toolbar-container {
-      grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr; } }
 
 .search-container {
@@ -352,10 +355,9 @@ label, span, p {
   border: none;
   highlight: none;
   background-color: rgba(0, 0, 0, 0.75);
-  color: #abb2bf;
+  color: #c4c4c4;
   border-top-right-radius: 2px;
-  border-top-left-radius: 2px;
-  font-family: 'Cabin', sans-serif; }
+  border-top-left-radius: 2px; }
 
 .autocomplete-container {
   z-index: 10000;
@@ -366,11 +368,20 @@ label, span, p {
 
 .autocomplete-result {
   padding: 10px;
-  color: #abb2bf;
+  color: #c4c4c4;
   cursor: pointer;
   border-bottom: 1px solid #cfcfcf; }
 
 .search-icon-container {
   cursor: pointer;
   align-self: center;
-  margin-left: 10px; }
+  margin-left: 10px;
+  margin-top: 8px;
+  transform: translateX(-130px); }
+  @media screen and (min-width: 768px) {
+    .search-icon-container {
+      transform: translateX(-205px); } }
+
+.search-icon-container-animate {
+  transform: translateX(0px);
+  transition: transform 100ms ease-in-out; }

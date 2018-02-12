@@ -4,7 +4,7 @@
   /* background: #3d4148; */
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
-  border-bottom: 1px solid #abb2bf;
+  border-bottom: 1px solid $charcoal-light;
 }
 
 .panel-info {
@@ -186,7 +186,7 @@ label, span, p {
 
 .slick-prev:before,
 .slick-next:before {
-  color: #abb2bf;
+  color: $charcoal-light;
 }
 
 .slick-list {

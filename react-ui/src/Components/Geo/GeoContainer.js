@@ -1,25 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Currently from './Currently';
-import GeoForecast from './GeoForecast'
+import GeoForecast from './GeoForecast';
 
-
-
-class GeoContainer extends Component {
-
-
-  render() {
-    return (
-      <div className="panel-container panel-50-50">
-        { !!this.props.data &&
-          <Currently {...this.props}/>
-        }
-        { !!this.props.data &&
-          <GeoForecast {...this.props}/>
-        }
-      </div>
-    );
-  }
-
+const GeoContainer = (props) => {
+  return (
+    <div className="panel-container">
+      { !!props.data &&
+        <Currently {...props}/>
+      }
+      { !!props.data &&
+        <GeoForecast {...props}/>
+      }
+    </div>
+  )
 }
 
 export default GeoContainer;

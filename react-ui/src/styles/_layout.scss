@@ -29,9 +29,9 @@
 .panel-container {
   display: grid;
   margin-bottom: 10px;
-}
-
-.panel-50-50 {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 20px;
+  @media screen and (min-width: $break-med) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
