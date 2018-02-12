@@ -289,7 +289,7 @@ label, span, p {
   overflow: hidden;
   transform: skewY(-5deg);
   transform-origin: 0;
-  background: linear-gradient(to bottom, #49a09d, #5f2c82); }
+  background: linear-gradient(to bottom, #49a09d, #085078); }
   @media screen and (min-width: 768px) {
     #skew {
       transform: skewY(-12deg);
@@ -321,7 +321,7 @@ label, span, p {
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
-  justify-content: space-between; }
+  justify-content: center; }
   @media screen and (min-width: 768px) {
     .sticky-toolbar-container {
       grid-template-rows: 1fr; } }
