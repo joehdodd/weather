@@ -4,6 +4,8 @@ import { getWeather, removePlace, reorder } from '../redux/actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
+import Map from './Map';
+import SearchBox from './SearchBox';
 import Main from './Main';
 import StickyToolbar from './StickyToolbar';
 import Forecast from './Favorites/Forecast';
@@ -21,6 +23,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       showPortal: false,
+      lat: 40.7049579,
+      lng: -74.0109394,
     }
   }
 
@@ -36,6 +40,11 @@ class App extends React.Component {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
+        console.log(positionParams);
+        this.setState({
+          lat: positionParams.lat,
+          lng: positionParams.lng,
+        })
         this.sendRequest('/api/ds', positionParams)
       });
     }
@@ -94,14 +103,34 @@ class App extends React.Component {
 
   render() {
     const { places, notFound } = this.props;
-    const { data } = this.state;
+    const { data, lat, lng } = this.state;
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <div id="skew"></div>
-        <StickyToolbar
+        <Map
+          lat={lat}
+          lng={lng}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GMK}&libraries=geometry,drawing,places`}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `100vh` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+          defaultOptions={{
+            // these following 7 options turn certain controls off see link below
+            streetViewControl: false,
+            scaleControl: false,
+            mapTypeControl: false,
+            panControl: false,
+            zoomControl: false,
+            rotateControl: false,
+            fullscreenControl: false
+          }}
+          disableDefaultUI
+        />
+        {/* <StickyToolbar
           sendRequest={this.sendRequest}
           newPlace={this.newPlace}
-        />
+        /> */}
+        <SearchBox />
         <Route render={({ location }) => (
           <div className="wrapper">
             <div className="container">
