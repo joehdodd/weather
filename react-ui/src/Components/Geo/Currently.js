@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import Skycons from 'skycons-component';
+// import Skycons from 'skycons-component';
+import WeatherIcon from '../WeatherIcon';
 
 const Currently = (props) => {
   return (
@@ -12,10 +13,13 @@ const Currently = (props) => {
         }
       </div>
       <div className="panel-info">
-        <Skycons
+        {/* <Skycons
           iconColor="#5b4287"
           icon={props.data.currently.icon}
           style={{width: 200, height: 100}}
+        /> */}
+        <WeatherIcon
+          text={props.data.currently.summary}
         />
         <div>
           <p className="current-temp">{props.data.currently.temperature.toFixed()}&deg;</p>
