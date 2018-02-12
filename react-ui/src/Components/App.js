@@ -11,7 +11,6 @@ import ConditionsList from './Favorites/ConditionsList';
 import Forecast from './Favorites/Forecast';
 // import SearchAutoComplete from './SearchAutoComplete';
 import getAPIWeather from '../utils/apiUtil.js';
-import '../App.css';
 
 const reorderArr = (list, startIndex, endIndex) => {
   const result = [...list];

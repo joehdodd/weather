@@ -4,7 +4,7 @@ import App from './Components/App';
 import { Provider } from 'react-redux';
 import { appStore, history } from './redux/configureStore';
 import { ConnectedRouter } from 'react-router-redux';
-import './index.css';
+import './App.css';
 
 appStore.subscribe(() => {
   localStorage.setItem('state', JSON.stringify(appStore.getState()))
