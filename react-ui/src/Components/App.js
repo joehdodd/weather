@@ -6,8 +6,6 @@ import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Main from './Main';
 import StickyToolbar from './StickyToolbar';
-import GeoContainer from './Geo/GeoContainer';
-import ConditionsList from './Favorites/ConditionsList';
 import Forecast from './Favorites/Forecast';
 import getAPIWeather from '../utils/apiUtil.js';
 
