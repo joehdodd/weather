@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { getWeather, removePlace, reorder } from '../actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
@@ -9,7 +9,7 @@ import StickyToolbar from './StickyToolbar';
 import GeoContainer from './Geo/GeoContainer';
 import ConditionsList from './Favorites/ConditionsList';
 import Forecast from './Favorites/Forecast';
-import SearchAutoComplete from './SearchAutoComplete';
+// import SearchAutoComplete from './SearchAutoComplete';
 import getAPIWeather from '../apiUtil.js';
 import '../App.css';
 
@@ -20,8 +20,8 @@ const reorderArr = (list, startIndex, endIndex) => {
   return result;
 }
 
-const rootEl = document.getElementById('root');
-const modalRoot = document.getElementById('modal');
+// const rootEl = document.getElementById('root');
+// const modalRoot = document.getElementById('modal');
 
 
 class App extends React.Component {

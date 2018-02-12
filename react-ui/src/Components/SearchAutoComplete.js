@@ -45,16 +45,14 @@ class SearchAutoComplete extends Component {
     }
 
     return (
-      <div style={{display: 'flex', justifySelf: 'flex-end'}}>
-        <div className={(this.state.expand === false) ? "hidden" : ""}>
-          <div className={`search-form ${this.state.expand && "animate-search-form"}`}>
-            <form onSubmit={this.handleFormSubmit}>
-              <PlacesAutocomplete
-                inputProps={inputProps}
-                classNames={classes}
-              />
-            </form>
-          </div>
+      <div style={{display: 'flex', justifySelf: 'flex-end', width: '400px'}}>
+        <div className={`search-form ${this.state.expand && "animate-search-form"}`} style={{width: '400px'}}>
+          <form onSubmit={this.handleFormSubmit}>
+            <PlacesAutocomplete
+              inputProps={inputProps}
+              classNames={classes}
+            />
+          </form>
         </div>
         <span
           style={{cursor: 'pointer', alignSelf: 'center', marginLeft: '10px'}}
