@@ -100,16 +100,16 @@ class App extends React.Component {
     return dispatch(reorder(reorderedPlaces));
   }
 
-  showPortal = () => {
-    this.setState({ showPortal: true })
-    rootEl.classList.add('blur');
-  }
-
-  hidePortal = (e) => {
-    let modalCont = e.target.classList.value === 'modal-cont';
-    if (!modalCont) { this.setState({ showPortal: false }) }
-    rootEl.classList.remove('blur');
-  }
+  // showPortal = () => {
+  //   this.setState({ showPortal: true })
+  //   rootEl.classList.add('blur');
+  // }
+  //
+  // hidePortal = (e) => {
+  //   let modalCont = e.target.classList.value === 'modal-cont';
+  //   if (!modalCont) { this.setState({ showPortal: false }) }
+  //   rootEl.classList.remove('blur');
+  // }
 
 
   render() {
@@ -119,21 +119,19 @@ class App extends React.Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
       <div id="skew"></div>
       <StickyToolbar
-        showPortal={this.showPortal}
+        // showPortal={this.showPortal}
         sendRequest={this.sendRequest}
         newPlace={this.newPlace}
-        searchPlaces={this.state.searchPlaces ? this.state.searchPlaces : []}
       />
-      { this.state.showPortal &&
+      {/* { this.state.showPortal &&
         <Portal>
           <Modal
             hidePortal={this.hidePortal}
             sendRequest={this.sendRequest}
             newPlace={this.newPlace}
-            searchPlaces={this.state.searchPlaces ? this.state.searchPlaces : []}
           />
         </Portal>
-      }
+      } */}
       <Route render={({ location }) => (
         <div className="wrapper">
           <div className="container">
@@ -196,40 +194,40 @@ class App extends React.Component {
   }
 }
 
-class Portal extends React.Component {
-  constructor(props) {
-    super(props)
-    this.el = document.createElement('div');
-  }
+// class Portal extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     this.el = document.createElement('div');
+//   }
+//
+//   componentDidMount() {
+//     modalRoot.appendChild(this.el)
+//   }
+//
+//   componentWillUnmount() {
+//     modalRoot.removeChild(this.el)
+//   }
+//
+//   render() {
+//     return ReactDOM.createPortal(
+//       this.props.children,
+//       this.el
+//     )
+//   }
+// }
 
-  componentDidMount() {
-    modalRoot.appendChild(this.el)
-  }
-
-  componentWillUnmount() {
-    modalRoot.removeChild(this.el)
-  }
-
-  render() {
-    return ReactDOM.createPortal(
-      this.props.children,
-      this.el
-    )
-  }
-}
-
-const Modal = (props) => {
-  return (
-    <div className="modal">
-      <div className="modal-cont">
-        <SearchAutoComplete
-          sendRequest={props.sendRequest}
-          hidePortal={props.hidePortal}
-        />
-      </div>
-    </div>
-  )
-}
+// const Modal = (props) => {
+//   return (
+//     <div className="modal">
+//       <div className="modal-cont">
+//         <SearchAutoComplete
+//           sendRequest={props.sendRequest}
+//           hidePortal={props.hidePortal}
+//         />
+//       </div>
+//     </div>
+//   )
+// }
 
 function mapStateToProps(state, ownProps) {
   const {
