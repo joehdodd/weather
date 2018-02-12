@@ -5,6 +5,7 @@ import { StandaloneSearchBox } from "react-google-maps/lib/components/places/Sta
 
 const SearchBox = compose(
   withProps({
+    googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GMK}&v=3.exp&libraries=places`,
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `400px` }} />,
   }),
@@ -27,6 +28,7 @@ const SearchBox = compose(
       })
     },
   }),
+  withScriptjs
 )(props =>
   <div data-standalone-searchbox="">
     <StandaloneSearchBox
