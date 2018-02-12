@@ -1,7 +1,7 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { getWeather, removePlace, reorder } from '../actions/actions';
+import { getWeather, removePlace, reorder } from '../redux/actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -10,7 +10,7 @@ import GeoContainer from './Geo/GeoContainer';
 import ConditionsList from './Favorites/ConditionsList';
 import Forecast from './Favorites/Forecast';
 // import SearchAutoComplete from './SearchAutoComplete';
-import getAPIWeather from '../apiUtil.js';
+import getAPIWeather from '../utils/apiUtil.js';
 import '../App.css';
 
 const reorderArr = (list, startIndex, endIndex) => {
