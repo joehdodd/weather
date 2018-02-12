@@ -106,14 +106,24 @@ class App extends React.Component {
     const { data, lat, lng } = this.state;
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <div id="skew"></div>
+        {/* <div id="skew"></div> */}
         <Map
           lat={lat}
           lng={lng}
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GMK}&libraries=geometry,drawing,places`}
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `100vh` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GMK}&v=3.exp&libraries=geometry`}
+          loadingElement={<div style={{ height: `100%`, width: `100%` }} />}
+          containerElement={
+            <div style={{
+                margin: `0`,
+                height: `100%`,
+                width: `100%`,
+                zIndex: `-1000`,
+                position: `fixed`,
+                filter: `grayscale(100%)`,
+              }}
+            />
+          }
+          mapElement={<div style={{ height: `100%`, width: `100%` }} />}
           defaultOptions={{
             // these following 7 options turn certain controls off see link below
             streetViewControl: false,
@@ -130,7 +140,7 @@ class App extends React.Component {
           sendRequest={this.sendRequest}
           newPlace={this.newPlace}
         /> */}
-        <SearchBox />
+        <SearchBox/>
         <Route render={({ location }) => (
           <div className="wrapper">
             <div className="container">
