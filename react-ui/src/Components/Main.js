@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import SearchBox from './SearchBox';
 import GeoContainer from './Geo/GeoContainer';
-import ConditionsList from './Favorites/ConditionsList';
+// import ConditionsList from './Favorites/ConditionsList';
 import { CSSTransitionGroup } from 'react-transition-group';
 
 const Main = (props) => {
-  const { places, notFound, data, removeItem, updateItem } = props;
+  const { notFound, data, sendRequest, getBackgroundImage } = props;
   return (
     <Route
       location={props.location}
@@ -14,10 +15,11 @@ const Main = (props) => {
       path="/"
       render={({...props}) => (
         <div>
+          <SearchBox sendRequest={sendRequest} getBackgroundImage={getBackgroundImage}/>
           <GeoContainer data={data}/>
-          { !!places && !notFound &&
+          {/* { !!places && !notFound &&
             <ConditionsList places={places} removeItem={removeItem} updateItem={updateItem} {...props}/>
-          }
+          } */}
           { notFound &&
             <CSSTransitionGroup
               transitionName="fade"

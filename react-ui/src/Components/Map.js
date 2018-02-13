@@ -1,28 +1,52 @@
-import React from 'react';
-import { withScriptjs, withGoogleMap,GoogleMap } from "react-google-maps";
+import React, { Component } from 'react';
+import { withGoogleMap, GoogleMap } from "react-google-maps";
 
-const Map = withScriptjs(withGoogleMap((props) =>
-  <GoogleMap
-    defaultZoom={12}
-    defaultCenter={{
-      lat: 40.7049579,
-      lng: -74.0109394,
-    }}
-    {...props}
-    defaultOptions={{
-      // these following 7 options turn certain controls off see link below
-      streetViewControl: false,
-      scaleControl: false,
-      mapTypeControl: false,
-      panControl: false,
-      zoomControl: false,
-      rotateControl: false,
-      fullscreenControl: false
-    }}
-    disableDefaultUI
-  >
-    {/* {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />} */}
-  </GoogleMap>
-))
+const Map = withGoogleMap((props) => {
+  return props.center ? (
+    <GoogleMap
+      defaultZoom={12}
+      // defaultCenter={{
+      //   lat: 40,
+      //   lng: -74
+      // }}
+      center={{...props.center}}
+      defaultOptions={{
+        streetViewControl: false,
+        scaleControl: false,
+        mapTypeControl: false,
+        panControl: false,
+        zoomControl: false,
+        rotateControl: false,
+        fullscreenControl: false,
+        dragControl: false,
+      }}
+      disableDefaultUI
+      >
+      </GoogleMap>
 
-export default Map
+  ) : null
+})
+
+class HOCMap extends Component {
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.lat && nextProps.lng) {
+      this.setState({
+        center: {
+          lat: nextProps.lat,
+          lng: nextProps.lng
+        },
+      })
+    }
+  }
+  render() {
+    return (
+      <div>
+        <Map {...this.state} {...this.props}/>
+      </div>
+    );
+  }
+
+}
+
+export default HOCMap;

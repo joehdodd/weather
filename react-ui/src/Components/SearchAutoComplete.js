@@ -23,7 +23,7 @@ class SearchAutoComplete extends Component {
     geocodeByAddress(this.state.address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
-        this.props.sendRequest('/api/ds', latLng);
+        // this.props.sendRequest('/api/ds', latLng);
         console.log(latLng);
       })
       .catch(error => {

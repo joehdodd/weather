@@ -4,10 +4,9 @@ import { getWeather, removePlace, reorder } from '../redux/actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
-import Map from './Map';
-import SearchBox from './SearchBox';
+import HOCMap from './Map';
 import Main from './Main';
-import StickyToolbar from './StickyToolbar';
+// import StickyToolbar from './StickyToolbar';
 import Forecast from './Favorites/Forecast';
 import getAPIWeather from '../utils/apiUtil.js';
 
@@ -40,7 +39,6 @@ class App extends React.Component {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
-        console.log(positionParams);
         this.setState({
           lat: positionParams.lat,
           lng: positionParams.lng,
@@ -66,6 +64,8 @@ class App extends React.Component {
       return this.setState({
         searchPlaces: endPoint === '/api/gm' ? [...response.data] : [],
         data: endPoint === '/api/ds' ? response.data : {},
+        lat: position.lat,
+        lng: position.lng
       })
     }
   }
@@ -107,11 +107,9 @@ class App extends React.Component {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         {/* <div id="skew"></div> */}
-        <Map
+        <HOCMap
           lat={lat}
           lng={lng}
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GMK}&v=3.exp&libraries=geometry`}
-          loadingElement={<div style={{ height: `100%`, width: `100%` }} />}
           containerElement={
             <div style={{
                 margin: `0`,
@@ -120,27 +118,13 @@ class App extends React.Component {
                 zIndex: `-1000`,
                 position: `fixed`,
                 filter: `grayscale(100%)`,
+                opacity: `0.5`
               }}
             />
           }
           mapElement={<div style={{ height: `100%`, width: `100%` }} />}
-          defaultOptions={{
-            // these following 7 options turn certain controls off see link below
-            streetViewControl: false,
-            scaleControl: false,
-            mapTypeControl: false,
-            panControl: false,
-            zoomControl: false,
-            rotateControl: false,
-            fullscreenControl: false
-          }}
-          disableDefaultUI
+          defaultMapTypeId='satellite'
         />
-        {/* <StickyToolbar
-          sendRequest={this.sendRequest}
-          newPlace={this.newPlace}
-        /> */}
-        <SearchBox/>
         <Route render={({ location }) => (
           <div className="wrapper">
             <div className="container">
@@ -153,6 +137,8 @@ class App extends React.Component {
                 >
                   <Main
                     location={location}
+                    sendRequest={this.sendRequest}
+                    getBackgroundImage={this.getBackgroundImage}
                     places={places}
                     notFound={notFound}
                     data={data}
