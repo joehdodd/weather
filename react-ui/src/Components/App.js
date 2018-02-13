@@ -4,9 +4,8 @@ import { getWeather, removePlace, reorder } from '../redux/actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
-import HOCMap from './Map';
+import HOMap from './Map';
 import Main from './Main';
-// import StickyToolbar from './StickyToolbar';
 import Forecast from './Favorites/Forecast';
 import getAPIWeather from '../utils/apiUtil.js';
 
@@ -20,9 +19,7 @@ const reorderArr = (list, startIndex, endIndex) => {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showPortal: false,
-    }
+    this.state = {}
   }
 
   componentDidMount() {
@@ -47,10 +44,7 @@ class App extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (
-      ((nextState.lat !== this.state.lat) && (nextState.lng !== this.state.lng))
-      || (nextState.data !== this.state.data)
-    ) {
+    if ( ((nextState.lat !== this.state.lat) && (nextState.lng !== this.state.lng)) || (nextState.data !== this.state.data) ) {
       return true;
     }
     return false;
@@ -106,7 +100,7 @@ class App extends React.Component {
     const { data, lat, lng, address } = this.state;
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <HOCMap
+        <HOMap
           lat={lat}
           lng={lng}
           handleUpdates={this.handleUpdates}

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap } from "react-google-maps";
 
 const Map = withGoogleMap((props) => {
@@ -10,19 +10,25 @@ const Map = withGoogleMap((props) => {
       : console.log(results, status)
     })
   }
-  return props.center ? (
+  return (
     <GoogleMap
+      defaultCenter={{ lat: -34.397, lng: 150.644 }}
       {...props}
       defaultZoom={12}
       center={{...props.center}}
     />
-  ) : null
+  )
 })
 
-class HOCMap extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {};
+class HOMap extends Component {
+
+  componentWillMount() {
+    this.setState({
+      center: {
+        lat: this.props.lat,
+        lng: this.props.lng,
+      }
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,11 +44,13 @@ class HOCMap extends PureComponent {
   }
 
   render() {
+    const { center } = this.state;
+    const { handleUpdates } = this.props;
     return (
       <div>
         <Map
-          center={this.state.center}
-          handleUpdates={this.props.handleUpdates}
+          center={center}
+          handleUpdates={handleUpdates}
           containerElement={
             <div style={{
                 margin: `0`,
@@ -76,4 +84,4 @@ class HOCMap extends PureComponent {
 
 }
 
-export default HOCMap;
+export default HOMap;

@@ -9,7 +9,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-family: 'Cabin', sans-serif;
-  background-color: #004b9f; }
+  background-color: rgba(0, 107, 200, 0.8); }
 
 .wrapper {
   margin: 5px auto;

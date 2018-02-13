@@ -1,7 +1,7 @@
 import React from 'react';
 import Currently from './Currently';
 // import GeoForecast from './GeoForecast';
-import moment from 'moment';
+// import moment from 'moment';
 
 const GeoContainer = (props) => {
   return (
