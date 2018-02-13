@@ -1,0 +1,24 @@
+.current {
+  align-self: center;
+  justify-self: center;
+}
+
+.breakdown-card {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(4, auto);
+  align-self: center;
+  text-align: right;
+  height: 75%;
+}
+
+.breakdown-item {
+}
+
+.weather-icon {
+  margin: auto;
+  width: 75%;
+}

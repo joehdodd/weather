@@ -14,15 +14,14 @@ const SearchBox = compose(
         },
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
-          // const photo = places[0].photos[0].getUrl({'maxWidth': 1500, 'maxHeight': 1500});
-          // this.props.getBackgroundImage(photo);
+          const address = places[0].formatted_address;
           let lat = places[0].geometry.location.lat();
           let lng = places[0].geometry.location.lng();
           const latLng = {
             lat: lat,
             lng: lng,
           }
-          this.props.sendRequest('/api/ds', latLng);
+          this.props.handleUpdates({position: latLng, address: address});
           this.setState({
             places,
           });
@@ -31,7 +30,7 @@ const SearchBox = compose(
     },
   }),
 )(props =>
-  <div data-standalone-searchbox="">
+  <div>
     <StandaloneSearchBox
       ref={props.onSearchBoxMounted}
       bounds={props.bounds}
@@ -40,14 +39,17 @@ const SearchBox = compose(
       <input
         type="text"
         placeholder="New York, NY"
+        className="search"
         style={{
           boxSizing: `border-box`,
-          border: `1px solid transparent`,
-          width: `400px`,
+          borderTop: `none`,
+          borderRight: `1px solid #c4c4c4`,
+          borderBottom: `1px solid #c4c4c4`,
+          borderLeft: `none`,
+          width: `50%`,
           height: `40px`,
           padding: `0 16px`,
-          borderRadius: `3px`,
-          // boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+          backgroundColor: `#f2f2f2`,
           fontSize: `16px`,
           outline: `none`,
           textOverflow: `ellipses`,

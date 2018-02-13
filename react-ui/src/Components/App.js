@@ -22,8 +22,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       showPortal: false,
-      lat: 40.7049579,
-      lng: -74.0109394,
     }
   }
 
@@ -43,29 +41,31 @@ class App extends React.Component {
           lat: positionParams.lat,
           lng: positionParams.lng,
         })
-        this.sendRequest('/api/ds', positionParams)
+        this.handleUpdates({ position: positionParams })
       });
     }
   }
 
-  sendRequest = async (endPoint, position) => {
-    const callParams = {
-      '/api/ds': {
-        endPoint,
-        position,
-      },
-      '/api/gm': {
-        endPoint,
-        position
-      }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      ((nextState.lat !== this.state.lat) && (nextState.lng !== this.state.lng))
+      || (nextState.data !== this.state.data)
+    ) {
+      return true;
     }
-    const response = await getAPIWeather(callParams[endPoint]);
+    return false;
+  }
+
+  handleUpdates = async (options) => {
+    if (options.address) {
+      this.setState({ address: options.address })
+    }
+    const response = options.position && await getAPIWeather(options.position);
     if (!!response.data) {
       return this.setState({
-        searchPlaces: endPoint === '/api/gm' ? [...response.data] : [],
-        data: endPoint === '/api/ds' ? response.data : {},
-        lat: position.lat,
-        lng: position.lng
+        data: response.data,
+        lat: options.position.lat,
+        lng: options.position.lng,
       })
     }
   }
@@ -103,27 +103,13 @@ class App extends React.Component {
 
   render() {
     const { places, notFound } = this.props;
-    const { data, lat, lng } = this.state;
+    const { data, lat, lng, address } = this.state;
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        {/* <div id="skew"></div> */}
         <HOCMap
           lat={lat}
           lng={lng}
-          containerElement={
-            <div style={{
-                margin: `0`,
-                height: `100%`,
-                width: `100%`,
-                zIndex: `-1000`,
-                position: `fixed`,
-                filter: `grayscale(100%)`,
-                opacity: `0.5`
-              }}
-            />
-          }
-          mapElement={<div style={{ height: `100%`, width: `100%` }} />}
-          defaultMapTypeId='satellite'
+          handleUpdates={this.handleUpdates}
         />
         <Route render={({ location }) => (
           <div className="wrapper">
@@ -137,9 +123,10 @@ class App extends React.Component {
                 >
                   <Main
                     location={location}
-                    sendRequest={this.sendRequest}
+                    handleUpdates={this.handleUpdates}
                     getBackgroundImage={this.getBackgroundImage}
                     places={places}
+                    address={address}
                     notFound={notFound}
                     data={data}
                     removeItem={this.removeItem}

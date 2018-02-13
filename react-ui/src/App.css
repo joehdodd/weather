@@ -2,31 +2,14 @@
 * {
   font-family: 'Cabin', sans-serif; }
 
+p {
+  margin: 2.5px 0px; }
+
 body {
   margin: 0;
   box-sizing: border-box;
   font-family: 'Cabin', sans-serif;
-  background-color: rgba(0, 58, 159, 0.75); }
-
-.panel-heading {
-  padding: 15px;
-  /* background: #3d4148; */
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  border-bottom: 1px solid #c4c4c4; }
-
-.panel-info {
-  padding: 15px;
-  /* background: #21252b; */
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-gap: 10px;
-  align-items: center;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px; }
-
-.panel {
-  border-radius: 2px; }
+  background-color: #004b9f; }
 
 .wrapper {
   margin: 5px auto;
@@ -88,9 +71,7 @@ label, span, p {
 @media screen and (min-width: 768px) {
   .wrapper {
     /* height: calc(100vh - 85px); */
-    /* overflow-y: auto; */
-    margin: 0 auto;
-    padding: 30px 15%; } }
+    /* overflow-y: auto; */ } }
 
 /* add more */
 /* wrappers and containers */
@@ -171,10 +152,6 @@ label, span, p {
   border-radius: 2px;
   /* background: #3d4148; */
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.55); }
-
-.weather-icon {
-  margin: 0 auto;
-  max-width: 25%; }
 
 .button {
   font-family: 'Cabin', sans-serif;
@@ -288,19 +265,50 @@ label, span, p {
   height: 100%;
   overflow: hidden; }
 
+@media screen and (min-width: 768px) {
+  .wrapper {
+    margin: 0 auto;
+    padding: 5% 22.5%; } }
+
 .container {
   background: #f2f2f2;
   box-shadow: 4px 8px 20px 4px rgba(0, 0, 0, 0.55);
-  border-radius: 2px; }
+  border-radius: 2px;
+  min-height: 315px; }
 
 .panel-container {
   display: grid;
   margin-bottom: 10px;
-  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-gap: 20px; }
   @media screen and (min-width: 768px) {
     .panel-container {
-      grid-template-columns: 1fr 1fr; } }
+      grid-template-rows: 1fr; } }
+
+.panel {
+  border-radius: 2px; }
+
+.panel-heading {
+  padding: 0px 15px;
+  margin: 10px 0px;
+  font-size: 24px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px; }
+
+.panel-info {
+  padding: 0px 15px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: .25fr 3fr;
+  grid-gap: 5px;
+  align-items: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px; }
+
+.panel-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  grid-gap: 5px; }
 
 .sticky-toolbar-container {
   height: 65px;
@@ -372,3 +380,22 @@ label, span, p {
 .search-icon-container-animate {
   transform: translateX(0px);
   transition: transform 100ms ease-in-out; }
+
+.current {
+  align-self: center;
+  justify-self: center; }
+
+.breakdown-card {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(4, auto);
+  align-self: center;
+  text-align: right;
+  height: 75%; }
+
+.weather-icon {
+  margin: auto;
+  width: 75%; }

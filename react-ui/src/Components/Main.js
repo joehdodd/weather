@@ -6,7 +6,7 @@ import GeoContainer from './Geo/GeoContainer';
 import { CSSTransitionGroup } from 'react-transition-group';
 
 const Main = (props) => {
-  const { notFound, data, sendRequest, getBackgroundImage } = props;
+  const { notFound, data, handleUpdates, address } = props;
   return (
     <Route
       location={props.location}
@@ -15,8 +15,8 @@ const Main = (props) => {
       path="/"
       render={({...props}) => (
         <div>
-          <SearchBox sendRequest={sendRequest} getBackgroundImage={getBackgroundImage}/>
-          <GeoContainer data={data}/>
+          <SearchBox handleUpdates={handleUpdates} />
+          <GeoContainer address={address} data={data}/>
           {/* { !!places && !notFound &&
             <ConditionsList places={places} removeItem={removeItem} updateItem={updateItem} {...props}/>
           } */}

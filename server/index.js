@@ -28,7 +28,7 @@ if (cluster.isMaster) {
   app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
   // Answer API requests.
   app.get('/api', api.main);
-  app.get('/api/gm', api.gm);
+  // app.get('/api/gm', api.gm);
   app.get('/api/ds', api.ds);
   // All remaining requests return the React app, so it can handle routing.
   app.get('*', api.ra);

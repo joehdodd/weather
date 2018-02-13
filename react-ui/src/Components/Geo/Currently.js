@@ -3,31 +3,42 @@ import moment from 'moment';
 // import Skycons from 'skycons-component';
 import WeatherIcon from '../WeatherIcon';
 
+const Breakdown = (props) => {
+  console.log(props);
+  return (
+    <ul className="breakdown-card">
+      <li className="breakdown-item">Precipitation: {props.data.currently.precipProbability}%</li>
+      <li className="breakdown-item">Cloud Cover: {props.data.currently.cloudCover}%</li>
+      <li className="breakdown-item">Humidity: {props.data.currently.humidity}</li>
+      <li className="breakdown-item">Wind Speed: {props.data.currently.windSpeed}mph</li>
+      <li className="breakdown-item">UV Index: {props.data.currently.uvIndex}</li>
+      <li className="breakdown-item">Visibitly: {props.data.currently.visibility} mi</li>
+      <li className="breakdown-item">Sunrise: {moment.unix(props.data.daily.data[0].sunriseTime).format('hh:mm a')}</li>
+      <li className="breakdown-item">Sunset: {moment.unix(props.data.daily.data[0].sunsetTime).format('hh:mm a')}</li>
+    </ul>
+  )
+}
+
 const Currently = (props) => {
   return (
     <div className="panel">
-      <div className="panel-heading">
-        <h3>Current Conditions</h3>
-        { !!props.data.currently &&
-          <span>{moment.unix(props.data.currently.time).format('h:mm: a')}</span>
-        }
-      </div>
       <div className="panel-info">
-        {/* <Skycons
-          iconColor="#5b4287"
-          icon={props.data.currently.icon}
-          style={{width: 200, height: 100}}
-        /> */}
-        <WeatherIcon
-          text={props.data.currently.summary}
-        />
-        <div>
-          <p className="current-temp">{props.data.currently.temperature.toFixed()}&deg;</p>
-          <span>Feels Like: {props.data.currently.apparentTemperature}</span>
-          <p>{props.data.currently.summary}</p>
-          { !!props.data.minutely &&
-            <p>{props.data.minutely.summary}</p>
-          }
+        { !!props.data && !!props.data.currently &&
+          <span>{moment.unix(props.data.currently.time).format('MMMM Do YYYY')}</span>
+        }
+        <div className="panel-details">
+          <WeatherIcon
+            text={props.data.currently.summary}
+          />
+          <div className="current">
+            <p className="current-temp">{props.data.currently.temperature.toFixed()}&deg;</p>
+            <span>Feels Like: {props.data.currently.apparentTemperature}</span>
+            <p>{props.data.currently.summary}</p>
+            { !!props.data.minutely &&
+              <p>{props.data.minutely.summary}</p>
+            }
+          </div>
+          <Breakdown {...props}/>
         </div>
       </div>
     </div>
