@@ -268,13 +268,14 @@ label, span, p {
 @media screen and (min-width: 768px) {
   .wrapper {
     margin: 0 auto;
-    padding: 5% 22.5%; } }
+    padding: 5% 20.5%; } }
 
 .container {
   background: #f2f2f2;
   box-shadow: 4px 8px 20px 4px rgba(0, 0, 0, 0.55);
   border-radius: 2px;
-  min-height: 315px; }
+  min-height: 270px;
+  padding: 24px 0px; }
 
 .panel-container {
   display: grid;
@@ -289,6 +290,7 @@ label, span, p {
   border-radius: 2px; }
 
 .panel-heading {
+  min-height: 35px;
   padding: 0px 15px;
   margin: 10px 0px;
   font-size: 24px;

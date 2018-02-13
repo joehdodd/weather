@@ -32,11 +32,8 @@ const Currently = (props) => {
           />
           <div className="current">
             <p className="current-temp">{props.data.currently.temperature.toFixed()}&deg;</p>
-            <span>Feels Like: {props.data.currently.apparentTemperature}</span>
+            <span>Feels Like: {props.data.currently.apparentTemperature.toFixed()}</span>
             <p>{props.data.currently.summary}</p>
-            { !!props.data.minutely &&
-              <p>{props.data.minutely.summary}</p>
-            }
           </div>
           <Breakdown {...props}/>
         </div>

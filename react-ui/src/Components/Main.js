@@ -14,7 +14,7 @@ const Main = (props) => {
       exact
       path="/"
       render={({...props}) => (
-        <div>
+        <div className="main-route">
           <SearchBox handleUpdates={handleUpdates} />
           <GeoContainer address={address} data={data}/>
           {/* { !!places && !notFound &&

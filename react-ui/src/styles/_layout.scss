@@ -4,19 +4,12 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  // transform: skewY(-5deg);
-  // background: linear-gradient(to bottom, #49a09d, #085078);
-  @media screen and (min-width: $break-med) {
-    // transform: skewY(-12deg);
-    // height: 75%;
-  }
 }
 
 .wrapper {
-  // margin: 2.5%;
   @media screen and (min-width: $break-med) {
     margin: 0 auto;
-    padding: 5% 22.5%;
+    padding: 5% 20.5%;
   }
 }
 
@@ -24,7 +17,8 @@
   background: #f2f2f2;
   box-shadow: 4px 8px 20px 4px rgba(0,0,0,0.55);
   border-radius: 2px;
-  min-height: 315px;
+  min-height: 270px;
+  padding: 24px 0px;
 }
 
 .panel-container {
@@ -42,6 +36,7 @@
 }
 
 .panel-heading {
+  min-height: 35px;
   padding: 0px 15px;
   margin: 10px 0px;
   font-size: 24px;

@@ -30,7 +30,7 @@ const SearchBox = compose(
     },
   }),
 )(props =>
-  <div>
+  <div style={{padding: `0px 15px`}}>
     <StandaloneSearchBox
       ref={props.onSearchBoxMounted}
       bounds={props.bounds}
@@ -42,10 +42,8 @@ const SearchBox = compose(
         className="search"
         style={{
           boxSizing: `border-box`,
-          borderTop: `none`,
-          borderRight: `1px solid #c4c4c4`,
-          borderBottom: `1px solid #c4c4c4`,
-          borderLeft: `none`,
+          border: `1px solid #c4c4c4`,
+          borderRadius: `2px`,
           width: `50%`,
           height: `40px`,
           padding: `0 16px`,
