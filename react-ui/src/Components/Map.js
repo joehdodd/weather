@@ -15,7 +15,6 @@ const Map = withGoogleMap((props) => {
       defaultCenter={{ lat: -34.397, lng: 150.644 }}
       {...props}
       defaultZoom={12}
-      center={{...props.center}}
     />
   )
 })
@@ -58,12 +57,13 @@ class HOMap extends Component {
                 width: `100%`,
                 zIndex: `-1000`,
                 position: `fixed`,
-                filter: `grayscale(100%)`,
-                opacity: `0.5`
+                filter: `grayscale(30%)`,
+                opacity: `0.65`
               }}
             />
           }
           mapElement={<div style={{ height: `100%`, width: `100%` }} />}
+          loadgingElement={<div style={{ height: `100%`, width: `100%`}} />}
           defaultMapTypeId='satellite'
           defaultOptions={{
             streetViewControl: false,

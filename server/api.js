@@ -11,18 +11,16 @@ exports.ds = function (req, res) {
   let lat = req.query.lat;
   let lng = req.query.lng;
   console.log(req.query);
-  try {
-    axios.get(`https://api.darksky.net/forecast/${REACT_APP_DSK}/${lat},${lng}`)
+  return axios.get(`https://api.darksky.net/forecast/${REACT_APP_DSK}/${lat},${lng}`)
     .then(response => {
       console.log(response);
       res.json(response.data);
     })
     .catch(err => {
+      console.log(err);
+      res.status(400).json({"message": `Oops! ${err.error}`})
       res.status(500).json({"message": 'Oops! An error occured with your request to the Dark Sky API!', "details": err})
     })
-  } catch(err) {
-    res.status(500).json({"message": 'Oops! An error occured with your request to the Dark Sky API', "details" : err})
-  }
 }
 
 exports.ra = function(request, response) {

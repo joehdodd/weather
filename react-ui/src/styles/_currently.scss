@@ -1,3 +1,43 @@
+.panel-container {
+  display: grid;
+  margin-bottom: 10px;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 20px;
+  @media screen and (min-width: $break-med) {
+    grid-template-rows: 1fr;
+  }
+}
+
+.panel {
+  border-radius: 2px;
+}
+
+.panel-heading {
+  min-height: 35px;
+  padding: 0px 15px;
+  margin: 10px 0px;
+  font-size: 24px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.panel-info {
+  padding: 0px 32px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: .25fr 3fr;
+  grid-gap: 5px;
+  align-items: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.panel-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  grid-gap: 5px;
+}
+
 .current {
   align-self: center;
   justify-self: center;

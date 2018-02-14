@@ -54,7 +54,9 @@ class App extends React.Component {
     if (options.address) {
       this.setState({ address: options.address })
     }
-    const response = options.position && await getAPIWeather(options.position);
+
+    const response = await getAPIWeather(options.position);
+    console.log(response);
     if (!!response.data) {
       return this.setState({
         data: response.data,
@@ -118,7 +120,6 @@ class App extends React.Component {
                   <Main
                     location={location}
                     handleUpdates={this.handleUpdates}
-                    getBackgroundImage={this.getBackgroundImage}
                     places={places}
                     address={address}
                     notFound={notFound}
