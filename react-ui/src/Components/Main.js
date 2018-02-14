@@ -1,12 +1,11 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import SearchBox from './SearchBox';
+import { Route, withRouter } from 'react-router-dom';
 import GeoContainer from './Geo/GeoContainer';
 // import ConditionsList from './Favorites/ConditionsList';
 import { CSSTransitionGroup } from 'react-transition-group';
 
 const Main = (props) => {
-  const { notFound, data, handleUpdates, address } = props;
+  const { notFound, data, address } = props;
   return (
     <Route
       location={props.location}
@@ -15,8 +14,16 @@ const Main = (props) => {
       path="/"
       render={({...props}) => (
         <div className="main-route">
-          <SearchBox handleUpdates={handleUpdates} />
-          <GeoContainer address={address} data={data}/>
+          <CSSTransitionGroup
+            transitionName="fade"
+            transitionAppear={true}
+            transitionLeave={true}
+            transitionEnterTimeout={1000}
+            transitionAppearTimeout={750}
+            transitionLeaveTimeout={750}
+            >
+              <GeoContainer address={address} data={data}/>
+            </CSSTransitionGroup>
           {/* { !!places && !notFound &&
             <ConditionsList places={places} removeItem={removeItem} updateItem={updateItem} {...props}/>
           } */}
@@ -41,4 +48,4 @@ const Main = (props) => {
   )
 }
 
-export default Main;
+export default withRouter(Main)

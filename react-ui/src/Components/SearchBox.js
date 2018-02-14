@@ -14,14 +14,13 @@ const SearchBox = compose(
         },
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
-          const address = places[0].formatted_address;
           let lat = places[0].geometry.location.lat();
           let lng = places[0].geometry.location.lng();
           const latLng = {
             lat: lat,
             lng: lng,
           }
-          this.props.handleUpdates({position: latLng, address: address});
+          this.props.handleUpdates({ position: latLng });
           this.setState({
             places,
           });
@@ -40,18 +39,6 @@ const SearchBox = compose(
         type="text"
         placeholder="New York, NY"
         className="search"
-        style={{
-          boxSizing: `border-box`,
-          border: `1px solid #c4c4c4`,
-          borderRadius: `2px`,
-          width: `50%`,
-          height: `40px`,
-          padding: `0 16px`,
-          backgroundColor: `#f2f2f2`,
-          fontSize: `16px`,
-          outline: `none`,
-          textOverflow: `ellipses`,
-        }}
       />
     </StandaloneSearchBox>
   </div>

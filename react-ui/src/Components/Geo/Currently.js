@@ -4,7 +4,6 @@ import moment from 'moment';
 import WeatherIcon from '../WeatherIcon';
 
 const Breakdown = (props) => {
-  console.log(props);
   return (
     <ul className="breakdown-card">
       <li className="breakdown-item">Precipitation: {props.data.currently.precipProbability}%</li>

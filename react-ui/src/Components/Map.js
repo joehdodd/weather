@@ -22,17 +22,37 @@ const Map = withGoogleMap((props) => {
 class HOMap extends Component {
 
   componentWillMount() {
-    this.setState({
-      center: {
-        lat: this.props.lat,
-        lng: this.props.lng,
-      }
-    })
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) =>{
+        let positionParams = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        this.setState({
+          lat: positionParams.lat,
+          lng: positionParams.lng,
+        })
+        this.props.handleUpdates({ position: positionParams })
+      });
+    }
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    let nextLat = nextProps.lat;
+    let prevLat = this.props.lat;
+    let nextLng = nextProps.lng;
+    let prevLng = this.props.lng;
+
+    if ( ((nextLat !== prevLat) && (nextLng !== prevLng)) ) {
+      return true;
+    }
+    return false;
+  }
+
 
   componentWillReceiveProps(nextProps) {
     if ((nextProps.lat !== this.props.lat) && (nextProps.lng !== this.props.lng) ) {
-      console.log('CWRP');
+      console.log('CWRP', 'next:', nextProps.lat, 'prev:', this.props.lat);
       this.setState({
         center: {
           lat: nextProps.lat,
@@ -43,12 +63,24 @@ class HOMap extends Component {
   }
 
   render() {
-    const { center } = this.state;
+    // const { center } = this.state;
     const { handleUpdates } = this.props;
-    return (
+    return this.state === null
+    ? (
+      <div style={{
+          margin: `0`,
+          height: `100%`,
+          width: `100%`,
+          zIndex: `-1000`,
+          position: `fixed`,
+          filter: `grayscale(30%)`,
+          opacity: `0.65`
+        }}
+      />
+    ):(
       <div>
         <Map
-          center={center}
+          center={this.state.center}
           handleUpdates={handleUpdates}
           containerElement={
             <div style={{

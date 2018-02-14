@@ -11,11 +11,6 @@ export function handleWeather(state = {
 		notFound: false,
 	}, action) {
 	switch (action.type) {
-		// case GLOBAL_UPDATE:
-		//  	let nextState = {
-		// 		globalUpdated: action.globalUpdated
-		// 	}
-		// 	return Object.assign({}, state, nextState)
 		case RES_SUCC:
 			let nextState = {
         places: [
@@ -48,7 +43,6 @@ export function handleWeather(state = {
 			return Object.assign({}, state, nextState)
 			case REORDER:
 			return Object.assign({}, state, {
-				// places: action.places.filter(place => place !== undefined || null)
 				places: [...action.places]
 			})
     default:

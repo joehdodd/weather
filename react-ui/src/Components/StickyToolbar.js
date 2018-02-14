@@ -1,10 +1,19 @@
 import React from 'react';
-import SearchAutoComplete from './SearchAutoComplete';
+import SearchBox from './SearchBox';
+import { NavLink } from 'react-router-dom';
 
 const StickyToolbar = (props) => {
   return (
     <div className="sticky-toolbar-container">
-      <SearchAutoComplete sendRequest={props.sendRequest}/>
+      <SearchBox handleUpdates={props.handleUpdates} />
+      <div className="sticky-toolbar-nav">
+        <NavLink to={{ pathname: '/'}}>
+          Home
+        </NavLink>
+        <NavLink to={{ pathname: '/forecast'}}>
+          Forecast
+        </NavLink>
+      </div>
     </div>
   )
 }
