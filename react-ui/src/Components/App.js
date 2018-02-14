@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getWeather, removePlace, reorder } from '../redux/actions/actions';
+import { getWeather, setPosition, setAddress } from '../redux/actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -8,93 +8,17 @@ import HOMap from './Map';
 import StickyToolbar from './StickyToolbar';
 import Main from './Main';
 import Forecast from './Favorites/Forecast';
-import getAPIWeather from '../utils/apiUtil.js';
-
-const reorderArr = (list, startIndex, endIndex) => {
-  const result = [...list];
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return result;
-}
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // lat: -34.397, lng: 150.644
-    }
-  }
-
-  // componentDidMount() {
-  //   // const { dispatch, places } = this.props;
-  //   // const singleUpdate = true;
-  //   // if (!!places) {
-  //   //   places.map(place => dispatch(getWeather(place.id, singleUpdate)))
-  //   // }
-  //   // if (navigator.geolocation) {
-  //   //   // navigator.geolocation.getCurrentPosition((position) =>{
-  //   //   //   let positionParams = {
-  //   //   //     lat: position.coords.latitude,
-  //   //   //     lng: position.coords.longitude
-  //   //   //   }
-  //   //   //   this.setState({
-  //   //   //     lat: positionParams.lat,
-  //   //   //     lng: positionParams.lng,
-  //   //   //   })
-  //   //   //   this.handleUpdates({ position: positionParams })
-  //   //   // });
-  //   // }
-  // }
 
   handleUpdates = async (options) => {
-    if (options.address) {
-      this.setState({ address: options.address })
-    }
-
-    const response = options.position && await getAPIWeather(options.position);
-    if (!!response && !!response.data) {
-      return this.setState({
-        data: response.data,
-        lat: options.position.lat,
-        lng: options.position.lng,
-      })
-    }
-  }
-
-  newPlace = (newPlace) => {
-    const { dispatch } = this.props;
-    dispatch(getWeather(newPlace));
-  }
-
-  removeItem = (id) => {
-    const { dispatch } = this.props;
-    dispatch(removePlace(id));
-  }
-
-  updateItem = (id) => {
-    const { dispatch } = this.props;
-    const singleUpdate = true;
-    dispatch(getWeather(id, singleUpdate));
-  }
-
-  onDragEnd = (result) => {
-    const { dispatch, places } = this.props;
-    if (!result.destination) {
-      return;
-    }
-
-    const reorderedPlaces = reorderArr(
-      places,
-      result.source.index,
-      result.destination.index
-    );
-
-    return dispatch(reorder(reorderedPlaces));
+    const { dispatch, address } = this.props;
+    if (options.address) await dispatch(setAddress(options.address))
+    if (options.position) await dispatch(setPosition(options.position), getWeather(options.position))
   }
 
   render() {
-    const { places, notFound } = this.props;
-    const { data, lat, lng, address } = this.state;
+    const { fetching, notFound, address, lat, lng, data } = this.props;
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <HOMap
@@ -109,16 +33,20 @@ class App extends React.Component {
             />
             <Route render={({ location }) => (
               <span>
-                  <Main
-                    location={location}
-                    handleUpdates={this.handleUpdates}
-                    places={places}
-                    address={address}
-                    notFound={notFound}
-                    data={data}
-                    removeItem={this.removeItem}
-                    updateItem={this.updateItem}
-                  />
+                { fetching
+                  ? <div className="loading-container pulsate">
+                      <h1>Loading your weather...</h1>
+                    </div>
+                  : <Main
+                      location={location}
+                      handleUpdates={this.handleUpdates}
+                      address={address}
+                      notFound={notFound}
+                      data={data}
+                      // removeItem={this.removeItem}
+                      // updateItem={this.updateItem}
+                    />
+                }
                 <CSSTransitionGroup
                   transitionName="fade"
                   transitionEnterTimeout={200}
@@ -127,7 +55,7 @@ class App extends React.Component {
                   <Route
                     location={location}
                     key={location.pathname}
-                    path={`/forecast/`}
+                    path={`/forecast`}
                     render={({...props}) => (
                       <Forecast {...props}/>
                     )}
@@ -148,15 +76,21 @@ function mapStateToProps(state, ownProps) {
     router,
   } = state;
   const {
-    places,
+    fetching,
     notFound,
-    reorder
+    address,
+    lat,
+    lng,
+    data
   } = handleWeather;
   const { location } = router;
   return {
-    places,
+    fetching,
     notFound,
-    reorder,
+    address,
+    lat,
+    lng,
+    data,
     location,
   }
 }

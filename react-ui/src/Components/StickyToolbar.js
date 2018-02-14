@@ -7,10 +7,10 @@ const StickyToolbar = (props) => {
     <div className="sticky-toolbar-container">
       <SearchBox handleUpdates={props.handleUpdates} />
       <div className="sticky-toolbar-nav">
-        <NavLink to={{ pathname: '/'}}>
+        <NavLink exact to={{ pathname: '/'}}>
           Home
         </NavLink>
-        <NavLink to={{ pathname: '/forecast'}}>
+        <NavLink exact to={{ pathname: '/forecast'}}>
           Forecast
         </NavLink>
       </div>

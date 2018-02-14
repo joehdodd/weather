@@ -5,6 +5,32 @@
 p {
   margin: 2.5px 0px; }
 
+.spinner {
+  animation: rotator 1.4s linear infinite; }
+
+@keyframes rotator {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(270deg); } }
+
+.path {
+  stroke-dasharray: 187;
+  stroke: #3c3c3c;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation: dash 1.4s ease-in-out infinite; }
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 187; }
+  50% {
+    stroke-dashoffset: 46.75;
+    transform: rotate(135deg); }
+  100% {
+    stroke-dashoffset: 187;
+    transform: rotate(450deg); } }
+
 body {
   margin: 0;
   box-sizing: border-box;
@@ -276,6 +302,13 @@ label, span, p {
   border-radius: 2px;
   min-height: 305px;
   padding: 24px 0px; }
+
+.loading-container {
+  margin: auto;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: 260px; }
 
 .sticky-toolbar-container {
   display: grid;

@@ -1,52 +1,36 @@
-/* eslint-disable */
 import {
-	RES_SUCC,
-	RES_ERR,
-	REMOVE_PLACE,
-	UPDATE_PLACE,
-	GLOBAL_UPDATE,
-	REORDER } from '../actions/actions.js';
+	FETCHING,
+  ERROR,
+  SET_ADDR,
+  SET_POSITION,
+  SUCCESS,
+} from '../actions/actions.js';
 
 export function handleWeather(state = {
-		notFound: false,
-	}, action) {
-	switch (action.type) {
-		case RES_SUCC:
-			let nextState = {
-        places: [
-					{ id: action.place, updatedAt: action.updatedAt, data: action.payload},
-					...handleWeather(state.places, action.payload)
-				],
-        notFound: action.notFound,
-      }
-			return Object.assign({}, state, nextState)
-    case RES_ERR:
-      return Object.assign({}, state, { notFound: action.notFound })
-		case REMOVE_PLACE:
-			return Object.assign({}, state, {
-				...state,
-				places: state.places.filter(place => place.id !== action.id),
-			})
-		case UPDATE_PLACE:
-			nextState = {
-			 	places: state.places.map(place => {
-					return (place.id !== action.place)
-						? place
-						: {
-								id: action.place,
-								updatedAt: action.updatedAt,
-								data: action.payload
-							}
-				}),
-				notFound: action.notFound,
-			}
-			return Object.assign({}, state, nextState)
-			case REORDER:
-			return Object.assign({}, state, {
-				places: [...action.places]
-			})
+  fetching: true
+}, action) {
+  switch (action.type) {
+    case FETCHING:
+      return Object.assign({}, state, {
+        fetching: action.fetching,
+      })
+      break;
+    case ERROR:
+      return Object.assign({}, state, { notFound: action.notfound })
+    case SET_ADDR:
+      return Object.assign({}, state, { address: action.address })
+    case SET_POSITION:
+      return Object.assign({}, state, {
+        lat: action.lat,
+        lng: action.lng,
+      })
+    case SUCCESS:
+      return Object.assign({}, state, {
+        notFound: action.notfound,
+        fetching: action.fetching,
+        data: action.data,
+      })
     default:
       return state;
-	}
-	return state;
+  }
 }

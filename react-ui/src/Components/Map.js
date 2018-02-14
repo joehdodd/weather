@@ -52,7 +52,7 @@ class HOMap extends Component {
 
   componentWillReceiveProps(nextProps) {
     if ((nextProps.lat !== this.props.lat) && (nextProps.lng !== this.props.lng) ) {
-      console.log('CWRP', 'next:', nextProps.lat, 'prev:', this.props.lat);
+      // console.log('CWRP', 'next:', nextProps.lat, 'prev:', this.props.lat);
       this.setState({
         center: {
           lat: nextProps.lat,

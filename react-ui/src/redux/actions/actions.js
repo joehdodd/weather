@@ -1,77 +1,62 @@
 import axios from 'axios';
 
-export const GET_PLACES = 'GET_PLACES';
-export function getPlaces(places) {
+
+export const FETCHING = 'FETCHING';
+function fetching(fetching) {
   return {
-    type: GET_PLACES,
-    places
+    type: 'FETCHING',
+    fetching: fetching
   }
 }
 
-export const REORDER = 'REORDER';
-export function reorder(places) {
-  return {
-    type: REORDER,
-    places: places
-  }
-}
-
-export const RES_SUCC = 'RES_SUCC';
-function resSuccess(response, place) {
-  return {
-    type: RES_SUCC,
-    payload: response,
-    place: place,
-    updatedAt: Date.now(),
-    notFound: false,
-  }
-}
-
-export const UPDATE_PLACE = 'SINGLE_UPDATE';
-function updatePlace(response, place) {
-  return {
-    type: UPDATE_PLACE,
-    payload: response,
-    place: place,
-    updatedAt: Date.now(),
-    notFound: false,
-  }
-}
-
-export const RES_ERR = 'RES_ERR';
+export const ERROR = 'ERROR';
 function resError(err) {
   return {
-    type: RES_ERR,
+    type: ERROR,
     notFound: err
   }
 }
 
-export const REMOVE_PLACE = 'REMOVE_PLACE';
-export function removePlace(id) {
+export const SUCCESS = 'SUCESS';
+function resSuccess(data) {
   return {
-    type: REMOVE_PLACE,
-    id: id
+    type: SUCCESS,
+    notFound: false,
+    fetching: false,
+    data,
   }
 }
 
+export const SET_ADDR = 'SET_ADDR';
+export function setAddress(address) {
+  return {
+    type: SET_ADDR,
+    address,
+  }
+}
+
+export const SET_POSITION = 'SET_POSITION';
+export function setPosition(position) {
+  return {
+    type: SET_POSITION,
+    lat: position.lat,
+    lng: position.lng,
+  }
+}
+
+
 export const GET_WEATHER = 'GET_WEATHER';
-export function getWeather(place, update) {
-  let uri = `https://query.yahooapis.com/v1/public/yql?q=`;
-  let query = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${place}")&format=json`;
-  const rest_query = uri += query;
+export function getWeather(callParams) {
   return function(dispatch) {
-    axios.get(rest_query)
-    .then((response) => {
-      const results = response.data.query.results;
-      if (!!response && (results === null || undefined)) {
-        dispatch(resError(true))
-      } else if (!!update) {
-        dispatch(updatePlace(response, place));
-      } else {
-        dispatch(resSuccess(response, place));
+    dispatch(fetching(true))
+    axios.get('/api/ds', {
+      params: {
+        ...callParams
       }
-    })
-    .catch((err) => {
+    }).then(response => {
+      if (!response) dispatch(resError(true))
+      dispatch(resSuccess(response.data))
+    }).catch(err => {
       dispatch(resError(true))
     })
   }
