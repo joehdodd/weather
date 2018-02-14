@@ -43,8 +43,6 @@ class App extends React.Component {
                       address={address}
                       notFound={notFound}
                       data={data}
-                      // removeItem={this.removeItem}
-                      // updateItem={this.updateItem}
                     />
                 }
                 <CSSTransitionGroup
