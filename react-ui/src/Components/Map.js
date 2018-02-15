@@ -6,7 +6,7 @@ const Map = compose (
   withProps({
     containerElement: <div className="map-conatiner" />,
     mapElement: <div className="map-element" />,
-    loadgingElement: <div className="map-loading-element" />,
+    loadingElement: <div className="map-loading-element" />,
   }),
   withGoogleMap,
   lifecycle({

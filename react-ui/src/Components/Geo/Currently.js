@@ -26,13 +26,16 @@ const Currently = (props) => {
           <span>{moment.unix(props.data.currently.time).format('MMMM Do YYYY')}</span>
         }
         <div className="panel-details">
-          <WeatherIcon
-            text={props.data.currently.summary}
-          />
-          <div className="current">
-            <p className="current-temp">{props.data.currently.temperature.toFixed()}&deg;</p>
-            <span>Feels Like: {props.data.currently.apparentTemperature.toFixed()}</span>
-            <p>{props.data.currently.summary}</p>
+          <div className="overview-card">
+            <WeatherIcon
+              className="weather-icon"
+              text={props.data.currently.icon}
+            />
+            <div className="current">
+              <p className="current-temp">{props.data.currently.temperature.toFixed()}&deg;</p>
+              <span>Feels Like: {props.data.currently.apparentTemperature.toFixed()}</span>
+              <p>{props.data.currently.summary}</p>
+            </div>
           </div>
           <Breakdown {...props}/>
         </div>

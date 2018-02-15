@@ -1,50 +1,67 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-// import WeatherIcon from '../WeatherIcon';
+import { Route, withRouter } from 'react-router-dom';
+import WeatherIcon from '../WeatherIcon';
+import { CSSTransitionGroup } from 'react-transition-group';
+import moment from 'moment';
+
 
 const Forecast = (props) => {
-  // // const getForecastCard = () => {
-  // //   const { forecast } = props.location.state.item;
-  // //   return forecast.map( data => {
-  // //     return (
-  // //       <div key={data.date} className="forecast-item">
-  // //         <div className="forecast-wrapper">
-  // //           <p>{data.day}, {data.date}</p>
-  // //           <p>High: <span className="hi-temp">{data.high}&deg;</span></p>
-  // //           <p>Low: <span className="lo-temp">{data.low}&deg;</span></p>
-  // //           <WeatherIcon text={data.text} />
-  // //         </div>
-  // //       </div>
-  // //     )
-  // //   })
-  //
-  // }
+  const getForecastCard = () => {
+    const { data } = props.data.daily;
+    return data.map( data => {
+      return (
+        <div key={data.time} className="panel-forecast-item">
+         <span>{moment.unix(data.time).format('MMM Do')}</span>
+         <div>
+           <p>High: <span className="hi-temp">{data.temperatureHigh.toFixed()}&deg;</span></p>
+           <p>Low: <span className="lo-temp">{data.temperatureLow.toFixed()}&deg;</span></p>
+         </div>
+         <WeatherIcon className="forecast-weather-icon" text={data.icon} />
+        </div>
+      )
+    })
+  }
 
-  // const { item, astronomy, location, atmosphere } = props.location.state;
+  const { fetching, location, address, data } = props;
+  console.log(props);
   return (
-    <span>
-      <div className="panel-heading">
-        <h3>My damn heading.</h3>
-      </div>
-      <div className="panel-container">
-        <div className="panel-info">
-          <span>
-            Somedember, 200, 200019
-          </span>
-          <div className="panel-details">
-            <span>
-              Some new stuff!
+    <Route
+      location={location}
+      key={location.pathname}
+      path={`/forecast`}
+      render={({...props}) => (
+        <CSSTransitionGroup
+          transitionName="fade"
+          transitionAppear={true}
+          transitionLeave={true}
+          transitionEnterTimeout={1000}
+          transitionAppearTimeout={750}
+          transitionLeaveTimeout={750}
+        >
+        { fetching
+          ? <div className="loading-container pulsate">
+              <h1>Loading your forecast...</h1>
+            </div>
+          : <span>
+              <div className="panel-heading">
+                <h3>{address}</h3>
+              </div>
+              <div className="panel-container">
+                <div className="panel-info">
+                  { !!data && !!data.currently &&
+                    <span>{moment.unix(data.currently.time).format('MMMM Do YYYY')}</span>
+                  }
+                  <div className="panel-forecast-details">
+                    {getForecastCard()}
+                  </div>
+                  <span>{data.daily.summary}</span>
+                </div>
+              </div>
             </span>
-            <span>
-              Some new stuff!
-            </span>
-            <span>
-              Some new stuff!
-            </span>
-          </div>
-      </div>
-      </div>
-    </span>
+          }
+        </CSSTransitionGroup>
+      )}
+    />
   )
 }
 
