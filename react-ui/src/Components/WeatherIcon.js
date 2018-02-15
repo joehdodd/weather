@@ -10,6 +10,9 @@ import IconRain from '../images/components/IconRain';
 import IconMostlyCloudy from '../images/components/IconMostlyCloudy';
 import IconBreeze from '../images/components/IconBreeze';
 import IconSnow from '../images/components/IconSnow';
+import IconFlurry from '../images/components/IconFlurry';
+import IconCloudyNight from '../images/components/IconCloudyNight';
+import IconNight from '../images/components/IconNight';
 
 const WeatherIcon = (props) => {
   let conditionTypes = {
@@ -18,6 +21,8 @@ const WeatherIcon = (props) => {
     "Mostly Sunny": <IconSunnyDay />,
     "Partly Cloudy": <IconPartlyCloudy />,
     "Mostly Cloudy": <IconMostlyCloudy />,
+    "partly-cloudy-night": <IconCloudyNight/>,
+    "clear-night": <IconNight/>,
     "Scattered Thunderstorms": <IconLightning />,
     "Scattered Showers": <IconDrizzle />,
     "Rain": <IconRain />,
@@ -26,6 +31,8 @@ const WeatherIcon = (props) => {
     "Drizzle": <IconDrizzle />,
     "Blizzard": <IconBlizzard />,
     "Snow Showers": <IconSnow />,
+    "snow": <IconFlurry />,
+    "Flurries": <IconFlurry />,
     "Rain And Snow": <IconSleet />,
     "Cloudy": <IconCloudy />,
     "Breezy": <IconBreeze />,

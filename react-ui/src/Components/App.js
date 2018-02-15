@@ -55,14 +55,20 @@ class App extends React.Component {
                   transitionEnterTimeout={200}
                   transitionLeaveTimeout={500}
                 >
-                  <Route
-                    location={location}
-                    key={location.pathname}
-                    path={`/forecast`}
-                    render={({...props}) => (
-                      <Forecast {...props}/>
-                    )}
-                  />
+                  { fetching
+                    ? <div className="loading-container pulsate">
+                        <h1>Loading your forecast...</h1>
+                      </div>
+                    : <Route
+                        location={location}
+                        key={location.pathname}
+                        path={`/forecast`}
+                        render={({...props}) => (
+                          <Forecast {...props} data={data}/>
+                        )}
+                      />
+
+                  }
                 </CSSTransitionGroup>
               </span>
             )}/>

@@ -27,7 +27,7 @@ const Currently = (props) => {
         }
         <div className="panel-details">
           <WeatherIcon
-            text={props.data.currently.summary}
+            text={props.data.currently.icon}
           />
           <div className="current">
             <p className="current-temp">{props.data.currently.temperature.toFixed()}&deg;</p>
