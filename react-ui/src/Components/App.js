@@ -4,7 +4,7 @@ import { getWeather, setPosition, setAddress } from '../redux/actions/actions';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
-import HOMap from './Map';
+import Map from './Map';
 import StickyToolbar from './StickyToolbar';
 import Main from './Main';
 import Forecast from './Favorites/Forecast';
@@ -12,16 +12,21 @@ import Forecast from './Favorites/Forecast';
 class App extends React.Component {
 
   handleUpdates = async (options) => {
-    const { dispatch, address } = this.props;
-    if (options.address) await dispatch(setAddress(options.address))
-    if (options.position) await dispatch(setPosition(options.position), getWeather(options.position))
+    const { dispatch } = this.props;
+    if (options.address) {
+      await dispatch(setAddress(options.address));
+    }
+    if (options.position) {
+      await dispatch(setPosition(options.position));
+      await dispatch(getWeather(options.position));
+    }
   }
 
   render() {
     const { fetching, notFound, address, lat, lng, data } = this.props;
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <HOMap
+        <Map
           lat={lat}
           lng={lng}
           handleUpdates={this.handleUpdates}
@@ -81,7 +86,9 @@ function mapStateToProps(state, ownProps) {
     lng,
     data
   } = handleWeather;
-  const { location } = router;
+  const {
+    location
+  } = router;
   return {
     fetching,
     notFound,

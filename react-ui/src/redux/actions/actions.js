@@ -48,16 +48,16 @@ export function setPosition(position) {
 export const GET_WEATHER = 'GET_WEATHER';
 export function getWeather(callParams) {
   return function(dispatch) {
-    dispatch(fetching(true))
+    dispatch(fetching(true));
     axios.get('/api/ds', {
       params: {
         ...callParams
       }
     }).then(response => {
-      if (!response) dispatch(resError(true))
-      dispatch(resSuccess(response.data))
+      if (!response) dispatch(resError(true));
+      dispatch(resSuccess(response.data));
     }).catch(err => {
-      dispatch(resError(true))
-    })
+      dispatch(resError(true));
+    });
   }
 }

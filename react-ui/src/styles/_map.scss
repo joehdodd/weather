@@ -1,0 +1,15 @@
+.map-conatiner {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -100;
+  position: fixed;
+  filter: grayscale(30%);
+  opacity: 0.65;
+}
+
+.map-element,
+.map-loading-element {
+  height: 100%;
+  width: 100%;
+}
