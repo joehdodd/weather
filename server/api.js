@@ -7,38 +7,20 @@ exports.main = (req, res) => {
     res.send('{"message":"Hello from the custom server!"}');
 }
 
-exports.gm = function (req, res) {
-  let { position } = req.query;
-  console.log(position);
-  try {
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${position}&key=${REACT_APP_GMK}`)
-    .then(response => {
-      res.json(response.data.results);
-    })
-    .catch(err => {
-      res.status(500).json({"message": 'Oops! An error occured with your request to the Google Maps API!', "details": err})
-    })
-  } catch(err) {
-    res.status(500).json({"message": 'Oops! An error occured with your request to the Google Maps API!', "details" : err})
-  }
-}
-
 exports.ds = function (req, res) {
   let lat = req.query.lat;
-  let long = req.query.long;
-  console.log(req);
-  try {
-    axios.get(`https://api.darksky.net/forecast/${REACT_APP_DSK}/${lat},${long}`)
+  let lng = req.query.lng;
+  console.log(req.query);
+  return axios.get(`https://api.darksky.net/forecast/${REACT_APP_DSK}/${lat},${lng}`)
     .then(response => {
       console.log(response);
       res.json(response.data);
     })
     .catch(err => {
+      console.log(err);
+      res.status(400).json({"message": `Oops! ${err.error}`})
       res.status(500).json({"message": 'Oops! An error occured with your request to the Dark Sky API!', "details": err})
     })
-  } catch(err) {
-    res.status(500).json({"message": 'Oops! An error occured with your request to the Dark Sky API', "details" : err})
-  }
 }
 
 exports.ra = function(request, response) {

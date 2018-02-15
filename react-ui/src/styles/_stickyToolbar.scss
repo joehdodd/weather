@@ -1,13 +1,25 @@
 .sticky-toolbar-container {
-  height: 65px;
-  padding: 0 5%;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 20px;
   align-items: center;
-  justify-content: space-between;
+  justify-items: center;
+  @media screen and (min-width: $break-med) {
+    grid-template-columns: 1fr .5fr;
+    grid-template-rows: 1fr;
+    justify-items: normal;
+  }
+}
+
+.sticky-toolbar-nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
   @media screen and (min-width: $break-med) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
+    justify-items: normal;
   }
 }

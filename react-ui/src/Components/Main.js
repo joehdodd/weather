@@ -1,11 +1,11 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import GeoContainer from './Geo/GeoContainer';
-import ConditionsList from './Favorites/ConditionsList';
+// import ConditionsList from './Favorites/ConditionsList';
 import { CSSTransitionGroup } from 'react-transition-group';
 
 const Main = (props) => {
-  const { places, notFound, data, removeItem, updateItem } = props;
+  const { notFound, data, address } = props;
   return (
     <Route
       location={props.location}
@@ -13,11 +13,20 @@ const Main = (props) => {
       exact
       path="/"
       render={({...props}) => (
-        <div>
-          <GeoContainer data={data}/>
-          { !!places && !notFound &&
+        <div className="main-route">
+          <CSSTransitionGroup
+            transitionName="fade"
+            transitionAppear={true}
+            transitionLeave={true}
+            transitionEnterTimeout={1000}
+            transitionAppearTimeout={750}
+            transitionLeaveTimeout={750}
+            >
+              <GeoContainer address={address} data={data}/>
+            </CSSTransitionGroup>
+          {/* { !!places && !notFound &&
             <ConditionsList places={places} removeItem={removeItem} updateItem={updateItem} {...props}/>
-          }
+          } */}
           { notFound &&
             <CSSTransitionGroup
               transitionName="fade"
@@ -39,4 +48,4 @@ const Main = (props) => {
   )
 }
 
-export default Main;
+export default withRouter(Main)

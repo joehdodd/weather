@@ -1,15 +1,18 @@
 import React from 'react';
-import SearchAutoComplete from './SearchAutoComplete';
-import WeatherIcon from './WeatherIcon';
+import SearchBox from './SearchBox';
+import { NavLink } from 'react-router-dom';
 
 const StickyToolbar = (props) => {
   return (
     <div className="sticky-toolbar-container">
-      <div style={{maxHeight: '100%', maxWidth: '30%'}}>
-        <WeatherIcon text="Breezy" color="#5f2f83"/>
-      </div>
-      <div style={{justifySelf: 'end'}}>
-        <SearchAutoComplete sendRequest={props.sendRequest}/>
+      <SearchBox handleUpdates={props.handleUpdates} />
+      <div className="sticky-toolbar-nav">
+        <NavLink exact to={{ pathname: '/'}}>
+          Home
+        </NavLink>
+        <NavLink exact to={{ pathname: '/forecast'}}>
+          Forecast
+        </NavLink>
       </div>
     </div>
   )
