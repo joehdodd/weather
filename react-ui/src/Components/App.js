@@ -8,51 +8,49 @@ import StickyToolbar from './StickyToolbar';
 import Main from './Main';
 import Forecast from './Favorites/Forecast';
 
-class App extends React.Component {
+const App = (props) => {
 
-  handleUpdates = async (options) => {
-    const { dispatch } = this.props;
+  const handleUpdates = async (options) => {
+    const { dispatch } = props;
     !!options.address && await dispatch(setAddress(options.address));
     !!options.position && await dispatch(fetchWeather(options.position));
   }
 
-  render() {
-    const { fetching, notFound, address, lat, lng, data } = this.props;
-    return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Map
-          lat={lat}
-          lng={lng}
-          handleUpdates={this.handleUpdates}
-        />
-        <div className="wrapper">
-          <div className="container">
-            <StickyToolbar
-              handleUpdates={this.handleUpdates}
-            />
-            <Route render={({ location }) => (
-              <span>
-                <Main
-                  location={location}
-                  handleUpdates={this.handleUpdates}
-                  address={address}
-                  fetching={fetching}
-                  notFound={notFound}
-                  data={data}
-                />
-                <Forecast
-                  location={location}
-                  fetching={fetching}
-                  notFound={notFound}
-                  data={data}
-                />
-              </span>
-            )}/>
-          </div>
+  const { fetching, notFound, address, lat, lng, data } = props;
+  return (
+    <DragDropContext>
+      <Map
+        lat={lat}
+        lng={lng}
+        handleUpdates={handleUpdates}
+      />
+      <div className="wrapper">
+        <div className="container">
+          <StickyToolbar
+            handleUpdates={handleUpdates}
+          />
+          <Route render={({ location }) => (
+            <span>
+              <Main
+                location={location}
+                handleUpdates={handleUpdates}
+                address={address}
+                fetching={fetching}
+                notFound={notFound}
+                data={data}
+              />
+              <Forecast
+                location={location}
+                fetching={fetching}
+                notFound={notFound}
+                data={data}
+              />
+            </span>
+          )}/>
         </div>
-      </DragDropContext>
-    )
-  }
+      </div>
+    </DragDropContext>
+  )
 }
 
 function mapStateToProps(state, ownProps) {
