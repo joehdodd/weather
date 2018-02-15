@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import WeatherIcon from '../WeatherIcon';
 import { CSSTransitionGroup } from 'react-transition-group';
+import moment from 'moment';
 
 
 const Forecast = (props) => {
@@ -10,18 +11,19 @@ const Forecast = (props) => {
     return data.map( data => {
       return (
         <div key={data.time} className="panel-forecast-item">
-          <div className="">
-            {/* <p>{data.day}, {data.date}</p> */}
-            <p>High: <span className="hi-temp">{data.tempearatureHigh}&deg;</span></p>
-            <p>Low: <span className="lo-temp">{data.temperatureLow}&deg;</span></p>
-            <WeatherIcon text={data.icon} />
-          </div>
+         <span>{moment.unix(data.time).format('MMM Do')}</span>
+         <div>
+           <p>High: <span className="hi-temp">{data.temperatureHigh.toFixed()}&deg;</span></p>
+           <p>Low: <span className="lo-temp">{data.temperatureLow.toFixed()}&deg;</span></p>
+         </div>
+         <WeatherIcon className="forecast-weather-icon" text={data.icon} />
         </div>
       )
     })
   }
 
-  const { fetching, location } = props;
+  const { fetching, location, address, data } = props;
+  console.log(props);
   return (
     <Route
       location={location}
@@ -42,16 +44,17 @@ const Forecast = (props) => {
             </div>
           : <span>
               <div className="panel-heading">
-                <h3>My damn heading.</h3>
+                <h3>{address}</h3>
               </div>
               <div className="panel-container">
                 <div className="panel-info">
-                  <span>
-                    Somedember, 200, 200019
-                  </span>
+                  { !!data && !!data.currently &&
+                    <span>{moment.unix(data.currently.time).format('MMMM Do YYYY')}</span>
+                  }
                   <div className="panel-forecast-details">
                     {getForecastCard()}
                   </div>
+                  <span>{data.daily.summary}</span>
                 </div>
               </div>
             </span>

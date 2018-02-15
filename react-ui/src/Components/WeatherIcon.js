@@ -16,8 +16,8 @@ import IconNight from '../images/components/IconNight';
 
 const WeatherIcon = (props) => {
   let conditionTypes = {
-    "Sunny": <IconSunnyDay />,
-    "Clear": <IconSunnyDay />,
+    "sunny": <IconSunnyDay />,
+    "clear": <IconSunnyDay />,
     "Mostly Sunny": <IconSunnyDay />,
     "partly-cloudy-day": <IconPartlyCloudy />,
     "Mostly Cloudy": <IconMostlyCloudy />,
@@ -25,20 +25,20 @@ const WeatherIcon = (props) => {
     "clear-night": <IconNight/>,
     "Scattered Thunderstorms": <IconLightning />,
     "Scattered Showers": <IconDrizzle />,
-    "Rain": <IconRain />,
-    "Showers": <IconRain />,
-    "Thunderstorms": <IconLightning />,
-    "Drizzle": <IconDrizzle />,
-    "Blizzard": <IconBlizzard />,
+    "rain": <IconRain />,
+    "showers": <IconRain />,
+    "thunderstorms": <IconLightning />,
+    "drizzle": <IconDrizzle />,
+    "blizzard": <IconBlizzard />,
     "Snow Showers": <IconSnow />,
     "snow": <IconFlurry />,
-    "Flurries": <IconFlurry />,
+    "flurries": <IconFlurry />,
     "Rain And Snow": <IconSleet />,
-    "Cloudy": <IconCloudy />,
-    "Breezy": <IconBreeze />,
+    "cloudy": <IconCloudy />,
+    "wind": <IconBreeze />,
   }
   return (
-    <div className="weather-icon">
+    <div className={props.className}>
       {conditionTypes[props.text]}
     </div>
   )

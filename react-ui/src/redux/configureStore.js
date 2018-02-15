@@ -21,6 +21,6 @@ export const appStore = createStore(
   applyMiddleware(
     routeMiddleware,
     thunkMiddleware,
-    loggerMiddleware
+    // loggerMiddleware
   )
 )

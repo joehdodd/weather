@@ -7,8 +7,12 @@
 }
 
 .wrapper {
+  margin: 5px;
   @media screen and (min-width: $break-med) {
     margin: 0 auto;
+    padding: 10% 15%;
+  }
+  @media screen and (min-width: $break-large) {
     padding: 10% 25%;
   }
 }
@@ -17,8 +21,9 @@
   background: $charcoal-light;
   box-shadow: 4px 10px 20px 4px rgba(0, 0, 0, 0.75);
   border-radius: 2px;
-  min-height: 305px;
   padding: 24px 0px;
+  height: 100%;
+  transition: height 500ms ease-in-out;
 }
 
 .loading-container {

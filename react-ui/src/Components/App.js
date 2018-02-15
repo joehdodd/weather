@@ -43,6 +43,7 @@ const App = (props) => {
                 location={location}
                 fetching={fetching}
                 notFound={notFound}
+                address={address}
                 data={data}
               />
             </span>
