@@ -44,12 +44,8 @@ function setPosition(position) {
   }
 }
 
-
-export const GET_WEATHER = 'GET_WEATHER';
-export function getWeather(callParams) {
+function getData(callParams) {
   return function(dispatch) {
-    dispatch(fetching(true));
-    dispatch(setPosition(callParams));
     axios.get('/api/ds', { params: {...callParams} })
       .then(response => {
         !response && dispatch(resError(true));
@@ -57,5 +53,14 @@ export function getWeather(callParams) {
       }).catch(err => {
         dispatch(resError(true));
       });
+  }
+}
+
+
+export function fetchWeather(callParams) {
+  return function(dispatch) {
+    dispatch(fetching(true));
+    dispatch(setPosition(callParams));
+    dispatch(getData(callParams));
   }
 }

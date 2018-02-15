@@ -55,7 +55,7 @@ const Forecast = (props) => {
                 </div>
               </div>
             </span>
-        }
+          }
         </CSSTransitionGroup>
       )}
     />
