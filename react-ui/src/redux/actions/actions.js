@@ -36,7 +36,7 @@ export function setAddress(address) {
 }
 
 export const SET_POSITION = 'SET_POSITION';
-export function setPosition(position) {
+function setPosition(position) {
   return {
     type: SET_POSITION,
     lat: position.lat,
@@ -49,15 +49,13 @@ export const GET_WEATHER = 'GET_WEATHER';
 export function getWeather(callParams) {
   return function(dispatch) {
     dispatch(fetching(true));
-    axios.get('/api/ds', {
-      params: {
-        ...callParams
-      }
-    }).then(response => {
-      if (!response) dispatch(resError(true));
-      dispatch(resSuccess(response.data));
-    }).catch(err => {
-      dispatch(resError(true));
-    });
+    dispatch(setPosition(callParams));
+    axios.get('/api/ds', { params: {...callParams} })
+      .then(response => {
+        !response && dispatch(resError(true));
+        !!response && dispatch(resSuccess(response.data));
+      }).catch(err => {
+        dispatch(resError(true));
+      });
   }
 }

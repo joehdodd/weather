@@ -5,7 +5,7 @@ import GeoContainer from './Geo/GeoContainer';
 import { CSSTransitionGroup } from 'react-transition-group';
 
 const Main = (props) => {
-  const { notFound, data, address } = props;
+  const { fetching, notFound, data, address } = props;
   return (
     <Route
       location={props.location}
@@ -22,7 +22,12 @@ const Main = (props) => {
             transitionAppearTimeout={750}
             transitionLeaveTimeout={750}
             >
-              <GeoContainer address={address} data={data}/>
+              { fetching
+                ? <div className="loading-container pulsate">
+                    <h1>Loading your weather...</h1>
+                  </div>
+                : <GeoContainer address={address} data={data}/>
+              }
             </CSSTransitionGroup>
           {/* { !!places && !notFound &&
             <ConditionsList places={places} removeItem={removeItem} updateItem={updateItem} {...props}/>

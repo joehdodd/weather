@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getWeather, setPosition, setAddress } from '../redux/actions/actions';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { getWeather, setAddress } from '../redux/actions/actions';
 import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Map from './Map';
@@ -13,13 +12,8 @@ class App extends React.Component {
 
   handleUpdates = async (options) => {
     const { dispatch } = this.props;
-    if (options.address) {
-      await dispatch(setAddress(options.address));
-    }
-    if (options.position) {
-      await dispatch(setPosition(options.position));
-      await dispatch(getWeather(options.position));
-    }
+    !!options.address && await dispatch(setAddress(options.address));
+    !!options.position && await dispatch(getWeather(options.position));
   }
 
   render() {
@@ -38,38 +32,20 @@ class App extends React.Component {
             />
             <Route render={({ location }) => (
               <span>
-                { fetching
-                  ? <div className="loading-container pulsate">
-                      <h1>Loading your weather...</h1>
-                    </div>
-                  : <Main
-                      location={location}
-                      handleUpdates={this.handleUpdates}
-                      address={address}
-                      notFound={notFound}
-                      data={data}
-                    />
-                }
-                <CSSTransitionGroup
-                  transitionName="fade"
-                  transitionEnterTimeout={200}
-                  transitionLeaveTimeout={500}
-                >
-                  { fetching
-                    ? <div className="loading-container pulsate">
-                        <h1>Loading your forecast...</h1>
-                      </div>
-                    : <Route
-                        location={location}
-                        key={location.pathname}
-                        path={`/forecast`}
-                        render={({...props}) => (
-                          <Forecast {...props} data={data}/>
-                        )}
-                      />
-
-                  }
-                </CSSTransitionGroup>
+                <Main
+                  location={location}
+                  handleUpdates={this.handleUpdates}
+                  address={address}
+                  fetching={fetching}
+                  notFound={notFound}
+                  data={data}
+                />
+                <Forecast
+                  location={location}
+                  fetching={fetching}
+                  notFound={notFound}
+                  data={data}
+                />
               </span>
             )}/>
           </div>

@@ -1,6 +1,8 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import WeatherIcon from '../WeatherIcon';
+import { CSSTransitionGroup } from 'react-transition-group';
+
 
 const Forecast = (props) => {
   const getForecastCard = () => {
@@ -19,23 +21,44 @@ const Forecast = (props) => {
     })
   }
 
-  // const { item, astronomy, location, atmosphere } = props.location.state;
+  const { fetching, location } = props;
   return (
-    <span>
-      <div className="panel-heading">
-        <h3>My damn heading.</h3>
-      </div>
-      <div className="panel-container">
-        <div className="panel-info">
-          <span>
-            Somedember, 200, 200019
-          </span>
-          <div className="panel-forecast-details">
-            {getForecastCard()}
-          </div>
-      </div>
-      </div>
-    </span>
+    <Route
+      location={location}
+      key={location.pathname}
+      path={`/forecast`}
+      render={({...props}) => (
+        <CSSTransitionGroup
+          transitionName="fade"
+          transitionAppear={true}
+          transitionLeave={true}
+          transitionEnterTimeout={1000}
+          transitionAppearTimeout={750}
+          transitionLeaveTimeout={750}
+        >
+        { fetching
+          ? <div className="loading-container pulsate">
+              <h1>Loading your forecast...</h1>
+            </div>
+          : <span>
+              <div className="panel-heading">
+                <h3>My damn heading.</h3>
+              </div>
+              <div className="panel-container">
+                <div className="panel-info">
+                  <span>
+                    Somedember, 200, 200019
+                  </span>
+                  <div className="panel-forecast-details">
+                    {getForecastCard()}
+                  </div>
+                </div>
+              </div>
+            </span>
+        }
+        </CSSTransitionGroup>
+      )}
+    />
   )
 }
 

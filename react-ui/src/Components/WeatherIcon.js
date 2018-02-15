@@ -19,7 +19,7 @@ const WeatherIcon = (props) => {
     "Sunny": <IconSunnyDay />,
     "Clear": <IconSunnyDay />,
     "Mostly Sunny": <IconSunnyDay />,
-    "Partly Cloudy": <IconPartlyCloudy />,
+    "partly-cloudy-day": <IconPartlyCloudy />,
     "Mostly Cloudy": <IconMostlyCloudy />,
     "partly-cloudy-night": <IconCloudyNight/>,
     "clear-night": <IconNight/>,
