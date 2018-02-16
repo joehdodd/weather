@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose, lifecycle } from "recompose";
 import { StandaloneSearchBox } from "react-google-maps/lib/components/places/StandaloneSearchBox";
+import { fetchWeather } from '../redux/actions/actions';
 
 const SearchBox = compose(
   lifecycle({
@@ -20,7 +21,7 @@ const SearchBox = compose(
             lat: lat,
             lng: lng,
           }
-          this.props.handleUpdates({ position: latLng });
+          this.props.handleUpdates(latLng, fetchWeather);
           this.setState({
             places,
           });

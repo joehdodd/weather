@@ -1,6 +1,8 @@
 import React from 'react';
 import { withGoogleMap, GoogleMap } from "react-google-maps";
 import { compose, withProps, lifecycle } from "recompose";
+import { fetchWeather, setAddress } from '../redux/actions/actions';
+
 
 const Map = compose (
   withProps({
@@ -21,7 +23,7 @@ const Map = compose (
             lat: positionParams.lat,
             lng: positionParams.lng,
           })
-          this.props.handleUpdates({ position: positionParams })
+          this.props.handleUpdates(positionParams, fetchWeather)
         });
       }
     },
@@ -57,7 +59,7 @@ const Map = compose (
   if (geocoder && (props.center && props.center.lat && props.center.lng)) {
     geocoder.geocode({'location': { lat: props.center.lat, lng: props.center.lng} }, (results, status) => {
       status === 'OK'
-      ? props.handleUpdates({ address: results[0].formatted_address })
+      ? props.handleUpdates(results[0].formatted_address, setAddress)
       : console.log(results, status)
     })
   }

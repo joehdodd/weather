@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchWeather, setAddress } from '../redux/actions/actions';
+// import { fetchWeather, setAddress } from '../redux/actions/actions';
 import { Route, withRouter } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Map from './Map';
@@ -10,10 +10,9 @@ import Forecast from './Favorites/Forecast';
 
 const App = (props) => {
 
-  const handleUpdates = async (options) => {
+  const handleUpdates = async (options, action) => {
     const { dispatch } = props;
-    !!options.address && await dispatch(setAddress(options.address));
-    !!options.position && await dispatch(fetchWeather(options.position));
+    return await dispatch(action(options));
   }
 
   const { fetching, notFound, address, lat, lng, data } = props;
