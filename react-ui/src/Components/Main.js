@@ -4,7 +4,7 @@ import GeoContainer from './Geo/GeoContainer';
 // import ConditionsList from './Favorites/ConditionsList';
 import { CSSTransitionGroup } from 'react-transition-group';
 
-const Main = (props) => {
+const Main = props => {
   const { fetching, notFound, data, address } = props;
   return (
     <Route
@@ -12,7 +12,7 @@ const Main = (props) => {
       key={props.location.pathname}
       exact
       path="/"
-      render={({...props}) => (
+      render={({ ...props }) => (
         <div className="main-route">
           <CSSTransitionGroup
             transitionName="fade"
@@ -21,18 +21,19 @@ const Main = (props) => {
             transitionEnterTimeout={1000}
             transitionAppearTimeout={750}
             transitionLeaveTimeout={750}
-            >
-              { fetching
-                ? <div className="loading-container pulsate">
-                    <h1>Loading your weather...</h1>
-                  </div>
-                : <GeoContainer address={address} data={data}/>
-              }
-            </CSSTransitionGroup>
+          >
+            {fetching ? (
+              <div className="loading-container pulsate">
+                <h1>Loading your weather...</h1>
+              </div>
+            ) : (
+              <GeoContainer address={address} data={data} />
+            )}
+          </CSSTransitionGroup>
           {/* { !!places && !notFound &&
             <ConditionsList places={places} removeItem={removeItem} updateItem={updateItem} {...props}/>
           } */}
-          { notFound &&
+          {notFound && (
             <CSSTransitionGroup
               transitionName="fade"
               transitionAppear={true}
@@ -40,17 +41,24 @@ const Main = (props) => {
               transitionEnterTimeout={1000}
               transitionAppearTimeout={750}
               transitionLeaveTimeout={750}
-              >
-                <h2>
-                  Oops! Your search returned no results. Check your spelling and try again!
-                  <span style={{fontSize: 48}} role="img" aria-label="confused emoji">🤔</span>
-                </h2>
-              </CSSTransitionGroup>
-            }
-          </div>
-        )}
-      />
-  )
-}
+            >
+              <h2>
+                Oops! Your search returned no results. Check your spelling and
+                try again!
+                <span
+                  style={{ fontSize: 48 }}
+                  role="img"
+                  aria-label="confused emoji"
+                >
+                  🤔
+                </span>
+              </h2>
+            </CSSTransitionGroup>
+          )}
+        </div>
+      )}
+    />
+  );
+};
 
-export default withRouter(Main)
+export default withRouter(Main);

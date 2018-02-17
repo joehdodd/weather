@@ -14,34 +14,30 @@ import IconFlurry from '../images/components/IconFlurry';
 import IconCloudyNight from '../images/components/IconCloudyNight';
 import IconNight from '../images/components/IconNight';
 
-const WeatherIcon = (props) => {
+const WeatherIcon = props => {
   let conditionTypes = {
-    "sunny": <IconSunnyDay />,
-    "clear": <IconSunnyDay />,
-    "Mostly Sunny": <IconSunnyDay />,
-    "partly-cloudy-day": <IconPartlyCloudy />,
-    "Mostly Cloudy": <IconMostlyCloudy />,
-    "partly-cloudy-night": <IconCloudyNight/>,
-    "clear-night": <IconNight/>,
-    "Scattered Thunderstorms": <IconLightning />,
-    "Scattered Showers": <IconDrizzle />,
-    "rain": <IconRain />,
-    "showers": <IconRain />,
-    "thunderstorms": <IconLightning />,
-    "drizzle": <IconDrizzle />,
-    "blizzard": <IconBlizzard />,
-    "Snow Showers": <IconSnow />,
-    "snow": <IconFlurry />,
-    "flurries": <IconFlurry />,
-    "Rain And Snow": <IconSleet />,
-    "cloudy": <IconCloudy />,
-    "wind": <IconBreeze />,
-  }
-  return (
-    <div className={props.className}>
-      {conditionTypes[props.text]}
-    </div>
-  )
-}
+    'sunny': <IconSunnyDay />,
+    'clear': <IconSunnyDay />,
+    'Mostly Sunny': <IconSunnyDay />,
+    'partly-cloudy-day': <IconPartlyCloudy />,
+    'Mostly Cloudy': <IconMostlyCloudy />,
+    'partly-cloudy-night': <IconCloudyNight />,
+    'clear-night': <IconNight />,
+    'Scattered Thunderstorms': <IconLightning />,
+    'Scattered Showers': <IconDrizzle />,
+    'rain': <IconRain />,
+    'showers': <IconRain />,
+    'thunderstorms': <IconLightning />,
+    'drizzle': <IconDrizzle />,
+    'blizzard': <IconBlizzard />,
+    'Snow Showers': <IconSnow />,
+    'snow': <IconFlurry />,
+    'flurries': <IconFlurry />,
+    'Rain And Snow': <IconSleet />,
+    'cloudy': <IconCloudy />,
+    'wind': <IconBreeze />
+  };
+  return <div className={props.className}>{conditionTypes[props.text]}</div>;
+};
 
-export default WeatherIcon
+export default WeatherIcon;

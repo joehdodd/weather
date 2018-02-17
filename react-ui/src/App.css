@@ -425,7 +425,7 @@ label, span, p {
       text-align: right; } }
 
 .weather-icon {
-  margin: auto;
+  margin: auto 0;
   width: 60%; }
   @media screen and (min-width: 768px) {
     .weather-icon {

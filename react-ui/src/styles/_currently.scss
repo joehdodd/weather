@@ -71,7 +71,7 @@
 }
 
 .weather-icon {
-  margin: auto;
+  margin: auto 0;
   width: 60%;
   @media screen and (min-width: $break-med) {
     width: 75%;
