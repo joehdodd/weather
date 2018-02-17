@@ -1,12 +1,11 @@
 import React from 'react';
-import { compose, lifecycle } from "recompose";
-import { StandaloneSearchBox } from "react-google-maps/lib/components/places/StandaloneSearchBox";
-import { fetchWeather } from '../redux/actions/actions';
+import { compose, lifecycle } from 'recompose';
+import { StandaloneSearchBox } from 'react-google-maps/lib/components/places/StandaloneSearchBox';
 
 const SearchBox = compose(
   lifecycle({
     componentWillMount() {
-      const refs = {}
+      const refs = {};
 
       this.setState({
         places: [],
@@ -19,30 +18,26 @@ const SearchBox = compose(
           let lng = places[0].geometry.location.lng();
           const latLng = {
             lat: lat,
-            lng: lng,
-          }
-          this.props.handleUpdates(latLng, fetchWeather);
+            lng: lng
+          };
+          this.props.fetchWeather(latLng);
           this.setState({
-            places,
+            places
           });
-        },
-      })
-    },
-  }),
-)(props =>
-  <div style={{padding: `0px 15px`}}>
+        }
+      });
+    }
+  })
+)(props => (
+  <div style={{ padding: `0px 15px` }}>
     <StandaloneSearchBox
       ref={props.onSearchBoxMounted}
       bounds={props.bounds}
       onPlacesChanged={props.onPlacesChanged}
     >
-      <input
-        type="text"
-        placeholder="New York, NY"
-        className="search"
-      />
+      <input type="text" placeholder="New York, NY" className="search" />
     </StandaloneSearchBox>
   </div>
-);
+));
 
 export default SearchBox;

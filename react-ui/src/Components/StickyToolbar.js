@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 const StickyToolbar = (props) => {
   return (
     <div className="sticky-toolbar-container">
-      <SearchBox handleUpdates={props.handleUpdates} />
+      <SearchBox fetchWeather={props.fetchWeather} />
       <div className="sticky-toolbar-nav">
         <NavLink exact to={{ pathname: '/'}}>
           Home

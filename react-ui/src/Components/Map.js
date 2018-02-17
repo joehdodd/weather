@@ -1,29 +1,28 @@
 import React from 'react';
-import { withGoogleMap, GoogleMap } from "react-google-maps";
-import { compose, withProps, lifecycle } from "recompose";
-import { fetchWeather, setAddress } from '../redux/actions/actions';
+import { withGoogleMap, GoogleMap } from 'react-google-maps';
+import { compose, withProps, lifecycle } from 'recompose';
 
-
-const Map = compose (
+const Map = compose(
   withProps({
     containerElement: <div className="map-conatiner" />,
     mapElement: <div className="map-element" />,
-    loadingElement: <div className="map-loading-element" />,
+    loadingElement: <div className="map-loading-element" />
   }),
   withGoogleMap,
   lifecycle({
     componentWillMount() {
+      const { fetchWeather } = this.props.actions;
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
+        navigator.geolocation.getCurrentPosition(position => {
           let positionParams = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
-          }
+          };
           this.setState({
             lat: positionParams.lat,
-            lng: positionParams.lng,
-          })
-          this.props.handleUpdates(positionParams, fetchWeather)
+            lng: positionParams.lng
+          });
+          fetchWeather(positionParams);
         });
       }
     },
@@ -34,34 +33,39 @@ const Map = compose (
       let nextLng = nextProps.lng;
       let prevLng = this.props.lng;
 
-      if ( ((nextLat !== prevLat) && (nextLng !== prevLng)) ) {
+      if (nextLat !== prevLat && nextLng !== prevLng) {
         return true;
       }
       return false;
     },
 
-
     componentWillReceiveProps(nextProps) {
-      if ((nextProps.lat !== this.props.lat) && (nextProps.lng !== this.props.lng) ) {
+      if (
+        nextProps.lat !== this.props.lat &&
+        nextProps.lng !== this.props.lng
+      ) {
         console.log('CWRP', 'next:', nextProps.lat, 'prev:', this.props.lat);
         this.setState({
           center: {
             lat: nextProps.lat,
             lng: nextProps.lng
-          },
-        })
+          }
+        });
       }
-    },
-
-  }),
+    }
+  })
 )(props => {
   let geocoder = new window.google.maps.Geocoder();
+  const { setAddress } = props.actions;
   if (geocoder && (props.center && props.center.lat && props.center.lng)) {
-    geocoder.geocode({'location': { lat: props.center.lat, lng: props.center.lng} }, (results, status) => {
-      status === 'OK'
-      ? props.handleUpdates(results[0].formatted_address, setAddress)
-      : console.log(results, status)
-    })
+    geocoder.geocode(
+      { location: { lat: props.center.lat, lng: props.center.lng } },
+      (results, status) => {
+        status === 'OK'
+          ? setAddress(results[0].formatted_address)
+          : console.log(results, status);
+      }
+    );
   }
   return (
     <GoogleMap
@@ -78,12 +82,11 @@ const Map = compose (
         rotateControl: false,
         fullscreenControl: false,
         dragControl: false,
-        draggable: false,
+        draggable: false
       }}
-      defaultMapTypeId='satellite'
+      defaultMapTypeId="satellite"
     />
-  )
-})
-
+  );
+});
 
 export default Map;
