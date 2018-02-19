@@ -2,7 +2,7 @@
 Using React, Redux, Node &amp; the ~~Yahoo Weather~~ Dark Sky API to build a weather app. It's tight. 
 
 ### Usage
-Prerequisites: Node (@latest)
+Prerequisites: Node `&&` NPM (@latest)
 
 1. Fork this repo
 2. `cd weather && npm install` then `nodemon`
