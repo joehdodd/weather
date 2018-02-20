@@ -2,6 +2,25 @@
   font-family: 'Cabin', sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: initial;
+}
+
+a:hover {
+  color: rgb(43, 107, 181);
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: bold;
+  color: #3c3c3c;
+}
+
+label, span, p {
+  color: #3c3c3c;
+}
+
 p {
   margin: 2.5px 0px;
 }

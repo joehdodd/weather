@@ -1,32 +1,67 @@
-$offset: 187;
-$duration: 1.4s;
+/* transitions */
 
-.spinner {
-  animation: rotator $duration linear infinite;
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
 }
 
-@keyframes rotator {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(270deg); }
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 750ms ease;
 }
 
-.path {
-  stroke-dasharray: $offset;
-  stroke: $charcoal;
-  stroke-dashoffset: 0;
-  transform-origin: center;
-  animation:
-    dash $duration ease-in-out infinite,
+.fade-leave {
+  opacity: 1;
+  transition: opacity 1s ease-in;
 }
 
-@keyframes dash {
- 0% { stroke-dashoffset: $offset; }
- 50% {
-   stroke-dashoffset: $offset/4;
-   transform:rotate(135deg);
- }
- 100% {
-   stroke-dashoffset: $offset;
-   transform:rotate(450deg);
- }
+.fade-leave.fade-leave-active {
+  /* NOTE: THIS! */
+  display: none;
+}
+
+.fade-appear {
+  opacity: 0.01;
+  transition: opacity 750ms ease-in-out;
+}
+
+.fade-appear.fade-appear-active {
+  opacity: 1;
+}
+
+.background-enter {
+  transform: translate(100%);
+}
+
+.background-enter.background-enter-active {
+  transform: translate(0%);
+  transition: transform 1000ms ease-in-out;
+}
+
+.background-leave {
+  transform: translate(0%);
+}
+
+.background-leave.background-leave-active {
+  transform: translate(-100%);
+  transition: transform 1000ms ease-in-out;
+}
+
+.pulsate {
+  -webkit-animation: pulsate 1s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  opacity: 0.5;
+  text-align: center;
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+      opacity: 0.5;
+  }
+  50% {
+      opacity: 1.0;
+  }
+  100% {
+      opacity: 0.5;
+  }
 }

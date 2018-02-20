@@ -2,41 +2,6 @@
 * {
   font-family: 'Cabin', sans-serif; }
 
-p {
-  margin: 2.5px 0px; }
-
-.spinner {
-  animation: rotator 1.4s linear infinite; }
-
-@keyframes rotator {
-  0% {
-    transform: rotate(0deg); }
-  100% {
-    transform: rotate(270deg); } }
-
-.path {
-  stroke-dasharray: 187;
-  stroke: #3c3c3c;
-  stroke-dashoffset: 0;
-  transform-origin: center;
-  animation: dash 1.4s ease-in-out infinite; }
-
-@keyframes dash {
-  0% {
-    stroke-dashoffset: 187; }
-  50% {
-    stroke-dashoffset: 46.75;
-    transform: rotate(135deg); }
-  100% {
-    stroke-dashoffset: 187;
-    transform: rotate(450deg); } }
-
-body {
-  margin: 0;
-  box-sizing: border-box;
-  font-family: 'Cabin', sans-serif;
-  background-color: rgba(33, 68, 0, 0.85); }
-
 a {
   text-decoration: none;
   color: initial; }
@@ -51,6 +16,9 @@ h1, h2, h3, h4 {
 
 label, span, p {
   color: #3c3c3c; }
+
+p {
+  margin: 2.5px 0px; }
 
 /* transitions */
 .fade-enter {
@@ -90,12 +58,26 @@ label, span, p {
   transform: translate(-100%);
   transition: transform 1000ms ease-in-out; }
 
-@media screen and (min-width: 768px) {
-  .wrapper {
-    /* height: calc(100vh - 85px); */
-    /* overflow-y: auto; */ } }
+.pulsate {
+  -webkit-animation: pulsate 1s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  opacity: 0.5;
+  text-align: center; }
 
-/* add more */
+@-webkit-keyframes pulsate {
+  0% {
+    opacity: 0.5; }
+  50% {
+    opacity: 1.0; }
+  100% {
+    opacity: 0.5; } }
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Cabin', sans-serif;
+  background-color: rgba(33, 68, 0, 0.85); }
+
 /* wrappers and containers */
 .page-wrapper {
   max-width: 100%;
@@ -247,38 +229,12 @@ label, span, p {
   font-size: 18px;
   cursor: pointer; }
 
-/* slider */
-.slick-slider {
-  /* max-height: 180px; */ }
-
-.pulsate {
-  -webkit-animation: pulsate 1s ease-out;
-  -webkit-animation-iteration-count: infinite;
-  opacity: 0.5;
-  text-align: center; }
-
-@-webkit-keyframes pulsate {
-  0% {
-    opacity: 0.5; }
-  50% {
-    opacity: 1.0; }
-  100% {
-    opacity: 0.5; } }
-
 /* media queries */
 @media screen and (min-width: 768px) {
-  .page-wrapper {
-    margin: 0 auto;
-    max-width: 70%; }
   .button {
     width: 30%;
     height: 41px;
     margin: 5px 5px; } }
-
-@media screen and (min-width: 1024) {
-  .page-wrapper {
-    margin: 0 auto;
-    max-width: 70%; } }
 
 .map-conatiner {
   margin: 0;

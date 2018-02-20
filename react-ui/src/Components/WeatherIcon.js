@@ -17,7 +17,7 @@ import IconNight from '../images/components/IconNight';
 const WeatherIcon = props => {
   let conditionTypes = {
     'sunny': <IconSunnyDay />,
-    'clear': <IconSunnyDay />,
+    'clear-day': <IconSunnyDay />,
     'Mostly Sunny': <IconSunnyDay />,
     'partly-cloudy-day': <IconPartlyCloudy />,
     'Mostly Cloudy': <IconMostlyCloudy />,
