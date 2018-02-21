@@ -36,7 +36,7 @@
 .panel-details {
   display: grid;
   grid-auto-flow: row;
-  grid-gap: 10px;
+  grid-gap: 20px;
   @media screen and (min-width: $break-med) {
     grid-auto-flow: column;
   }
@@ -61,8 +61,10 @@
   text-align: center;
   grid-auto-flow: row;
   grid-gap: 10px;
-  @media screen and (min-width: $break-med) {
+  @media screen and (min-width: $break-small) {
     grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (min-width: $break-med) {
     text-align: right;
   }
 }

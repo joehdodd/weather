@@ -44,7 +44,7 @@ const Map = compose(
         nextProps.lat !== this.props.lat &&
         nextProps.lng !== this.props.lng
       ) {
-        console.log('CWRP', 'next:', nextProps.lat, 'prev:', this.props.lat);
+        console.log('CWRP', 'nextProps:', nextProps, 'nextLat:', nextProps.lat, 'prevLat:', this.props.lat);
         this.setState({
           center: {
             lat: nextProps.lat,
