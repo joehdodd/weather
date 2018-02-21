@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../redux/actions/actions';
@@ -9,60 +9,70 @@ import StickyToolbar from './StickyToolbar';
 import Main from './Main';
 import Forecast from './Favorites/Forecast';
 
-const App = props => {
-  const saveFavorite = () => {
-    const { favorites } = props;
-    const params = {
-      address: props.address,
-      lat: props.lat,
-      lng: props.lng,
-    }
-    favorites.includes(props.address)
-    ? console.log('you done did favorite this!')
-    : actions.saveFavorite(params);
-    // return actions.saveFavorite(params);
+class App extends Component {
+
+  componentWillMount() {
+    const { favorites } = this.props;
+    const favorite = favorites.some(fav => fav.address === this.props.address)
+    actions.isFavorite(favorite)
   }
-  const { actions, fetching, notFound, address, lat, lng, data } = props;
-  return (
-    <DragDropContext>
-      <Map lat={lat} lng={lng} actions={actions} />
-      <div className="wrapper">
-        <div className="container">
-          <StickyToolbar fetchWeather={actions.fetchWeather} />
-          <Route
-            render={({ location }) => (
-              <span>
-                <Main
-                  actions={actions}
-                  location={location}
-                  address={address}
-                  fetching={fetching}
-                  notFound={notFound}
-                  data={data}
-                />
-                <Forecast
-                  location={location}
-                  fetching={fetching}
-                  notFound={notFound}
-                  address={address}
-                  data={data}
-                />
-              </span>
-            )}
-          />
-          <div className="bottom-toolbar-container">
-            <span onClick={() => saveFavorite()}>Add to favorites</span>
+
+  handleFavorites = () => {
+    const params = {
+      address: this.props.address,
+      lat: this.props.lat,
+      lng: this.props.lng,
+    }
+    actions.saveFavorite(params);
+  }
+
+  render () {
+    const { actions, fetching, notFound, address, lat, lng, data, isFavorite } = this.props;
+    console.log(isFavorite);
+    return (
+      <DragDropContext>
+        <Map lat={lat} lng={lng} actions={actions} />
+        <div className="wrapper">
+          <div className="container">
+            <StickyToolbar fetchWeather={actions.fetchWeather} />
+            <Route
+              render={({ location }) => (
+                <span>
+                  <Main
+                    actions={actions}
+                    location={location}
+                    address={address}
+                    fetching={fetching}
+                    notFound={notFound}
+                    data={data}
+                  />
+                  <Forecast
+                    location={location}
+                    fetching={fetching}
+                    notFound={notFound}
+                    address={address}
+                    data={data}
+                  />
+                </span>
+              )}
+            />
+            { !isFavorite &&
+              <div className="bottom-toolbar-container">
+                <span onClick={() => this.handleFavorites()}>Add to favorites</span>
+              </div>
+            }
           </div>
         </div>
-      </div>
-    </DragDropContext>
-  );
+      </DragDropContext>
+    )
+  }
+
 };
 
 function mapStateToProps(state, ownProps) {
   const { handleWeather, handleFavorites, router } = state;
   const { fetching, notFound, address, lat, lng, data } = handleWeather;
-  const { favorites } = handleFavorites
+  const { isFavorite, favorites } = handleFavorites
   const { location } = router;
   return {
     fetching,
@@ -71,6 +81,7 @@ function mapStateToProps(state, ownProps) {
     lat,
     lng,
     data,
+    isFavorite,
     favorites,
     location,
   };

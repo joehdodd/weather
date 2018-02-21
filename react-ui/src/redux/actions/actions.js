@@ -44,6 +44,14 @@ function setPosition(position) {
   }
 }
 
+export const IS_FAV = 'IS_FAV';
+export function isFavorite(isFavorite) {
+  return {
+    type: IS_FAV,
+    isFavorite: isFavorite,
+  }
+}
+
 export const SAVE_FAV = 'SAVE_FAV';
 export function saveFavorite(params) {
   return {
