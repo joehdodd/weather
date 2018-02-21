@@ -20,12 +20,13 @@ class App extends Component {
   }
 
   handleFavorites = () => {
+    console.log('fired handleFavorites');
     const params = {
       address: this.props.address,
       lat: this.props.lat,
       lng: this.props.lng,
     }
-    actions.saveFavorite(params);
+    return actions.saveFavorite(params);
   }
 
   render () {
@@ -72,7 +73,7 @@ class App extends Component {
 function mapStateToProps(state, ownProps) {
   const { handleWeather, handleFavorites, router } = state;
   const { fetching, notFound, address, lat, lng, data } = handleWeather;
-  const { isFavorite, favorites } = handleFavorites
+  const { isFavorite, favorites } = handleFavorites;
   const { location } = router;
   return {
     fetching,
