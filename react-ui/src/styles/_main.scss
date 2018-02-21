@@ -1,17 +1,3 @@
-/* wrappers and containers */
-
-.page-wrapper {
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-.add-more-container {
-  max-width: 400px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
 .component-container {
   /* min-height: 300px; */
   display: flex;
