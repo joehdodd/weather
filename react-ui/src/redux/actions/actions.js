@@ -44,6 +44,16 @@ function setPosition(position) {
   }
 }
 
+export const SAVE_FAV = 'SAVE_FAV';
+export function saveFavorite(params) {
+  return {
+    type: SAVE_FAV,
+    address: params.address,
+    lat: params.lat,
+    lng: params.lng
+  }
+}
+
 function getData(callParams) {
   return function(dispatch) {
     axios.get('/api/ds', { params: {...callParams} })

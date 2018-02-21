@@ -10,6 +10,18 @@ import Main from './Main';
 import Forecast from './Favorites/Forecast';
 
 const App = props => {
+  const saveFavorite = () => {
+    const { favorites } = props;
+    const params = {
+      address: props.address,
+      lat: props.lat,
+      lng: props.lng,
+    }
+    favorites.includes(props.address)
+    ? console.log('you done did favorite this!')
+    : actions.saveFavorite(params);
+    // return actions.saveFavorite(params);
+  }
   const { actions, fetching, notFound, address, lat, lng, data } = props;
   return (
     <DragDropContext>
@@ -38,6 +50,9 @@ const App = props => {
               </span>
             )}
           />
+          <div className="bottom-toolbar-container">
+            <span onClick={() => saveFavorite()}>Add to favorites</span>
+          </div>
         </div>
       </div>
     </DragDropContext>
@@ -45,8 +60,9 @@ const App = props => {
 };
 
 function mapStateToProps(state, ownProps) {
-  const { handleWeather, router } = state;
+  const { handleWeather, handleFavorites, router } = state;
   const { fetching, notFound, address, lat, lng, data } = handleWeather;
+  const { favorites } = handleFavorites
   const { location } = router;
   return {
     fetching,
@@ -55,7 +71,8 @@ function mapStateToProps(state, ownProps) {
     lat,
     lng,
     data,
-    location
+    favorites,
+    location,
   };
 }
 

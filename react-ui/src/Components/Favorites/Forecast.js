@@ -23,7 +23,7 @@ const Forecast = (props) => {
   }
 
   const { fetching, location, address, data } = props;
-  console.log(props);
+  // console.log(props);
   return (
     <Route
       location={location}
