@@ -11,10 +11,11 @@ import Forecast from './Favorites/Forecast';
 
 class App extends Component {
 
-  componentWillMount() {
+  componentDidUpdate(prevProps, prevState) {
+    console.log('fire?');
     const { favorites } = this.props;
-    const favorite = favorites.some(fav => fav.address === this.props.address)
-    actions.isFavorite(favorite)
+    const favorite = favorites.some(fav => fav.address === prevProps.address)
+    return actions.isFavorite(favorite)
   }
 
   handleFavorites = () => {
@@ -56,11 +57,9 @@ class App extends Component {
                 </span>
               )}
             />
-            { !isFavorite &&
               <div className="bottom-toolbar-container">
                 <span onClick={() => this.handleFavorites()}>Add to favorites</span>
               </div>
-            }
           </div>
         </div>
       </DragDropContext>
