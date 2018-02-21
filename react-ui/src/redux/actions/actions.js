@@ -45,10 +45,10 @@ function setPosition(position) {
 }
 
 export const IS_FAV = 'IS_FAV';
-export function isFavorite(isFavorite) {
+export function isFavorite(bool) {
   return {
     type: IS_FAV,
-    isFavorite: isFavorite,
+    isFavorite: bool,
   }
 }
 

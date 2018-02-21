@@ -11,11 +11,12 @@ import Forecast from './Favorites/Forecast';
 
 class App extends Component {
 
-  componentDidUpdate(prevProps, prevState) {
+  componentWillReceiveProps(nextProps) {
     console.log('fire?');
     const { favorites } = this.props;
-    const favorite = favorites.some(fav => fav.address === prevProps.address)
-    return actions.isFavorite(favorite)
+    const favorite = favorites.some(fav => fav.address === nextProps.address)
+    console.log(favorite, actions);
+    actions.isFavorite(favorite)
   }
 
   handleFavorites = () => {

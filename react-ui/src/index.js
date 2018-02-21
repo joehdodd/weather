@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './Components/App';
 import { Provider } from 'react-redux';
-import { isFavorite } from './redux/actions/actions';
 import { appStore, history } from './redux/configureStore';
 import { ConnectedRouter } from 'react-router-redux';
 import './App.css';

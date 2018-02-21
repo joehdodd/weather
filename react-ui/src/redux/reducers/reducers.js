@@ -43,6 +43,7 @@ export function handleFavorites(state = {
 }, action) {
 	switch (action.type) {
 		case IS_FAV:
+			console.log('fired');
 			return Object.assign({}, state, {
 				isFavorite: action.isFavorite
 			})
