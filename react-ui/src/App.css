@@ -439,7 +439,19 @@ body {
       max-width: 20%; } }
 
 .favorites-list {
-  margin-top: 10px;
+  margin: 10px 0px;
   display: grid;
   grid-auto-flow: row;
-  grid-gap: 10px; }
+  max-height: 200px;
+  overflow-y: auto; }
+
+.favorites-list-item {
+  min-height: 30px;
+  border-radius: 3px;
+  border-bottom: 1px solid #b1b1b1;
+  display: grid;
+  align-items: center;
+  padding: 5px; }
+
+.favorites-list-item:hover {
+  background: #f5f5f5; }

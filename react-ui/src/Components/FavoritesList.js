@@ -12,7 +12,7 @@ const FavoritesList = props => {
   const favoritesArray = props => {
     return props.favorites.map(fav => {
       return (
-        <div onClick={() => fetchFavWeather(fav)} key={fav.lng}>
+        <div className="favorites-list-item" onClick={() => fetchFavWeather(fav)} key={fav.lng}>
           <span>{fav.address}</span>
         </div>
       );
