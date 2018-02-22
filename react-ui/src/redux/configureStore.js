@@ -19,9 +19,5 @@ export const appStore = createStore(
     router: routerReducer
   }),
   preloadedState,
-  applyMiddleware(
-    routeMiddleware,
-    thunkMiddleware,
-    loggerMiddleware
-  )
-)
+  applyMiddleware(routeMiddleware, thunkMiddleware, loggerMiddleware)
+);
