@@ -81,6 +81,7 @@ class App extends Component {
                     data={data}
                     favorites={favorites}
                     fetchWeather={actions.fetchWeather}
+                    toggleFavorites={this.toggleFavorites}
                   />
                 </span>
               )}

@@ -309,13 +309,11 @@ body {
   display: grid;
   grid-auto-flow: column; }
 
-.favorite-icon {
-  justify-self: start; }
-  .favorite-icon svg {
-    height: 24px;
-    width: 24px;
-    transform: rotate(0);
-    transition: all 75ms ease-in-out; }
+.favorite-icon svg {
+  height: 24px;
+  width: 24px;
+  transform: rotate(0);
+  transition: all 75ms ease-in-out; }
 
 .favorite-icon svg:hover {
   transform: rotate(15deg);
@@ -450,6 +448,7 @@ body {
   border-radius: 3px;
   border-bottom: 1px solid #b1b1b1;
   display: grid;
+  grid-auto-flow: column;
   align-items: center;
   padding: 5px; }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import IconStar from '../images/components/IconStar';
 
 const FavoritesList = props => {
   const fetchFavWeather = async (fav) => {
@@ -12,14 +13,17 @@ const FavoritesList = props => {
   const favoritesArray = props => {
     return props.favorites.map(fav => {
       return (
-        <div className="favorites-list-item" onClick={() => fetchFavWeather(fav)} key={fav.lng}>
-          <span>{fav.address}</span>
+        <div className="favorites-list-item" key={fav.lng}>
+          <span className="clickable" onClick={() => fetchFavWeather(fav)}>{fav.address}</span>
+          <div className="favorite-icon" style={{justifySelf: 'end'}} onClick={() => props.toggleFavorites()}>
+            <IconStar iconColor="orange" />
+          </div>
         </div>
       );
     });
   };
 
-  return <div className="favorites-list clickable">{favoritesArray(props)}</div>;
+  return <div className="favorites-list">{favoritesArray(props)}</div>;
 };
 
 export default FavoritesList;

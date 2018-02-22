@@ -4,7 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import FavoritesList from './FavoritesList';
 
 const Favorites = props => {
-  const { fetching, data, address, favorites, fetchWeather, history } = props;
+  const { fetching, data, address, favorites, fetchWeather, history, toggleFavorites } = props;
   return (
     <Route
       location={props.location}
@@ -26,7 +26,7 @@ const Favorites = props => {
                 <h1>Loading your weather...</h1>
               </div>
             ) : (
-              <FavoritesList history={history} favorites={favorites} fetchWeather={fetchWeather}/>
+              <FavoritesList history={history} favorites={favorites} fetchWeather={fetchWeather} toggleFavorites={toggleFavorites}/>
             )}
           </CSSTransitionGroup>
         </div>
