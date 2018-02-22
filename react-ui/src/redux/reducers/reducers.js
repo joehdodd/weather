@@ -6,7 +6,8 @@ import {
   SET_POSITION,
   SUCCESS,
 	IS_FAV,
-	SAVE_FAV
+	SAVE_FAV,
+	REM_FAV,
 } from '../actions/actions.js';
 
 export function handleWeather(state = {
@@ -40,16 +41,20 @@ export function handleWeather(state = {
 
 export function handleFavorites(state = {
 	favorites: [],
+	isFavorite: false,
 }, action) {
 	switch (action.type) {
 		case IS_FAV:
-			console.log('fired');
 			return Object.assign({}, state, {
-				isFavorite: action.isFavorite
+				isFavorite: state.favorites.some(fav => fav.address === action.address)
 			})
 		case SAVE_FAV:
 			return Object.assign({}, state, {
 				favorites: [ { address: action.address, lat: action.lat, lng: action.lng, }, ...state.favorites ],
+			})
+		case REM_FAV:
+			return Object.assign({}, state, {
+				favorites: state.favorites.filter(fav => fav.address !== action.address)
 			})
 		default:
 			return state;
