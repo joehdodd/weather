@@ -2,7 +2,7 @@ import React from 'react';
 import SearchBox from './SearchBox';
 import { NavLink } from 'react-router-dom';
 
-const StickyToolbar = (props) => {
+const StickyToolbarTop = (props) => {
   return (
     <div className="sticky-toolbar-container">
       <SearchBox fetchWeather={props.fetchWeather} />
@@ -18,4 +18,4 @@ const StickyToolbar = (props) => {
   )
 }
 
-export default StickyToolbar;
+export default StickyToolbarTop;

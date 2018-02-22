@@ -4,7 +4,7 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { loadState } from './localStorage';
-import { handleWeather } from './reducers/reducers';
+import { handleWeather, handleFavorites } from './reducers/reducers';
 
 export const history = createHistory();
 // eslint-disable-next-line
@@ -15,12 +15,13 @@ const preloadedState = loadState();
 export const appStore = createStore(
   combineReducers({
     handleWeather,
+    handleFavorites,
     router: routerReducer
   }),
   preloadedState,
   applyMiddleware(
     routeMiddleware,
     thunkMiddleware,
-    // loggerMiddleware
+    loggerMiddleware
   )
 )

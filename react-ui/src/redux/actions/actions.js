@@ -17,7 +17,7 @@ function resError(err) {
   }
 }
 
-export const SUCCESS = 'SUCESS';
+export const SUCCESS = 'SUCCESS';
 function resSuccess(data) {
   return {
     type: SUCCESS,
@@ -41,6 +41,32 @@ function setPosition(position) {
     type: SET_POSITION,
     lat: position.lat,
     lng: position.lng,
+  }
+}
+
+export const IS_FAV = 'IS_FAV';
+export function isFavorite(address) {
+  return {
+    type: IS_FAV,
+    address: address
+  }
+}
+
+export const SAVE_FAV = 'SAVE_FAV';
+export function saveFavorite(params) {
+  return {
+    type: SAVE_FAV,
+    address: params.address,
+    lat: params.lat,
+    lng: params.lng
+  }
+}
+
+export const REM_FAV = 'REM_FAV';
+export function removeFavorite(params) {
+  return {
+    type: REM_FAV,
+    address: params.address
   }
 }
 
