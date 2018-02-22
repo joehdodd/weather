@@ -8,7 +8,8 @@ import Map from './Map';
 import StickyToolbarTop from './StickyToolbarTop';
 import StickyToolbarBottom from './StickyToolbarBottom';
 import Main from './Main';
-import Forecast from './Favorites/Forecast';
+import Forecast from './Forecast';
+import Favorites from './Favorites';
 
 class App extends Component {
   componentWillReceiveProps(nextProps) {
@@ -46,7 +47,8 @@ class App extends Component {
       lat,
       lng,
       data,
-      isFavorite
+      isFavorite,
+      favorites
     } = this.props;
     return (
       <DragDropContext>
@@ -71,6 +73,14 @@ class App extends Component {
                     notFound={notFound}
                     address={address}
                     data={data}
+                  />
+                  <Favorites
+                    location={location}
+                    fetching={fetching}
+                    address={address}
+                    data={data}
+                    favorites={favorites}
+                    fetchWeather={actions.fetchWeather}
                   />
                 </span>
               )}

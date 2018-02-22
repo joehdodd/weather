@@ -61,9 +61,16 @@ const Map = compose(
     geocoder.geocode(
       { location: { lat: props.center.lat, lng: props.center.lng } },
       (results, status) => {
-        status === 'OK'
-          ? setAddress(results[0].formatted_address)
-          : console.log(results, status);
+        console.log(results);
+        if (status === 'OK') {
+          let address = '';
+          results.length >= 4
+          ? address = results[3].formatted_address
+          : address = results[0].formatted_address
+          setAddress(address)
+        } else {
+          console.log(results, status);
+        }
       }
     );
   }

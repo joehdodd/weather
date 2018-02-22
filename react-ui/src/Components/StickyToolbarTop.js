@@ -13,6 +13,9 @@ const StickyToolbarTop = (props) => {
         <NavLink exact to={{ pathname: '/forecast'}}>
           Forecast
         </NavLink>
+        <NavLink exact to={{ pathname: '/favorites'}}>
+          Favorites
+        </NavLink>
       </div>
     </div>
   )

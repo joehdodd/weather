@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import GeoContainer from './Geo/GeoContainer';
-// import ConditionsList from './Favorites/ConditionsList';
 import { CSSTransitionGroup } from 'react-transition-group';
 
 const Main = props => {
@@ -30,9 +29,6 @@ const Main = props => {
               <GeoContainer address={address} data={data} />
             )}
           </CSSTransitionGroup>
-          {/* { !!places && !notFound &&
-            <ConditionsList places={places} removeItem={removeItem} updateItem={updateItem} {...props}/>
-          } */}
           {notFound && (
             <CSSTransitionGroup
               transitionName="fade"
