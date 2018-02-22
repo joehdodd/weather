@@ -8,7 +8,7 @@ import {
 	IS_FAV,
 	SAVE_FAV,
 	REM_FAV,
-} from '../actions/actions.js';
+} from './actions.js';
 
 export function handleWeather(state = {
   fetching: true
