@@ -10,10 +10,13 @@
   margin: 5px;
   @media screen and (min-width: $break-med) {
     margin: 0 auto;
-    padding: 10% 15%;
+    padding: 10% 20%;
   }
   @media screen and (min-width: $break-large) {
     padding: 10% 25%;
+  }
+  @media screen and (min-width: $break-xlarge) {
+    padding: 10% 30%;
   }
 }
 

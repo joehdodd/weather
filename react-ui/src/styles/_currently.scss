@@ -49,7 +49,7 @@
 
 .overview-card {
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: 1fr 1.5fr;
 }
 
 .breakdown-card {
@@ -73,9 +73,10 @@
 }
 
 .weather-icon {
+  justify-self: center;
   margin: auto 0;
-  width: 60%;
+  width: 25%;
   @media screen and (min-width: $break-med) {
-    width: 75%;
+    width: 50%;
   }
 }

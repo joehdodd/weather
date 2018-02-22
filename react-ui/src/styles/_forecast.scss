@@ -1,25 +1,24 @@
 .panel-forecast-details {
   display: grid;
   grid-gap: 15px;
-  grid-template-columns: repeat(2, 1fr);
-  @media screen and (min-width: $break-med){
-    grid-template-columns: repeat(4, 1fr);
-  }
+  grid-template-rows: repeat(8, 1fr);
+  // @media screen and (min-width: $break-med){
+  //   grid-template-columns: repeat(4, 1fr);
+  // }
 }
 
 
 .panel-forecast-item {
   display: grid;
+  grid-auto-flow: column;
   justify-items: center;
   align-items: center;
   grid-gap: 2.5px;
-  border-radius: 3px;
-  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, .25);
 }
 
 .forecast-weather-icon {
   max-width: 15%;
   @media screen and (min-width: $break-med) {
-    max-width: 25%;
+    max-width: 20%;
   }
 }

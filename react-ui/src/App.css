@@ -251,10 +251,13 @@ body {
   @media screen and (min-width: 768px) {
     .wrapper {
       margin: 0 auto;
-      padding: 10% 15%; } }
+      padding: 10% 20%; } }
   @media screen and (min-width: 1080px) {
     .wrapper {
       padding: 10% 25%; } }
+  @media screen and (min-width: 1350px) {
+    .wrapper {
+      padding: 10% 30%; } }
 
 .container {
   background: #ebebeb;
@@ -286,9 +289,9 @@ body {
 
 .sticky-toolbar-nav {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
-  justify-items: center; }
+  grid-auto-flow: column;
+  justify-items: center;
+  grid-gap: 20px; }
   @media screen and (min-width: 768px) {
     .sticky-toolbar-nav {
       grid-template-columns: 1fr 1fr;
@@ -322,6 +325,12 @@ body {
 .refresh-icon svg:hover {
   transform: rotate(360deg);
   cursor: pointer; }
+
+.search-container {
+  width: 90%;
+  display: grid;
+  justify-items: center;
+  align-items: center; }
 
 .search {
   width: 100%;
@@ -381,7 +390,7 @@ body {
 
 .overview-card {
   display: grid;
-  grid-auto-flow: column; }
+  grid-template-columns: 1fr 1.5fr; }
 
 .breakdown-card {
   list-style: none;
@@ -400,33 +409,30 @@ body {
       text-align: right; } }
 
 .weather-icon {
+  justify-self: center;
   margin: auto 0;
-  width: 60%; }
+  width: 25%; }
   @media screen and (min-width: 768px) {
     .weather-icon {
-      width: 75%; } }
+      width: 50%; } }
 
 .panel-forecast-details {
   display: grid;
   grid-gap: 15px;
-  grid-template-columns: repeat(2, 1fr); }
-  @media screen and (min-width: 768px) {
-    .panel-forecast-details {
-      grid-template-columns: repeat(4, 1fr); } }
+  grid-template-rows: repeat(8, 1fr); }
 
 .panel-forecast-item {
   display: grid;
+  grid-auto-flow: column;
   justify-items: center;
   align-items: center;
-  grid-gap: 2.5px;
-  border-radius: 3px;
-  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.25); }
+  grid-gap: 2.5px; }
 
 .forecast-weather-icon {
   max-width: 15%; }
   @media screen and (min-width: 768px) {
     .forecast-weather-icon {
-      max-width: 25%; } }
+      max-width: 20%; } }
 
 .bottom-toolbar-container {
   padding: 0 15px; }
