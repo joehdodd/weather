@@ -31,7 +31,7 @@ const FavoritesList = props => {
 
   return (
     <div className="favorites-list">
-      {props.favorites.lengt > 0 ? (
+      {props.favorites.length > 0 ? (
         favoritesArray(props)
       ) : (
         <h3 style={{justifySelf: 'center', alginSelf: 'center'}}>You have no favorites! Use the star icon to favorite</h3>
