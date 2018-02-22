@@ -4,7 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import FavoritesList from './FavoritesList';
 
 const Favorites = props => {
-  const { fetching, data, address, favorites, fetchWeather, history, toggleFavorites } = props;
+  const { fetching, favorites, fetchWeather, history, toggleFavorites } = props;
   return (
     <Route
       location={props.location}

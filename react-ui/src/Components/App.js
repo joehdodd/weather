@@ -28,14 +28,15 @@ class App extends Component {
     isFavorite ? removeFavorite(params) : saveFavorite(params);
   };
 
-  refreshWeather = () => {
-    const { actions, lat, lng } = this.props;
+  refreshWeather = async () => {
+    const { actions, lat, lng, history, location } = this.props;
     const { fetchWeather } = actions;
     const params = {
       lat,
       lng
     };
-    fetchWeather(params);
+    await fetchWeather(params);
+    location.pathname !== '/' && history.push('/');
   };
 
   render() {
