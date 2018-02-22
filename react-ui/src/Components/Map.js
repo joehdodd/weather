@@ -61,7 +61,6 @@ const Map = compose(
     geocoder.geocode(
       { location: { lat: props.center.lat, lng: props.center.lng } },
       (results, status) => {
-        console.log(results);
         if (status === 'OK') {
           let address = '';
           results.length >= 4

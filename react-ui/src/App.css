@@ -263,11 +263,13 @@ body {
       padding: 10% 30%; } }
 
 .container {
+  display: grid;
+  grid-auto-flow: row;
   background: #ebebeb;
   box-shadow: 4px 10px 20px 4px rgba(0, 0, 0, 0.75);
   border-radius: 2px;
   padding: 15px;
-  height: 100%;
+  min-height: 291px;
   transition: height 500ms ease-in-out; }
 
 .loading-container {
@@ -275,9 +277,10 @@ body {
   display: grid;
   align-items: center;
   justify-content: center;
-  height: 260px; }
+  height: 100%; }
 
 .sticky-toolbar-container {
+  align-self: start;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
@@ -302,6 +305,7 @@ body {
       justify-items: normal; } }
 
 .bottom-toolbar-container {
+  align-self: end;
   display: grid;
   grid-auto-flow: column; }
 

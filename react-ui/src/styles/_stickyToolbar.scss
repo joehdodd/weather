@@ -1,4 +1,5 @@
 .sticky-toolbar-container {
+  align-self: start;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
@@ -25,6 +26,7 @@
 }
 
 .bottom-toolbar-container {
+  align-self: end;
   display: grid;
   grid-auto-flow: column;
 }

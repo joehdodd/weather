@@ -21,11 +21,13 @@
 }
 
 .container {
+  display: grid;
+  grid-auto-flow: row;
   background: $charcoal-light;
   box-shadow: 4px 10px 20px 4px rgba(0, 0, 0, 0.75);
   border-radius: 2px;
   padding: 15px;
-  height: 100%;
+  min-height: 291px;
   transition: height 500ms ease-in-out;
 }
 
@@ -34,5 +36,5 @@
   display: grid;
   align-items: center;
   justify-content: center;
-  height: 260px;
+  height: 100%;
 }
