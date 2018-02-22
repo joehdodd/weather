@@ -266,7 +266,7 @@ body {
   background: #ebebeb;
   box-shadow: 4px 10px 20px 4px rgba(0, 0, 0, 0.75);
   border-radius: 2px;
-  padding-top: 12px;
+  padding: 15px;
   height: 100%;
   transition: height 500ms ease-in-out; }
 
@@ -340,7 +340,6 @@ body {
   height: 50px;
   border: 1px solid #3c3c3c;
   border-radius: 2px;
-  padding: 0 5px;
   font-size: 18px;
   outline: none; }
   @media screen and (min-width: 768px) {
@@ -361,7 +360,6 @@ body {
   border-radius: 2px; }
 
 .panel-heading {
-  padding: 0px 15px;
   margin: 10px 0px;
   font-size: 14px;
   border-top-left-radius: 3px;
@@ -372,7 +370,6 @@ body {
       min-height: 35px; } }
 
 .panel-info {
-  padding: 0px 15px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: .25fr 3fr;
@@ -439,10 +436,6 @@ body {
 
 .favorites-list {
   margin-top: 10px;
-  padding: 5px 15px;
   display: grid;
   grid-auto-flow: row;
   grid-gap: 10px; }
-
-.bottom-toolbar-container {
-  padding: 0 15px; }
