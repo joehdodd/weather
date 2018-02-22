@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
-import WeatherIcon from '../WeatherIcon';
+import WeatherIcon from './WeatherIcon';
 import { CSSTransitionGroup } from 'react-transition-group';
 import moment from 'moment';
 
