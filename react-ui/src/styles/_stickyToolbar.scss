@@ -14,9 +14,9 @@
 
 .sticky-toolbar-nav {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-auto-flow: column;
   justify-items: center;
+  grid-gap: 20px;
   @media screen and (min-width: $break-med) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
