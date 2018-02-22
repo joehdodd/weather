@@ -44,7 +44,7 @@ const Map = compose(
         nextProps.lat !== this.props.lat &&
         nextProps.lng !== this.props.lng
       ) {
-        console.log('CWRP', 'nextProps:', nextProps, 'nextLat:', nextProps.lat, 'prevLat:', this.props.lat);
+        // console.log('CWRP', 'nextProps:', nextProps, 'nextLat:', nextProps.lat, 'prevLat:', this.props.lat);
         this.setState({
           center: {
             lat: nextProps.lat,
@@ -61,7 +61,6 @@ const Map = compose(
     geocoder.geocode(
       { location: { lat: props.center.lat, lng: props.center.lng } },
       (results, status) => {
-        console.log(results);
         if (status === 'OK') {
           let address = '';
           results.length >= 4
