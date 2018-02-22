@@ -23,3 +23,38 @@
     justify-items: normal;
   }
 }
+
+.bottom-toolbar-container {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.favorite-icon {
+  justify-self: start;
+  svg {
+    height: 24px;
+    width: 24px;
+    transform: rotate(0);
+    transition: all 75ms ease-in-out;
+  }
+}
+
+.favorite-icon svg:hover {
+  transform: rotate(15deg);
+  cursor: pointer;
+}
+
+.refresh-icon {
+  justify-self: end;
+  svg {
+    height: 24px;
+    width: 24px;
+    transform: rotate(0);
+    transition: all 500ms ease-in-out;
+  }
+}
+
+.refresh-icon svg:hover {
+  transform: rotate(360deg);
+  cursor: pointer;
+}
