@@ -18,25 +18,24 @@ export function handleWeather(
 ) {
   switch (action.type) {
     case FETCHING:
-      return Object.assign({}, state, {
-        fetching: action.fetching
-      });
-      break;
+      return { ...state, fetching: action.fetching };
     case ERROR:
-      return Object.assign({}, state, { notFound: action.notfound });
+      return { ...state, notFound: action.notfound };
     case SET_ADDR:
-      return Object.assign({}, state, { address: action.address });
+      return { ...state, address: action.address };
     case SET_POSITION:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         lat: action.lat,
         lng: action.lng
-      });
+      };
     case SUCCESS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         notFound: action.notfound,
         fetching: action.fetching,
         data: action.data
-      });
+      };
     default:
       return state;
   }
@@ -51,20 +50,23 @@ export function handleFavorites(
 ) {
   switch (action.type) {
     case IS_FAV:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFavorite: state.favorites.some(fav => fav.address === action.address)
-      });
+      };
     case SAVE_FAV:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         favorites: [
           { address: action.address, lat: action.lat, lng: action.lng },
           ...state.favorites
         ]
-      });
+      };
     case REM_FAV:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         favorites: state.favorites.filter(fav => fav.address !== action.address)
-      });
+      };
     default:
       return state;
   }
