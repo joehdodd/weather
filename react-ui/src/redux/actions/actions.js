@@ -17,7 +17,7 @@ function resError(err) {
   }
 }
 
-export const SUCCESS = 'SUCESS';
+export const SUCCESS = 'SUCCESS';
 function resSuccess(data) {
   return {
     type: SUCCESS,
@@ -45,10 +45,10 @@ function setPosition(position) {
 }
 
 export const IS_FAV = 'IS_FAV';
-export function isFavorite(bool) {
+export function isFavorite(address) {
   return {
     type: IS_FAV,
-    isFavorite: bool,
+    address: address
   }
 }
 
@@ -59,6 +59,14 @@ export function saveFavorite(params) {
     address: params.address,
     lat: params.lat,
     lng: params.lng
+  }
+}
+
+export const REM_FAV = 'REM_FAV';
+export function removeFavorite(params) {
+  return {
+    type: REM_FAV,
+    address: params.address
   }
 }
 
