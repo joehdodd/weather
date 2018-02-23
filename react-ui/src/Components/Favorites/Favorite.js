@@ -13,7 +13,7 @@ const Favorite = props => {
   };
   return (
     <Draggable
-      draggableId={props.index}
+      draggableId={props.uniqueKey}
       index={props.index}
       key={props.uniqueKey}
     >
