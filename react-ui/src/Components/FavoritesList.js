@@ -20,7 +20,7 @@ const FavoritesList = props => {
           <div
             className="favorite-icon"
             style={{ justifySelf: 'end' }}
-            onClick={() => props.toggleFavorites()}
+            onClick={() => props.removeFavorite(fav.address)}
           >
             <IconStar iconColor="orange" />
           </div>
@@ -34,7 +34,9 @@ const FavoritesList = props => {
       {props.favorites.length > 0 ? (
         favoritesArray(props)
       ) : (
-        <h3 style={{justifySelf: 'center', alginSelf: 'center'}}>You have no favorites! Use the star icon to favorite</h3>
+        <h3 style={{ justifySelf: 'center', alginSelf: 'center' }}>
+          You have no favorites! Use the star icon to favorite
+        </h3>
       )}
     </div>
   );
