@@ -1,7 +1,7 @@
 # weather
 Using React, Redux, Node &amp; the ~~Yahoo Weather~~ Dark Sky API to build a weather app. It's tight. 
 
-![screenshot](https://raw.githubusercontent.com/joehdodd/weather/master/Screenshot-2018-2-22%20Weather%20App.jpg)
+![screenshot](https://screenshotscdn.firefoxusercontent.com/images/46cdd71c-a330-4b73-9ad8-a17f597d145d.jpg)
 
 
 ### Usage
