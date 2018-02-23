@@ -9,7 +9,15 @@ import StickyToolbarTop from './StickyToolbarTop';
 import StickyToolbarBottom from './StickyToolbarBottom';
 import Main from './Main';
 import Forecast from './Forecast';
-import Favorites from './Favorites';
+import FavoritesContainer from './Favorites/FavoritesContainer';
+
+const reorderArr = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
 
 class App extends Component {
   componentWillReceiveProps(nextProps) {
@@ -39,6 +47,21 @@ class App extends Component {
     location.pathname !== '/' && history.push('/');
   };
 
+  onDragEnd = (result) => {
+    const { reorder } = this.props.actions;
+    if (!result.destination) {
+      return;
+    }
+
+    const items = reorderArr(
+      this.props.favorites,
+      result.source.index,
+      result.destination.index
+    );
+
+    reorder(items)
+  }
+
   render() {
     const {
       actions,
@@ -52,7 +75,7 @@ class App extends Component {
       favorites
     } = this.props;
     return (
-      <DragDropContext>
+      <DragDropContext onDragEnd={this.onDragEnd}>
         <Map lat={lat} lng={lng} actions={actions} />
         <div className="wrapper">
           <div className="container">
@@ -75,7 +98,7 @@ class App extends Component {
                     address={address}
                     data={data}
                   />
-                  <Favorites
+                  <FavoritesContainer
                     location={location}
                     fetching={fetching}
                     address={address}

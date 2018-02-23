@@ -3,7 +3,7 @@ import { Route, withRouter } from 'react-router-dom';
 import { CSSTransitionGroup } from 'react-transition-group';
 import FavoritesList from './FavoritesList';
 
-const Favorites = props => {
+const FavoritesContainer = props => {
   const { fetching, favorites, fetchWeather, history, removeFavorite } = props;
   return (
     <Route
@@ -35,4 +35,4 @@ const Favorites = props => {
   );
 };
 
-export default withRouter(Favorites);
+export default withRouter(FavoritesContainer);
