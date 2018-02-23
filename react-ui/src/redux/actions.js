@@ -65,7 +65,7 @@ export const REM_FAV = 'REM_FAV';
 export function removeFavorite(params) {
   return {
     type: REM_FAV,
-    address: params.address
+    address: params.address || params
   };
 }
 
