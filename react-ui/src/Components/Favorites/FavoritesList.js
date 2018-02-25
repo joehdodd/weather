@@ -4,13 +4,13 @@ import Favorite from './Favorite';
 
 const FavoritesList = props => {
   const favoritesArray = props.favorites.map((fav, index) => {
-    let uniqueKey = Math.floor((1 + Math.random()) * 0x10000).toString();
+    let uniqueKey = `favorite_${fav.address.split(' ').join('_')}`
     return (
       <Favorite
         key={uniqueKey}
+        id={uniqueKey}
         index={index}
         history={props.history}
-        uniqueKey={uniqueKey}
         address={fav.address}
         removeFavorite={props.removeFavorite}
         fetchWeather={props.fetchWeather}

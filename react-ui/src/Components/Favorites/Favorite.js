@@ -13,9 +13,9 @@ const Favorite = props => {
   };
   return (
     <Draggable
-      draggableId={props.index}
+      draggableId={props.id}
       index={props.index}
-      key={props.uniqueKey}
+      key={props.id}
     >
       {(provided, snapshot) => {
         const style = {
