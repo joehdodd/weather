@@ -269,11 +269,10 @@ body {
   box-shadow: 4px 10px 20px 4px rgba(0, 0, 0, 0.75);
   border-radius: 2px;
   padding: 15px;
-  min-height: 291px;
   transition: height 500ms ease-in-out; }
 
 .loading-container {
-  margin: auto;
+  margin: 20px auto;
   display: grid;
   align-items: center;
   justify-content: center;

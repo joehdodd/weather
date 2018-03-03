@@ -7,7 +7,8 @@ import {
   SUCCESS,
   IS_FAV,
   SAVE_FAV,
-  REM_FAV
+  REM_FAV,
+  REORDER_FAV
 } from './actions.js';
 
 export function handleWeather(
@@ -67,6 +68,11 @@ export function handleFavorites(
         ...state,
         favorites: state.favorites.filter(fav => fav.address !== action.address)
       };
+    case REORDER_FAV:
+      return {
+        ...state,
+        favorites: [...action.favorites]
+      }
     default:
       return state;
   }

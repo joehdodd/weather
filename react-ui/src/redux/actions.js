@@ -69,6 +69,14 @@ export function removeFavorite(params) {
   };
 }
 
+export const REORDER_FAV = 'REORDER_FAV';
+export function reorder(favorites) {
+  return {
+    type: REORDER_FAV,
+    favorites
+  }
+}
+
 function getData(callParams) {
   return function(dispatch) {
     axios
